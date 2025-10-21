@@ -410,9 +410,14 @@ body {
 
 .publication-content .authors {
     color: var(--text-dark);
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 0.3rem;
     font-size: 0.95rem;
+}
+
+.publication-content .authors strong {
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
 .publication-content .journal {
