@@ -345,8 +345,24 @@ function initVisitorMap() {
 // Initialize Firebase and setup real-time listener
 function initFirebase() {
     try {
+        // Check if Firebase is loaded
+        if (typeof firebase === 'undefined') {
+            console.error('❌ Firebase SDK not loaded');
+            fallbackToLocalStorage();
+            return;
+        }
+        
+        // Check if Firebase is initialized
+        if (!firebase.apps || firebase.apps.length === 0) {
+            console.error('❌ Firebase not initialized. Check firebase-config.js');
+            fallbackToLocalStorage();
+            return;
+        }
+        
         firebaseDatabase = firebase.database();
         visitorsRef = firebaseDatabase.ref('visitors');
+        
+        console.log('🔄 Setting up Firebase real-time listener...');
         
         // Listen for real-time updates
         visitorsRef.on('value', (snapshot) => {
@@ -361,16 +377,19 @@ function initFirebase() {
                 displayHeatmap(visitors);
                 updateStats(visitors);
             } else {
+                console.log('📭 No visitors in database yet');
                 updateStats([]);
             }
         }, (error) => {
             console.error('❌ Firebase read error:', error);
+            console.error('Error details:', error.code, error.message);
             // Fallback to localStorage if Firebase fails
             fallbackToLocalStorage();
         });
         
     } catch (error) {
         console.error('❌ Firebase initialization error:', error);
+        console.error('Error details:', error.message);
         // Fallback to localStorage if Firebase is not available
         fallbackToLocalStorage();
     }
@@ -412,16 +431,25 @@ async function saveVisitorToFirebase(visitor) {
         // Create unique ID based on IP and timestamp to prevent duplicates
         const visitorId = btoa(visitor.ip + visitor.timestamp).replace(/[^a-zA-Z0-9]/g, '');
         
+        console.log('💾 Attempting to save visitor to Firebase...', visitor.city, visitor.country);
+        
+        // Check if Firebase is available
+        if (!visitorsRef) {
+            throw new Error('Firebase reference not available');
+        }
+        
         // Save to Firebase
         await visitorsRef.child(visitorId).set(visitor);
         
-        console.log('✅ Visitor saved to Firebase:', visitor.city, visitor.country);
+        console.log('✅ Visitor saved to Firebase successfully!');
         
         // Also save to localStorage as backup
         saveToLocalStorageBackup(visitor);
         
     } catch (error) {
-        console.error('❌ Error saving to Firebase:', error);
+        console.error('❌ Error saving to Firebase:', error.message);
+        console.error('Full error:', error);
+        console.log('📝 Saving to localStorage instead...');
         // Fallback: save to localStorage
         saveToLocalStorageBackup(visitor);
     }
