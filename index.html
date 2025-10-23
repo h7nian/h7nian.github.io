@@ -6,6 +6,8 @@
     <title>Sinian Zhang</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <!-- Navigation -->
@@ -352,6 +354,25 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Visitor Map Section -->
+                <div class="visitor-map-section">
+                    <h3 class="map-title">
+                        <i class="fas fa-globe-americas"></i> Visitor Map
+                    </h3>
+                    <p class="map-description">See where my visitors come from around the world!</p>
+                    <div class="visitor-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalVisitors">0</span>
+                            <span class="stat-label">Total Visitors</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="uniqueCountries">0</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                    </div>
+                    <div id="visitorMap" class="visitor-map"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -380,6 +401,10 @@
         </div>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Heat Plugin -->
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

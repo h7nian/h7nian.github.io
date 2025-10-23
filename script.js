@@ -302,5 +302,301 @@ document.addEventListener('DOMContentLoaded', function() {
             showCitation(citationKey);
         });
     });
+    
+    // Initialize visitor map
+    initVisitorMap();
 });
+
+// ==================== Visitor Map Functionality ====================
+
+let visitorMap;
+let heatLayer;
+
+// Initialize the visitor map
+function initVisitorMap() {
+    // Initialize map
+    const mapElement = document.getElementById('visitorMap');
+    if (!mapElement) return;
+    
+    visitorMap = L.map('visitorMap', {
+        center: [20, 0],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 8,
+        worldCopyJump: true,
+        zoomControl: true
+    });
+    
+    // Add tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18
+    }).addTo(visitorMap);
+    
+    // Load visitor data
+    loadVisitorData();
+    
+    // Track current visitor
+    trackCurrentVisitor();
+}
+
+// Load visitor data from localStorage and display on map
+function loadVisitorData() {
+    const visitors = getVisitorsFromStorage();
+    
+    if (visitors && visitors.length > 0) {
+        displayHeatmap(visitors);
+        updateStats(visitors);
+    } else {
+        // Show demo data if no visitors yet
+        const demoData = generateDemoData();
+        displayHeatmap(demoData);
+        updateStats(demoData);
+    }
+}
+
+// Get visitors from localStorage
+function getVisitorsFromStorage() {
+    const data = localStorage.getItem('visitorData');
+    if (data) {
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            console.error('Error parsing visitor data:', e);
+            return [];
+        }
+    }
+    return [];
+}
+
+// Save visitor to localStorage
+function saveVisitorToStorage(visitor) {
+    let visitors = getVisitorsFromStorage();
+    
+    // Add timestamp
+    visitor.timestamp = new Date().toISOString();
+    
+    // Add visitor (limit to 1000 most recent visitors)
+    visitors.push(visitor);
+    if (visitors.length > 1000) {
+        visitors = visitors.slice(-1000);
+    }
+    
+    localStorage.setItem('visitorData', JSON.stringify(visitors));
+    
+    // Update map
+    loadVisitorData();
+}
+
+// Track current visitor using IP geolocation
+async function trackCurrentVisitor() {
+    try {
+        // Check if visitor was already tracked in this session
+        if (sessionStorage.getItem('visitorTracked')) {
+            console.log('Visitor already tracked in this session');
+            return;
+        }
+        
+        // Use ipapi.co for geolocation (free tier: 1000 requests/day)
+        const response = await fetch('https://ipapi.co/json/');
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch location data');
+        }
+        
+        const data = await response.json();
+        
+        if (data.latitude && data.longitude) {
+            const visitor = {
+                lat: data.latitude,
+                lng: data.longitude,
+                city: data.city || 'Unknown',
+                country: data.country_name || 'Unknown',
+                countryCode: data.country_code || 'XX',
+                ip: data.ip || 'Unknown'
+            };
+            
+            saveVisitorToStorage(visitor);
+            
+            // Mark as tracked in this session
+            sessionStorage.setItem('visitorTracked', 'true');
+            
+            // Add a marker for the current visitor
+            const marker = L.marker([visitor.lat, visitor.lng], {
+                icon: L.divIcon({
+                    className: 'current-visitor-marker',
+                    html: '<div style="background: #10b981; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>',
+                    iconSize: [12, 12]
+                })
+            }).addTo(visitorMap);
+            
+            marker.bindPopup(`
+                <div class="popup-content">
+                    <h4>🎯 Your Location</h4>
+                    <p><strong>City:</strong> ${visitor.city}</p>
+                    <p><strong>Country:</strong> ${visitor.country}</p>
+                </div>
+            `);
+            
+            // Animate to the visitor's location
+            setTimeout(() => {
+                visitorMap.flyTo([visitor.lat, visitor.lng], 5, {
+                    duration: 2
+                });
+            }, 1000);
+        }
+    } catch (error) {
+        console.error('Error tracking visitor:', error);
+        // If geolocation fails, still show demo data
+    }
+}
+
+// Display heatmap on the map
+function displayHeatmap(visitors) {
+    // Remove existing heat layer if any
+    if (heatLayer) {
+        visitorMap.removeLayer(heatLayer);
+    }
+    
+    // Prepare heat data: [lat, lng, intensity]
+    const heatData = visitors.map(v => [v.lat, v.lng, 1]);
+    
+    // Create heat layer
+    heatLayer = L.heatLayer(heatData, {
+        radius: 25,
+        blur: 35,
+        maxZoom: 10,
+        max: 1.0,
+        gradient: {
+            0.0: '#3b82f6',
+            0.2: '#06b6d4',
+            0.4: '#10b981',
+            0.6: '#f59e0b',
+            0.8: '#ef4444',
+            1.0: '#dc2626'
+        }
+    }).addTo(visitorMap);
+    
+    // Add markers for major clusters (top 10 locations)
+    const locationCounts = {};
+    visitors.forEach(v => {
+        const key = `${v.city}-${v.country}`;
+        if (!locationCounts[key]) {
+            locationCounts[key] = {
+                count: 0,
+                lat: v.lat,
+                lng: v.lng,
+                city: v.city,
+                country: v.country
+            };
+        }
+        locationCounts[key].count++;
+    });
+    
+    // Sort by count and take top 10
+    const topLocations = Object.values(locationCounts)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+    
+    // Add markers for top locations
+    topLocations.forEach(loc => {
+        if (loc.count > 1) {
+            const marker = L.circleMarker([loc.lat, loc.lng], {
+                radius: Math.min(8 + Math.log(loc.count) * 3, 20),
+                fillColor: '#6366f1',
+                color: '#ffffff',
+                weight: 2,
+                opacity: 0.8,
+                fillOpacity: 0.6
+            }).addTo(visitorMap);
+            
+            marker.bindPopup(`
+                <div class="popup-content">
+                    <h4>📍 ${loc.city}</h4>
+                    <p><strong>Country:</strong> ${loc.country}</p>
+                    <p><strong>Visitors:</strong> ${loc.count}</p>
+                </div>
+            `);
+        }
+    });
+}
+
+// Update visitor statistics
+function updateStats(visitors) {
+    const totalVisitors = visitors.length;
+    const uniqueCountries = new Set(visitors.map(v => v.countryCode)).size;
+    
+    // Animate numbers
+    animateNumber('totalVisitors', totalVisitors);
+    animateNumber('uniqueCountries', uniqueCountries);
+}
+
+// Animate number counter
+function animateNumber(elementId, target) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const duration = 1500;
+    const start = 0;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function
+        const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * easeOutCubic);
+        
+        element.textContent = current;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = target;
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+// Generate demo data for initial display
+function generateDemoData() {
+    const cities = [
+        { lat: 40.7128, lng: -74.0060, city: 'New York', country: 'United States', countryCode: 'US' },
+        { lat: 51.5074, lng: -0.1278, city: 'London', country: 'United Kingdom', countryCode: 'GB' },
+        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', country: 'Japan', countryCode: 'JP' },
+        { lat: 48.8566, lng: 2.3522, city: 'Paris', country: 'France', countryCode: 'FR' },
+        { lat: -33.8688, lng: 151.2093, city: 'Sydney', country: 'Australia', countryCode: 'AU' },
+        { lat: 37.7749, lng: -122.4194, city: 'San Francisco', country: 'United States', countryCode: 'US' },
+        { lat: 52.5200, lng: 13.4050, city: 'Berlin', country: 'Germany', countryCode: 'DE' },
+        { lat: 55.7558, lng: 37.6173, city: 'Moscow', country: 'Russia', countryCode: 'RU' },
+        { lat: 39.9042, lng: 116.4074, city: 'Beijing', country: 'China', countryCode: 'CN' },
+        { lat: 19.4326, lng: -99.1332, city: 'Mexico City', country: 'Mexico', countryCode: 'MX' },
+        { lat: 1.3521, lng: 103.8198, city: 'Singapore', country: 'Singapore', countryCode: 'SG' },
+        { lat: 41.9028, lng: 12.4964, city: 'Rome', country: 'Italy', countryCode: 'IT' },
+        { lat: -23.5505, lng: -46.6333, city: 'São Paulo', country: 'Brazil', countryCode: 'BR' },
+        { lat: 28.6139, lng: 77.2090, city: 'New Delhi', country: 'India', countryCode: 'IN' },
+        { lat: 25.2048, lng: 55.2708, city: 'Dubai', country: 'UAE', countryCode: 'AE' }
+    ];
+    
+    const demoVisitors = [];
+    cities.forEach(city => {
+        // Add multiple visitors per city with slight variations
+        const count = Math.floor(Math.random() * 8) + 3;
+        for (let i = 0; i < count; i++) {
+            demoVisitors.push({
+                lat: city.lat + (Math.random() - 0.5) * 0.5,
+                lng: city.lng + (Math.random() - 0.5) * 0.5,
+                city: city.city,
+                country: city.country,
+                countryCode: city.countryCode,
+                ip: 'demo',
+                timestamp: new Date().toISOString()
+            });
+        }
+    });
+    
+    return demoVisitors;
+}
 
