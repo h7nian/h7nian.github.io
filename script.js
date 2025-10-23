@@ -284,7 +284,7 @@ copyCitationBtn.onclick = function() {
     
     // Try modern Clipboard API first
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(citationText).then(function() {
+    navigator.clipboard.writeText(citationText).then(function() {
             showCopySuccess();
         }).catch(function(err) {
             console.warn('Clipboard API failed, trying fallback method:', err);
@@ -393,12 +393,12 @@ function initVisitorMap() {
     
     // Map Tile Options - Choose one by uncommenting:
     
-    // Option 1: CartoDB Voyager (Current) - Clean, clear borders, colorful
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(visitorMap);
+    // Option 1: CartoDB Voyager - Clean, clear borders, colorful
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    //     subdomains: 'abcd',
+    //     maxZoom: 19
+    // }).addTo(visitorMap);
     
     // Option 2: CartoDB Positron - Light, minimal style with clear borders
     // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -414,11 +414,11 @@ function initVisitorMap() {
     //     maxZoom: 19
     // }).addTo(visitorMap);
     
-    // Option 4: Esri World Street Map - Very clear boundaries, professional look
-    // L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-    //     attribution: 'Tiles &copy; Esri',
-    //     maxZoom: 19
-    // }).addTo(visitorMap);
+    // Option 4: Esri World Street Map (Current) - Very clear boundaries, professional look
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012',
+        maxZoom: 19
+    }).addTo(visitorMap);
     
     // Initialize Firebase Database
     initFirebase();
