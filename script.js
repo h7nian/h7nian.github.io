@@ -311,15 +311,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let visitorMap;
 let heatLayer;
+let firebaseDatabase;
+let visitorsRef;
 
 // Initialize the visitor map
 function initVisitorMap() {
     // Initialize map
     const mapElement = document.getElementById('visitorMap');
     if (!mapElement) return;
-    
-    // Clean up demo data from localStorage on first load
-    cleanupDemoData();
     
     visitorMap = L.map('visitorMap', {
         center: [20, 0],
@@ -336,58 +335,65 @@ function initVisitorMap() {
         maxZoom: 18
     }).addTo(visitorMap);
     
-    // Load visitor data
-    loadVisitorData();
+    // Initialize Firebase Database
+    initFirebase();
     
     // Track current visitor
     trackCurrentVisitor();
 }
 
-// Clean up demo data from localStorage
-function cleanupDemoData() {
-    const data = localStorage.getItem('visitorData');
-    if (data) {
-        try {
-            const visitors = JSON.parse(data);
-            // Remove all demo data
-            const realVisitors = visitors.filter(v => v.ip !== 'demo');
+// Initialize Firebase and setup real-time listener
+function initFirebase() {
+    try {
+        firebaseDatabase = firebase.database();
+        visitorsRef = firebaseDatabase.ref('visitors');
+        
+        // Listen for real-time updates
+        visitorsRef.on('value', (snapshot) => {
+            const visitors = [];
+            snapshot.forEach((childSnapshot) => {
+                visitors.push(childSnapshot.val());
+            });
             
-            if (realVisitors.length !== visitors.length) {
-                // Update localStorage with only real visitors
-                if (realVisitors.length > 0) {
-                    localStorage.setItem('visitorData', JSON.stringify(realVisitors));
-                } else {
-                    // Remove the key if no real visitors
-                    localStorage.removeItem('visitorData');
-                }
-                console.log(`Cleaned up ${visitors.length - realVisitors.length} demo entries. Keeping ${realVisitors.length} real visitors.`);
+            console.log(`📊 Loaded ${visitors.length} visitors from Firebase`);
+            
+            if (visitors.length > 0) {
+                displayHeatmap(visitors);
+                updateStats(visitors);
+            } else {
+                updateStats([]);
             }
-        } catch (e) {
-            console.error('Error cleaning up demo data:', e);
-        }
+        }, (error) => {
+            console.error('❌ Firebase read error:', error);
+            // Fallback to localStorage if Firebase fails
+            fallbackToLocalStorage();
+        });
+        
+    } catch (error) {
+        console.error('❌ Firebase initialization error:', error);
+        // Fallback to localStorage if Firebase is not available
+        fallbackToLocalStorage();
     }
 }
 
-// Load visitor data from localStorage and display on map
-function loadVisitorData() {
-    const visitors = getVisitorsFromStorage();
-    
-    if (visitors && visitors.length > 0) {
+// Fallback to localStorage if Firebase fails
+function fallbackToLocalStorage() {
+    console.warn('⚠️ Using localStorage fallback');
+    const visitors = getVisitorsFromLocalStorage();
+    if (visitors.length > 0) {
         displayHeatmap(visitors);
         updateStats(visitors);
     } else {
-        // No visitors yet - show empty map with zero stats
         updateStats([]);
     }
 }
 
-// Get visitors from localStorage
-function getVisitorsFromStorage() {
+// Get visitors from localStorage (fallback only)
+function getVisitorsFromLocalStorage() {
     const data = localStorage.getItem('visitorData');
     if (data) {
         try {
             const visitors = JSON.parse(data);
-            // Filter out demo data when loading
             return visitors.filter(v => v.ip !== 'demo');
         } catch (e) {
             console.error('Error parsing visitor data:', e);
@@ -397,23 +403,38 @@ function getVisitorsFromStorage() {
     return [];
 }
 
-// Save visitor to localStorage
-function saveVisitorToStorage(visitor) {
-    let visitors = getVisitorsFromStorage();
-    
-    // Add timestamp
-    visitor.timestamp = new Date().toISOString();
-    
-    // Add visitor (limit to 1000 most recent visitors)
+// Save visitor to Firebase
+async function saveVisitorToFirebase(visitor) {
+    try {
+        // Add timestamp
+        visitor.timestamp = new Date().toISOString();
+        
+        // Create unique ID based on IP and timestamp to prevent duplicates
+        const visitorId = btoa(visitor.ip + visitor.timestamp).replace(/[^a-zA-Z0-9]/g, '');
+        
+        // Save to Firebase
+        await visitorsRef.child(visitorId).set(visitor);
+        
+        console.log('✅ Visitor saved to Firebase:', visitor.city, visitor.country);
+        
+        // Also save to localStorage as backup
+        saveToLocalStorageBackup(visitor);
+        
+    } catch (error) {
+        console.error('❌ Error saving to Firebase:', error);
+        // Fallback: save to localStorage
+        saveToLocalStorageBackup(visitor);
+    }
+}
+
+// Save to localStorage as backup
+function saveToLocalStorageBackup(visitor) {
+    let visitors = getVisitorsFromLocalStorage();
     visitors.push(visitor);
     if (visitors.length > 1000) {
         visitors = visitors.slice(-1000);
     }
-    
     localStorage.setItem('visitorData', JSON.stringify(visitors));
-    
-    // Update map
-    loadVisitorData();
 }
 
 // Track current visitor using IP geolocation
@@ -421,7 +442,7 @@ async function trackCurrentVisitor() {
     try {
         // Check if visitor was already tracked in this session
         if (sessionStorage.getItem('visitorTracked')) {
-            console.log('Visitor already tracked in this session');
+            console.log('✓ Visitor already tracked in this session');
             return;
         }
         
@@ -444,7 +465,8 @@ async function trackCurrentVisitor() {
                 ip: data.ip || 'Unknown'
             };
             
-            saveVisitorToStorage(visitor);
+            // Save to Firebase
+            await saveVisitorToFirebase(visitor);
             
             // Mark as tracked in this session
             sessionStorage.setItem('visitorTracked', 'true');
@@ -474,8 +496,7 @@ async function trackCurrentVisitor() {
             }, 1000);
         }
     } catch (error) {
-        console.error('Error tracking visitor:', error);
-        // If geolocation fails, still show demo data
+        console.error('❌ Error tracking visitor:', error);
     }
 }
 
