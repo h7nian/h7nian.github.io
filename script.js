@@ -372,17 +372,12 @@ function cleanupDemoData() {
 function loadVisitorData() {
     const visitors = getVisitorsFromStorage();
     
-    // Filter out demo data - only show real visitors
-    const realVisitors = visitors.filter(v => v.ip !== 'demo');
-    
-    if (realVisitors && realVisitors.length > 0) {
-        displayHeatmap(realVisitors);
-        updateStats(realVisitors);
+    if (visitors && visitors.length > 0) {
+        displayHeatmap(visitors);
+        updateStats(visitors);
     } else {
-        // Show demo data only for display (not saved to localStorage)
-        const demoData = generateDemoData();
-        displayHeatmap(demoData);
-        updateStats(demoData);
+        // No visitors yet - show empty map with zero stats
+        updateStats([]);
     }
 }
 
@@ -592,44 +587,3 @@ function animateNumber(elementId, target) {
     
     requestAnimationFrame(update);
 }
-
-// Generate demo data for initial display
-function generateDemoData() {
-    const cities = [
-        { lat: 40.7128, lng: -74.0060, city: 'New York', country: 'United States', countryCode: 'US' },
-        { lat: 51.5074, lng: -0.1278, city: 'London', country: 'United Kingdom', countryCode: 'GB' },
-        { lat: 35.6762, lng: 139.6503, city: 'Tokyo', country: 'Japan', countryCode: 'JP' },
-        { lat: 48.8566, lng: 2.3522, city: 'Paris', country: 'France', countryCode: 'FR' },
-        { lat: -33.8688, lng: 151.2093, city: 'Sydney', country: 'Australia', countryCode: 'AU' },
-        { lat: 37.7749, lng: -122.4194, city: 'San Francisco', country: 'United States', countryCode: 'US' },
-        { lat: 52.5200, lng: 13.4050, city: 'Berlin', country: 'Germany', countryCode: 'DE' },
-        { lat: 55.7558, lng: 37.6173, city: 'Moscow', country: 'Russia', countryCode: 'RU' },
-        { lat: 39.9042, lng: 116.4074, city: 'Beijing', country: 'China', countryCode: 'CN' },
-        { lat: 19.4326, lng: -99.1332, city: 'Mexico City', country: 'Mexico', countryCode: 'MX' },
-        { lat: 1.3521, lng: 103.8198, city: 'Singapore', country: 'Singapore', countryCode: 'SG' },
-        { lat: 41.9028, lng: 12.4964, city: 'Rome', country: 'Italy', countryCode: 'IT' },
-        { lat: -23.5505, lng: -46.6333, city: 'São Paulo', country: 'Brazil', countryCode: 'BR' },
-        { lat: 28.6139, lng: 77.2090, city: 'New Delhi', country: 'India', countryCode: 'IN' },
-        { lat: 25.2048, lng: 55.2708, city: 'Dubai', country: 'UAE', countryCode: 'AE' }
-    ];
-    
-    const demoVisitors = [];
-    cities.forEach(city => {
-        // Add multiple visitors per city with slight variations
-        const count = Math.floor(Math.random() * 8) + 3;
-        for (let i = 0; i < count; i++) {
-            demoVisitors.push({
-                lat: city.lat + (Math.random() - 0.5) * 0.5,
-                lng: city.lng + (Math.random() - 0.5) * 0.5,
-                city: city.city,
-                country: city.country,
-                countryCode: city.countryCode,
-                ip: 'demo',
-                timestamp: new Date().toISOString()
-            });
-        }
-    });
-    
-    return demoVisitors;
-}
-
