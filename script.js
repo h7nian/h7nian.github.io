@@ -318,6 +318,9 @@ function initVisitorMap() {
     const mapElement = document.getElementById('visitorMap');
     if (!mapElement) return;
     
+    // Clean up demo data from localStorage on first load
+    cleanupDemoData();
+    
     visitorMap = L.map('visitorMap', {
         center: [20, 0],
         zoom: 2,
@@ -340,15 +343,43 @@ function initVisitorMap() {
     trackCurrentVisitor();
 }
 
+// Clean up demo data from localStorage
+function cleanupDemoData() {
+    const data = localStorage.getItem('visitorData');
+    if (data) {
+        try {
+            const visitors = JSON.parse(data);
+            // Remove all demo data
+            const realVisitors = visitors.filter(v => v.ip !== 'demo');
+            
+            if (realVisitors.length !== visitors.length) {
+                // Update localStorage with only real visitors
+                if (realVisitors.length > 0) {
+                    localStorage.setItem('visitorData', JSON.stringify(realVisitors));
+                } else {
+                    // Remove the key if no real visitors
+                    localStorage.removeItem('visitorData');
+                }
+                console.log(`Cleaned up ${visitors.length - realVisitors.length} demo entries. Keeping ${realVisitors.length} real visitors.`);
+            }
+        } catch (e) {
+            console.error('Error cleaning up demo data:', e);
+        }
+    }
+}
+
 // Load visitor data from localStorage and display on map
 function loadVisitorData() {
     const visitors = getVisitorsFromStorage();
     
-    if (visitors && visitors.length > 0) {
-        displayHeatmap(visitors);
-        updateStats(visitors);
+    // Filter out demo data - only show real visitors
+    const realVisitors = visitors.filter(v => v.ip !== 'demo');
+    
+    if (realVisitors && realVisitors.length > 0) {
+        displayHeatmap(realVisitors);
+        updateStats(realVisitors);
     } else {
-        // Show demo data if no visitors yet
+        // Show demo data only for display (not saved to localStorage)
         const demoData = generateDemoData();
         displayHeatmap(demoData);
         updateStats(demoData);
@@ -360,7 +391,9 @@ function getVisitorsFromStorage() {
     const data = localStorage.getItem('visitorData');
     if (data) {
         try {
-            return JSON.parse(data);
+            const visitors = JSON.parse(data);
+            // Filter out demo data when loading
+            return visitors.filter(v => v.ip !== 'demo');
         } catch (e) {
             console.error('Error parsing visitor data:', e);
             return [];
