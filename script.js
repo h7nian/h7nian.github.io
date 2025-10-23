@@ -391,11 +391,34 @@ function initVisitorMap() {
         zoomControl: true
     });
     
-    // Add tile layer (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18
+    // Map Tile Options - Choose one by uncommenting:
+    
+    // Option 1: CartoDB Voyager (Current) - Clean, clear borders, colorful
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
     }).addTo(visitorMap);
+    
+    // Option 2: CartoDB Positron - Light, minimal style with clear borders
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    //     subdomains: 'abcd',
+    //     maxZoom: 19
+    // }).addTo(visitorMap);
+    
+    // Option 3: CartoDB Dark Matter - Dark theme with excellent contrast
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    //     subdomains: 'abcd',
+    //     maxZoom: 19
+    // }).addTo(visitorMap);
+    
+    // Option 4: Esri World Street Map - Very clear boundaries, professional look
+    // L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    //     attribution: 'Tiles &copy; Esri',
+    //     maxZoom: 19
+    // }).addTo(visitorMap);
     
     // Initialize Firebase Database
     initFirebase();
