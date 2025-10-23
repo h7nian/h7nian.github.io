@@ -293,6 +293,19 @@ copyCitationBtn.onclick = function() {
     });
 }
 
+// Fix Canvas performance warning
+// Override getContext to automatically add willReadFrequently for 2d contexts
+(function() {
+    const originalGetContext = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function(type, attributes) {
+        if (type === '2d') {
+            attributes = attributes || {};
+            attributes.willReadFrequently = true;
+        }
+        return originalGetContext.call(this, type, attributes);
+    };
+})();
+
 // Add click handlers to all citation buttons
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.cite-btn').forEach(button => {
