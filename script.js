@@ -340,7 +340,7 @@ copyCitationBtn.onclick = function() {
         
         document.body.removeChild(textarea);
     }
-}
+};
 
 // Fix Canvas performance warning
 // Override getContext to automatically add willReadFrequently for 2d contexts
