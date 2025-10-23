@@ -277,10 +277,26 @@ window.onclick = function(event) {
     }
 }
 
-// Copy citation to clipboard
+// Copy citation to clipboard (compatible with all browsers including Safari)
 copyCitationBtn.onclick = function() {
-    const citationText = document.getElementById('citationText').textContent;
-    navigator.clipboard.writeText(citationText).then(function() {
+    const citationTextElement = document.getElementById('citationText');
+    const citationText = citationTextElement.textContent;
+    
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(citationText).then(function() {
+            showCopySuccess();
+        }).catch(function(err) {
+            console.warn('Clipboard API failed, trying fallback method:', err);
+            // Fallback to execCommand for Safari and older browsers
+            fallbackCopyToClipboard(citationText);
+        });
+    } else {
+        // Use fallback for browsers that don't support Clipboard API
+        fallbackCopyToClipboard(citationText);
+    }
+    
+    function showCopySuccess() {
         const originalText = copyCitationBtn.innerHTML;
         copyCitationBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
         copyCitationBtn.style.background = '#10b981';
@@ -288,9 +304,42 @@ copyCitationBtn.onclick = function() {
             copyCitationBtn.innerHTML = originalText;
             copyCitationBtn.style.background = '';
         }, 2000);
-    }).catch(function(err) {
-        alert('Failed to copy citation. Please try again.');
-    });
+    }
+    
+    function fallbackCopyToClipboard(text) {
+        // Create temporary textarea
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '0';
+        textarea.style.width = '2em';
+        textarea.style.height = '2em';
+        textarea.style.padding = '0';
+        textarea.style.border = 'none';
+        textarea.style.outline = 'none';
+        textarea.style.boxShadow = 'none';
+        textarea.style.background = 'transparent';
+        textarea.style.opacity = '0';
+        
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopySuccess();
+            } else {
+                alert('Failed to copy citation. Please manually select and copy the text.');
+            }
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+            alert('Failed to copy citation. Please manually select and copy the text.');
+        }
+        
+        document.body.removeChild(textarea);
+    }
 }
 
 // Fix Canvas performance warning
