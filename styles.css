@@ -474,6 +474,210 @@ body {
     cursor: not-allowed;
 }
 
+/* Teaching Section */
+.teaching {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.teaching-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.teaching-item {
+    background: var(--light-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    gap: 1.5rem;
+}
+
+.teaching-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.teaching-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teaching-content h3 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.teaching-institution,
+.teaching-location,
+.teaching-date {
+    color: var(--text-light);
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.teaching-institution i,
+.teaching-location i,
+.teaching-date i {
+    color: var(--primary-color);
+    width: 20px;
+}
+
+/* Academic Service Section */
+.service {
+    padding: 80px 20px;
+    background: var(--light-bg);
+}
+
+.service-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.service-category {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-header i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.service-header h3 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.service-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.service-badge {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+    transition: var(--transition);
+}
+
+.service-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Honors & Awards Section */
+.honors {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.honors-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.honor-item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    position: relative;
+}
+
+.honor-item::before {
+    content: '';
+    position: absolute;
+    left: 85px;
+    top: 50px;
+    width: 2px;
+    height: calc(100% + 2rem);
+    background: linear-gradient(180deg, var(--primary-color) 0%, transparent 100%);
+}
+
+.honor-item:last-child::before {
+    display: none;
+}
+
+.honor-year {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    min-width: 80px;
+    text-align: center;
+    background: var(--light-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.honor-content {
+    flex: 1;
+    display: flex;
+    gap: 1.5rem;
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.honor-content:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.honor-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.honor-details h3 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.honor-institution {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
 /* Contact Section */
 .contact {
     padding: 80px 20px;
@@ -692,6 +896,37 @@ body {
 
     .publications-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .teaching-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .teaching-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .teaching-icon {
+        margin: 0 auto;
+    }
+    
+    .honor-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .honor-item::before {
+        display: none;
+    }
+    
+    .honor-year {
+        align-self: flex-start;
+    }
+    
+    .honor-content {
+        flex-direction: column;
+        text-align: center;
     }
 
     .footer .container {
