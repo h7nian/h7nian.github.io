@@ -620,15 +620,34 @@ function displayHeatmap(visitors) {
         visitorMap.removeLayer(heatLayer);
     }
     
-    // Prepare heat data: [lat, lng, intensity]
-    const heatData = visitors.map(v => [v.lat, v.lng, 1]);
+    // Filter out visitors with invalid coordinates and prepare heat data
+    const validVisitors = visitors.filter(v => 
+        v && 
+        typeof v.lat === 'number' && 
+        typeof v.lng === 'number' && 
+        !isNaN(v.lat) && 
+        !isNaN(v.lng) &&
+        v.lat >= -90 && v.lat <= 90 &&
+        v.lng >= -180 && v.lng <= 180
+    );
     
-    // Create heat layer
+    console.log(`📍 Valid visitors with coordinates: ${validVisitors.length} out of ${visitors.length}`);
+    
+    if (validVisitors.length === 0) {
+        console.warn('⚠️ No valid visitor coordinates to display');
+        return;
+    }
+    
+    // Prepare heat data: [lat, lng, intensity]
+    const heatData = validVisitors.map(v => [v.lat, v.lng, 1]);
+    
+    // Create heat layer with better visibility for sparse data
     heatLayer = L.heatLayer(heatData, {
-        radius: 25,
-        blur: 35,
+        radius: 30,           // Increased from 25 for better visibility
+        blur: 40,             // Increased from 35 for smoother appearance
         maxZoom: 10,
-        max: 1.0,
+        max: 0.8,             // Reduced from 1.0 to make sparse points more visible
+        minOpacity: 0.4,      // Added minimum opacity for sparse points
         gradient: {
             0.0: '#3b82f6',
             0.2: '#06b6d4',
@@ -641,7 +660,7 @@ function displayHeatmap(visitors) {
     
     // Add markers for major clusters (top 10 locations)
     const locationCounts = {};
-    visitors.forEach(v => {
+    validVisitors.forEach(v => {
         const key = `${v.city}-${v.country}`;
         if (!locationCounts[key]) {
             locationCounts[key] = {
@@ -660,26 +679,24 @@ function displayHeatmap(visitors) {
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
     
-    // Add markers for top locations
+    // Add markers for top locations (show all locations, even with count=1)
     topLocations.forEach(loc => {
-        if (loc.count > 1) {
-            const marker = L.circleMarker([loc.lat, loc.lng], {
-                radius: Math.min(8 + Math.log(loc.count) * 3, 20),
-                fillColor: '#6366f1',
-                color: '#ffffff',
-                weight: 2,
-                opacity: 0.8,
-                fillOpacity: 0.6
-            }).addTo(visitorMap);
-            
-            marker.bindPopup(`
-                <div class="popup-content">
-                    <h4>📍 ${loc.city}</h4>
-                    <p><strong>Country:</strong> ${loc.country}</p>
-                    <p><strong>Visitors:</strong> ${loc.count}</p>
-                </div>
-            `);
-        }
+        const marker = L.circleMarker([loc.lat, loc.lng], {
+            radius: Math.min(8 + Math.log(Math.max(loc.count, 1.5)) * 3, 20),
+            fillColor: loc.count > 1 ? '#6366f1' : '#10b981',  // Green for single visitor
+            color: '#ffffff',
+            weight: 2,
+            opacity: 0.8,
+            fillOpacity: 0.6
+        }).addTo(visitorMap);
+        
+        marker.bindPopup(`
+            <div class="popup-content">
+                <h4>📍 ${loc.city}</h4>
+                <p><strong>Country:</strong> ${loc.country}</p>
+                <p><strong>Visitors:</strong> ${loc.count}</p>
+            </div>
+        `);
     });
 }
 
