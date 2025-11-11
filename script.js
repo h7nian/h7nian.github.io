@@ -703,7 +703,18 @@ function displayHeatmap(visitors) {
 // Update visitor statistics
 function updateStats(visitors) {
     const totalVisitors = visitors.length;
-    const uniqueCountries = new Set(visitors.map(v => v.countryCode)).size;
+    
+    // Normalize country codes: HK, TW, MO belong to China (CN)
+    const normalizedCountryCodes = visitors.map(v => {
+        const code = v.countryCode;
+        // Hong Kong, Taiwan, Macau are part of China
+        if (code === 'HK' || code === 'TW' || code === 'MO') {
+            return 'CN';
+        }
+        return code;
+    });
+    
+    const uniqueCountries = new Set(normalizedCountryCodes).size;
     
     // Animate numbers
     animateNumber('totalVisitors', totalVisitors);
