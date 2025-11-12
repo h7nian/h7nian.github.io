@@ -378,7 +378,8 @@ let visitorsRef;
 
 // Helper function to normalize country names
 function normalizeCountryName(country) {
-    if (country === 'Hong Kong') {
+    // Normalize Hong Kong, Taiwan, and Macau to China
+    if (country === 'Hong Kong' || country === 'Taiwan' || country === 'Macau' || country === 'Macao') {
         return 'China';
     }
     return country;
