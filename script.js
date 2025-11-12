@@ -376,6 +376,14 @@ let heatLayer;
 let firebaseDatabase;
 let visitorsRef;
 
+// Helper function to normalize country names
+function normalizeCountryName(country) {
+    if (country === 'Hong Kong') {
+        return 'China';
+    }
+    return country;
+}
+
 // Initialize the visitor map
 function initVisitorMap() {
     // Initialize map
@@ -573,7 +581,7 @@ async function trackCurrentVisitor() {
                 lat: data.latitude,
                 lng: data.longitude,
                 city: data.city || 'Unknown',
-                country: data.country_name || 'Unknown',
+                country: normalizeCountryName(data.country_name || 'Unknown'),
                 countryCode: data.country_code || 'XX',
                 ip: data.ip || 'Unknown'
             };
@@ -597,7 +605,7 @@ async function trackCurrentVisitor() {
                 <div class="popup-content">
                     <h4>🎯 Your Location</h4>
                     <p><strong>City:</strong> ${visitor.city}</p>
-                    <p><strong>Country:</strong> ${visitor.country}</p>
+                    <p><strong>Country:</strong> ${normalizeCountryName(visitor.country)}</p>
                 </div>
             `);
             
@@ -661,14 +669,15 @@ function displayHeatmap(visitors) {
     // Add markers for major clusters (top 10 locations)
     const locationCounts = {};
     validVisitors.forEach(v => {
-        const key = `${v.city}-${v.country}`;
+        const normalizedCountry = normalizeCountryName(v.country);
+        const key = `${v.city}-${normalizedCountry}`;
         if (!locationCounts[key]) {
             locationCounts[key] = {
                 count: 0,
                 lat: v.lat,
                 lng: v.lng,
                 city: v.city,
-                country: v.country
+                country: normalizedCountry
             };
         }
         locationCounts[key].count++;
@@ -693,7 +702,7 @@ function displayHeatmap(visitors) {
         marker.bindPopup(`
             <div class="popup-content">
                 <h4>📍 ${loc.city}</h4>
-                <p><strong>Country:</strong> ${loc.country}</p>
+                <p><strong>Country:</strong> ${normalizeCountryName(loc.country)}</p>
                 <p><strong>Visitors:</strong> ${loc.count}</p>
             </div>
         `);
@@ -704,17 +713,9 @@ function displayHeatmap(visitors) {
 function updateStats(visitors) {
     const totalVisitors = visitors.length;
     
-    // Normalize country codes: HK, TW, MO belong to China (CN)
-    const normalizedCountryCodes = visitors.map(v => {
-        const code = v.countryCode;
-        // Hong Kong, Taiwan, Macau are part of China
-        if (code === 'HK' || code === 'TW' || code === 'MO') {
-            return 'CN';
-        }
-        return code;
-    });
-    
-    const uniqueCountries = new Set(normalizedCountryCodes).size;
+    // Normalize country names before counting unique countries
+    const normalizedCountries = visitors.map(v => normalizeCountryName(v.country));
+    const uniqueCountries = new Set(normalizedCountries).size;
     
     // Animate numbers
     animateNumber('totalVisitors', totalVisitors);
