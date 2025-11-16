@@ -400,14 +400,14 @@ function initVisitorMap() {
         zoomControl: true
     });
     
-    // Map Tile Options - Choose one by uncommenting:
+    // Map Tile Options - Using CartoDB Voyager (no CORS issues)
     
-    // Option 1: CartoDB Voyager - Clean, clear borders, colorful
-    // L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    //     subdomains: 'abcd',
-    //     maxZoom: 19
-    // }).addTo(visitorMap);
+    // Option 1: CartoDB Voyager - Clean, clear borders, colorful (Current)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(visitorMap);
     
     // Option 2: CartoDB Positron - Light, minimal style with clear borders
     // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -423,11 +423,11 @@ function initVisitorMap() {
     //     maxZoom: 19
     // }).addTo(visitorMap);
     
-    // Option 4: Esri World Street Map (Current) - Very clear boundaries, professional look
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012',
-        maxZoom: 19
-    }).addTo(visitorMap);
+    // Option 4: OpenStreetMap Default - Simple and reliable
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //     maxZoom: 19
+    // }).addTo(visitorMap);
     
     // Initialize Firebase Database
     initFirebase();
