@@ -667,7 +667,7 @@ function displayHeatmap(visitors) {
         }
     }).addTo(visitorMap);
     
-    // Add markers for major clusters (top 10 locations)
+    // Add markers for all unique locations
     const locationCounts = {};
     validVisitors.forEach(v => {
         const normalizedCountry = normalizeCountryName(v.country);
@@ -684,13 +684,14 @@ function displayHeatmap(visitors) {
         locationCounts[key].count++;
     });
     
-    // Sort by count and take top 10
-    const topLocations = Object.values(locationCounts)
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 10);
+    // Sort by count (descending) to show all locations
+    const allLocations = Object.values(locationCounts)
+        .sort((a, b) => b.count - a.count);
     
-    // Add markers for top locations (show all locations, even with count=1)
-    topLocations.forEach(loc => {
+    console.log(`📍 Displaying markers for ${allLocations.length} unique locations`);
+    
+    // Add markers for all locations
+    allLocations.forEach(loc => {
         const marker = L.circleMarker([loc.lat, loc.lng], {
             radius: Math.min(8 + Math.log(Math.max(loc.count, 1.5)) * 3, 20),
             fillColor: loc.count > 1 ? '#6366f1' : '#10b981',  // Green for single visitor
