@@ -795,9 +795,13 @@ function initPublicationsCarousel() {
     
     // Update carousel position
     function updateCarousel() {
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 32; // 2rem gap
-        const offset = currentIndex * (cardWidth + gap) * itemsPerView;
+        // Get the wrapper width (visible area)
+        const wrapper = document.querySelector('.publications-carousel-wrapper');
+        const wrapperWidth = wrapper.offsetWidth;
+        
+        // Calculate offset based on current page
+        // Each page shows itemsPerView cards
+        const offset = currentIndex * wrapperWidth;
         
         track.style.transform = `translateX(-${offset}px)`;
         
@@ -837,8 +841,9 @@ function initPublicationsCarousel() {
                 itemsPerView = newItemsPerView;
                 currentIndex = 0;
                 createIndicators();
-                updateCarousel();
             }
+            // Always update carousel on resize to recalculate positions
+            updateCarousel();
         }, 250);
     });
     
@@ -885,12 +890,16 @@ function initPublicationsCarousel() {
     
     // Initialize
     createIndicators();
-    updateCarousel();
+    // Small delay to ensure DOM is fully rendered
+    setTimeout(() => {
+        updateCarousel();
+    }, 100);
 }
 
 // Initialize carousel when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPublicationsCarousel);
 } else {
-    initPublicationsCarousel();
+    // Wait for next tick to ensure DOM is ready
+    setTimeout(initPublicationsCarousel, 0);
 }
