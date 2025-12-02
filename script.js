@@ -752,3 +752,145 @@ function animateNumber(elementId, target) {
     
     requestAnimationFrame(update);
 }
+
+// ==================== Publications Carousel Functionality ====================
+
+function initPublicationsCarousel() {
+    const track = document.querySelector('.publications-carousel-track');
+    const prevBtn = document.querySelector('.carousel-btn-prev');
+    const nextBtn = document.querySelector('.carousel-btn-next');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+    
+    if (!track || !prevBtn || !nextBtn) return;
+    
+    const cards = Array.from(track.children);
+    const totalCards = cards.length;
+    
+    // Determine items per view based on screen size
+    let itemsPerView = window.innerWidth <= 768 ? 1 : 3;
+    let currentIndex = 0;
+    
+    // Calculate total pages
+    const getTotalPages = () => Math.ceil(totalCards / itemsPerView);
+    
+    // Create indicators
+    function createIndicators() {
+        indicatorsContainer.innerHTML = '';
+        const totalPages = getTotalPages();
+        
+        for (let i = 0; i < totalPages; i++) {
+            const indicator = document.createElement('button');
+            indicator.classList.add('carousel-indicator');
+            indicator.setAttribute('aria-label', `Go to page ${i + 1}`);
+            if (i === 0) indicator.classList.add('active');
+            
+            indicator.addEventListener('click', () => {
+                currentIndex = i;
+                updateCarousel();
+            });
+            
+            indicatorsContainer.appendChild(indicator);
+        }
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 32; // 2rem gap
+        const offset = currentIndex * (cardWidth + gap) * itemsPerView;
+        
+        track.style.transform = `translateX(-${offset}px)`;
+        
+        // Update indicators
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+        
+        // Update button states
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= getTotalPages() - 1;
+    }
+    
+    // Navigation handlers
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < getTotalPages() - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const newItemsPerView = window.innerWidth <= 768 ? 1 : 3;
+            if (newItemsPerView !== itemsPerView) {
+                itemsPerView = newItemsPerView;
+                currentIndex = 0;
+                createIndicators();
+                updateCarousel();
+            }
+        }, 250);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        } else if (e.key === 'ArrowRight' && currentIndex < getTotalPages() - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && currentIndex < getTotalPages() - 1) {
+                // Swipe left - next
+                currentIndex++;
+                updateCarousel();
+            } else if (diff < 0 && currentIndex > 0) {
+                // Swipe right - previous
+                currentIndex--;
+                updateCarousel();
+            }
+        }
+    }
+    
+    // Initialize
+    createIndicators();
+    updateCarousel();
+}
+
+// Initialize carousel when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPublicationsCarousel);
+} else {
+    initPublicationsCarousel();
+}
