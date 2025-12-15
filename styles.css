@@ -375,17 +375,14 @@ body {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     padding: 1rem 0 2rem 0;
-    scroll-padding-left: 1rem;
     -webkit-overflow-scrolling: touch;
 }
 
-/* Add space before first card */
-.publications-scroll-container::before {
-    content: '';
-    flex: 0 0 0.5rem;
+/* Add equal margin to first and last card */
+.publications-scroll-container .publication-card:first-child {
+    margin-left: 1rem;
 }
 
-/* Add margin to last card for right spacing */
 .publications-scroll-container .publication-card:last-child {
     margin-right: 1rem;
 }
