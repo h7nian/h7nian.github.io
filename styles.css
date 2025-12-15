@@ -400,16 +400,17 @@ body {
     gap: 2rem;
 }
 
-/* Card styling - fixed width for scroll */
+/* Card styling - width calculated to fit exactly 3 cards */
 .publication-card {
     background: var(--white);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    flex: 0 0 350px;
-    width: 350px;
-    scroll-snap-align: start;
+    /* 3 cards + 2 gaps (1.5rem each) + 2 paddings (1rem each) = 100% */
+    flex: 0 0 calc((100% - 5rem) / 3);
+    width: calc((100% - 5rem) / 3);
+    min-width: 280px;
     box-sizing: border-box;
 }
 
@@ -881,11 +882,11 @@ body {
 }
 
 /* Responsive Design */
-/* Desktop: larger cards */
+/* Desktop: exactly 3 cards visible */
 @media (min-width: 769px) {
     .publication-card {
-        flex: 0 0 380px;
-        width: 380px;
+        flex: 0 0 calc((100% - 5rem) / 3);
+        width: calc((100% - 5rem) / 3);
     }
 }
 
@@ -959,12 +960,14 @@ body {
     
     .publications-scroll-container {
         gap: 1rem;
-        padding: 1rem 0.5rem 1.5rem 0.5rem;
+        padding: 1rem 1rem 1.5rem 1rem;
     }
     
     .publication-card {
-        flex: 0 0 300px;
-        width: 300px;
+        /* On mobile: show 1 card at a time */
+        flex: 0 0 calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        min-width: 260px;
     }
     
     .publication-image {
