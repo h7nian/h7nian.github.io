@@ -369,9 +369,9 @@ body {
 /* Publications Horizontal Scroll */
 .publications-scroll-container {
     display: flex;
-    gap: 1.5rem;
+    gap: 20px;
     overflow-x: auto;
-    padding: 1rem 1rem 2rem 1rem;
+    padding: 1rem 0 2rem 0;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -400,17 +400,16 @@ body {
     gap: 2rem;
 }
 
-/* Card styling - width calculated to fit exactly 3 cards */
+/* Card styling - fixed width for exactly 3 cards on desktop */
 .publication-card {
     background: var(--white);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    /* 3 cards + 2 gaps (1.5rem each) + 2 paddings (1rem each) = 100% */
-    flex: 0 0 calc((100% - 5rem) / 3);
-    width: calc((100% - 5rem) / 3);
-    min-width: 280px;
+    /* Fixed width: (1160px - 40px gaps) / 3 ≈ 373px */
+    flex: 0 0 373px;
+    width: 373px;
     box-sizing: border-box;
 }
 
@@ -885,8 +884,8 @@ body {
 /* Desktop: exactly 3 cards visible */
 @media (min-width: 769px) {
     .publication-card {
-        flex: 0 0 calc((100% - 5rem) / 3);
-        width: calc((100% - 5rem) / 3);
+        flex: 0 0 373px;
+        width: 373px;
     }
 }
 
@@ -959,15 +958,14 @@ body {
     }
     
     .publications-scroll-container {
-        gap: 1rem;
-        padding: 1rem 1rem 1.5rem 1rem;
+        gap: 15px;
+        padding: 1rem 0 1.5rem 0;
     }
     
     .publication-card {
-        /* On mobile: show exactly 1 card */
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: unset;
+        /* On mobile: fixed width that fits screen */
+        flex: 0 0 calc(100vw - 70px);
+        width: calc(100vw - 70px);
     }
     
     .publication-image {
