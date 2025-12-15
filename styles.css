@@ -374,8 +374,7 @@ body {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 1rem 0.5rem 2rem 0.5rem;
-    margin: 0 -0.5rem;
+    padding: 1rem 1rem 2rem 1rem;
     -webkit-overflow-scrolling: touch;
 }
 
