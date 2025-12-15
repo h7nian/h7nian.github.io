@@ -366,23 +366,36 @@ body {
     background: var(--white);
 }
 
-/* Publications Carousel */
-.publications-carousel {
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 60px;
-    box-sizing: border-box;
-}
-
-.publications-carousel-wrapper {
-    overflow: hidden;
-    width: 100%;
-}
-
-.publications-carousel-track {
+/* Publications Horizontal Scroll */
+.publications-scroll-container {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 1rem 0.5rem 2rem 0.5rem;
+    margin: 0 -0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.publications-scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.publications-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.publications-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.publications-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }
 
 .publications-grid {
@@ -391,88 +404,19 @@ body {
     gap: 2rem;
 }
 
-/* Card styling - width controlled by JavaScript */
+/* Card styling - fixed width for scroll */
 .publication-card {
     background: var(--white);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    flex-shrink: 0;
+    flex: 0 0 350px;
+    width: 350px;
+    scroll-snap-align: start;
     box-sizing: border-box;
-    /* Width will be set by JavaScript */
 }
 
-/* Carousel Navigation Buttons */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--white);
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    z-index: 10;
-}
-
-.carousel-btn:hover {
-    background: var(--primary-color);
-    color: var(--white);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
-.carousel-btn:disabled:hover {
-    background: var(--white);
-    color: var(--primary-color);
-    transform: translateY(-50%);
-}
-
-.carousel-btn-prev {
-    left: 0;
-}
-
-.carousel-btn-next {
-    right: 0;
-}
-
-/* Carousel Indicators */
-.carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 2rem;
-}
-
-.carousel-indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ddd;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.carousel-indicator.active {
-    background: var(--primary-color);
-    width: 30px;
-    border-radius: 6px;
-}
-
-.carousel-indicator:hover {
-    background: var(--secondary-color);
-}
 
 .publication-card:hover {
     transform: translateY(-10px);
@@ -941,10 +885,11 @@ body {
 }
 
 /* Responsive Design */
-/* Desktop: cards styled by JavaScript */
+/* Desktop: larger cards */
 @media (min-width: 769px) {
     .publication-card {
-        /* Width set by JavaScript */
+        flex: 0 0 380px;
+        width: 380px;
     }
 }
 
@@ -1016,12 +961,14 @@ body {
         overflow: hidden;
     }
     
-    .publications-carousel-track {
-        /* Styles set by JavaScript */
+    .publications-scroll-container {
+        gap: 1rem;
+        padding: 1rem 0.5rem 1.5rem 0.5rem;
     }
     
     .publication-card {
-        /* Width set by JavaScript for mobile */
+        flex: 0 0 300px;
+        width: 300px;
     }
     
     .publication-image {
