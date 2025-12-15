@@ -374,18 +374,13 @@ body {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 1rem 1rem 2rem 1rem;
+    padding: 1rem 0 2rem 0;
     scroll-padding-left: 1rem;
     -webkit-overflow-scrolling: touch;
 }
 
-/* Add space before first card */
-.publications-scroll-container::before {
-    content: '';
-    flex: 0 0 0.5rem;
-}
-
-/* Add space after last card */
+/* Add equal space before first and after last card */
+.publications-scroll-container::before,
 .publications-scroll-container::after {
     content: '';
     flex: 0 0 0.5rem;
