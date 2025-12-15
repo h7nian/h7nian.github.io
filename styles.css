@@ -964,10 +964,10 @@ body {
     }
     
     .publication-card {
-        /* On mobile: show 1 card at a time */
-        flex: 0 0 calc(100% - 2rem);
-        width: calc(100% - 2rem);
-        min-width: 260px;
+        /* On mobile: show exactly 1 card */
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: unset;
     }
     
     .publication-image {
