@@ -757,11 +757,12 @@ function animateNumber(elementId, target) {
 
 function initPublicationsCarousel() {
     const track = document.querySelector('.publications-carousel-track');
+    const wrapper = document.querySelector('.publications-carousel-wrapper');
     const prevBtn = document.querySelector('.carousel-btn-prev');
     const nextBtn = document.querySelector('.carousel-btn-next');
     const indicatorsContainer = document.querySelector('.carousel-indicators');
     
-    if (!track || !prevBtn || !nextBtn) return;
+    if (!track || !wrapper || !prevBtn || !nextBtn) return;
     
     const cards = Array.from(track.children);
     const totalCards = cards.length;
@@ -769,9 +770,37 @@ function initPublicationsCarousel() {
     // Determine items per view based on screen size
     let itemsPerView = window.innerWidth <= 768 ? 1 : 3;
     let currentIndex = 0;
+    const gap = 20; // Gap between cards in pixels
     
     // Calculate total pages
     const getTotalPages = () => Math.ceil(totalCards / itemsPerView);
+    
+    // Set card widths based on container size
+    function setCardWidths() {
+        const wrapperWidth = wrapper.offsetWidth;
+        
+        if (itemsPerView === 1) {
+            // Mobile: each card takes full width
+            cards.forEach(card => {
+                card.style.width = wrapperWidth + 'px';
+                card.style.marginRight = '0';
+            });
+        } else {
+            // Desktop: 3 cards with gaps
+            const totalGaps = (itemsPerView - 1) * gap;
+            const cardWidth = (wrapperWidth - totalGaps) / itemsPerView;
+            
+            cards.forEach((card, index) => {
+                card.style.width = cardWidth + 'px';
+                // Add margin-right to all except last visible in each group
+                card.style.marginRight = gap + 'px';
+            });
+            // Remove margin from last card
+            if (cards.length > 0) {
+                cards[cards.length - 1].style.marginRight = '0';
+            }
+        }
+    }
     
     // Create indicators
     function createIndicators() {
@@ -795,12 +824,9 @@ function initPublicationsCarousel() {
     
     // Update carousel position
     function updateCarousel() {
-        // Get the wrapper width (visible area)
-        const wrapper = document.querySelector('.publications-carousel-wrapper');
         const wrapperWidth = wrapper.offsetWidth;
         
-        // Calculate offset based on current page
-        // Each page shows itemsPerView cards
+        // Calculate offset: move by wrapper width for each page
         const offset = currentIndex * wrapperWidth;
         
         track.style.transform = `translateX(-${offset}px)`;
@@ -842,7 +868,8 @@ function initPublicationsCarousel() {
                 currentIndex = 0;
                 createIndicators();
             }
-            // Always update carousel on resize to recalculate positions
+            // Recalculate card widths and update carousel
+            setCardWidths();
             updateCarousel();
         }, 250);
     });
@@ -892,6 +919,7 @@ function initPublicationsCarousel() {
     createIndicators();
     // Small delay to ensure DOM is fully rendered
     setTimeout(() => {
+        setCardWidths();
         updateCarousel();
     }, 100);
 }
