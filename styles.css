@@ -372,6 +372,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 60px;
+    box-sizing: border-box;
 }
 
 .publications-carousel-wrapper {
@@ -400,6 +401,7 @@ body {
     flex: 0 0 calc(33.333% - 1.35rem);
     min-width: 0;
     max-width: calc(33.333% - 1.35rem);
+    box-sizing: border-box;
 }
 
 /* Carousel Navigation Buttons */
@@ -994,19 +996,55 @@ body {
         grid-template-columns: 1fr;
     }
     
+    .publications {
+        padding: 60px 10px;
+    }
+    
     .publications-carousel {
-        padding: 0 50px;
+        padding: 0 40px;
+        max-width: 100%;
+    }
+    
+    .publications-carousel-wrapper {
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .publications-carousel-track {
+        gap: 0;
     }
     
     .publication-card {
         flex: 0 0 100%;
+        min-width: 100%;
         max-width: 100%;
+        margin: 0;
+    }
+    
+    .publication-image {
+        height: 150px;
+    }
+    
+    .publication-image i {
+        font-size: 3rem;
     }
     
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .carousel-btn-prev {
+        left: 2px;
+    }
+    
+    .carousel-btn-next {
+        right: 2px;
+    }
+    
+    .carousel-indicators {
+        margin-top: 1.5rem;
     }
     
     .teaching-grid {
