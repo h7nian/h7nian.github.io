@@ -398,9 +398,8 @@ body {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
-    flex: 0 0 calc(33.333% - 1.35rem);
-    min-width: 0;
-    max-width: calc(33.333% - 1.35rem);
+    flex: 0 0 calc((100% - 4rem) / 3);
+    width: calc((100% - 4rem) / 3);
     box-sizing: border-box;
 }
 
@@ -942,6 +941,16 @@ body {
 }
 
 /* Responsive Design */
+/* Desktop and Tablet: Ensure 3 cards display properly */
+@media (min-width: 769px) {
+    .publication-card {
+        flex: 0 0 calc((100% - 4rem) / 3);
+        width: calc((100% - 4rem) / 3);
+        min-width: calc((100% - 4rem) / 3);
+        max-width: calc((100% - 4rem) / 3);
+    }
+}
+
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
@@ -1016,6 +1025,7 @@ body {
     
     .publication-card {
         flex: 0 0 100%;
+        width: 100%;
         min-width: 100%;
         max-width: 100%;
         margin: 0;
