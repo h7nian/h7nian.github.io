@@ -379,11 +379,15 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Add equal space before first and after last card */
-.publications-scroll-container::before,
-.publications-scroll-container::after {
+/* Add space before first card */
+.publications-scroll-container::before {
     content: '';
     flex: 0 0 0.5rem;
+}
+
+/* Add margin to last card for right spacing */
+.publications-scroll-container .publication-card:last-child {
+    margin-right: 1rem;
 }
 
 /* Hide scrollbar but keep functionality */
