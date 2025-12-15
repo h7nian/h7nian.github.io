@@ -375,7 +375,20 @@ body {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     padding: 1rem 1rem 2rem 1rem;
+    scroll-padding-left: 1rem;
     -webkit-overflow-scrolling: touch;
+}
+
+/* Add space before first card */
+.publications-scroll-container::before {
+    content: '';
+    flex: 0 0 0.5rem;
+}
+
+/* Add space after last card */
+.publications-scroll-container::after {
+    content: '';
+    flex: 0 0 0.5rem;
 }
 
 /* Hide scrollbar but keep functionality */
