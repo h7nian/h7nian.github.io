@@ -590,6 +590,171 @@ body {
     font-size: 0.85rem;
 }
 
+/* Working Papers Section */
+.working-papers {
+    padding: 80px 20px;
+    background: var(--light-bg);
+}
+
+.working-paper-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.working-paper-card {
+    position: relative;
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.working-paper-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.status-badge {
+    align-self: flex-start;
+    padding: 0.3rem 1rem;
+    border-radius: 25px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.status-review {
+    background: var(--gradient);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.status-prep {
+    background: var(--text-light);
+}
+
+.working-paper-card h3 {
+    color: var(--text-dark);
+    font-size: 1.15rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+}
+
+.working-paper-card .authors {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.working-paper-card .authors strong {
+    color: var(--primary-color);
+}
+
+.working-paper-card .journal {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.9rem;
+}
+
+.working-paper-card .abstract {
+    color: var(--text-light);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    flex-grow: 1;
+}
+
+/* Software Section */
+.software {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.software-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.software-card {
+    background: var(--light-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    gap: 1.5rem;
+}
+
+.software-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.software-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    min-width: 55px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.2rem;
+}
+
+.software-body {
+    flex: 1;
+}
+
+.software-body h3 {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+}
+
+.software-meta {
+    color: var(--text-light);
+    font-size: 0.88rem;
+    margin-bottom: 0.7rem;
+}
+
+.software-status {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.software-desc {
+    color: var(--text-light);
+    font-size: 0.93rem;
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
+}
+
+.software-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: var(--transition);
+}
+
+.software-link:hover {
+    color: var(--secondary-color);
+    transform: translateX(3px);
+}
+
 /* Academic Service Section */
 .service {
     padding: 80px 20px;
