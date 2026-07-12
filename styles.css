@@ -367,6 +367,18 @@ body {
     background: var(--white);
 }
 
+/* Subsection heading inside a merged section */
+.subsection-title {
+    max-width: 900px;
+    margin: 4rem auto 1.5rem auto;
+    padding-top: 2.5rem;
+    border-top: 1px solid #e2e8f0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: center;
+}
+
 /* Publications Horizontal Scroll */
 .publications-scroll-container {
     display: flex;
@@ -584,12 +596,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* Working Papers Section */
-.working-papers {
-    padding: 80px 20px;
-    background: var(--light-bg);
-}
-
 .entry-list {
     max-width: 900px;
     margin: 0 auto;
@@ -779,12 +785,6 @@ body {
     transform: translateX(3px);
 }
 
-/* Academic Service Section */
-.service {
-    padding: 80px 20px;
-    background: var(--light-bg);
-}
-
 .service-content {
     max-width: 800px;
     margin: 0 auto;
@@ -794,7 +794,7 @@ body {
 }
 
 .service-category {
-    background: var(--white);
+    background: var(--light-bg);
     border-radius: 15px;
     padding: 2rem;
     box-shadow: var(--shadow);
