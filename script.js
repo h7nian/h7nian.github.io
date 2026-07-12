@@ -252,7 +252,7 @@ const citations = {
     'wasserstein': `@inproceedings{zhang2025wasserstein,
   title={Wasserstein Transfer Learning},
   author={Zhang, Kaicheng and Zhang, Sinian and Zhou, Doudou and Zhou, Yidong},
-  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  booktitle={Advances in Neural Information Processing Systems},
   year={2025}
 }`,
     'wreaths': `@article{liang2024wreaths,
