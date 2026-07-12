@@ -568,9 +568,26 @@ body {
 
 .teaching-institution i,
 .teaching-location i,
-.teaching-date i {
+.teaching-date i,
+.teaching-description i {
     color: var(--primary-color);
     width: 20px;
+}
+
+.teaching-description {
+    color: var(--text-light);
+    margin: 0.75rem 0 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.teaching-description i {
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
 }
 
 /* Academic Service Section */
