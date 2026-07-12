@@ -62,7 +62,8 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.35rem;
+    white-space: nowrap;
 }
 
 .nav-menu a {
@@ -589,28 +590,39 @@ body {
     background: var(--light-bg);
 }
 
-.working-paper-list {
+.entry-list {
     max-width: 900px;
     margin: 0 auto;
     padding-left: 1.5rem;
     list-style: decimal;
 }
 
-.working-paper-item {
+/* Unnumbered variant, used for talks */
+.entry-list-plain {
+    padding-left: 0;
+    list-style: none;
+}
+
+.entry-date {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.entry-item {
     padding: 1.25rem 0;
     border-bottom: 1px solid #e2e8f0;
 }
 
-.working-paper-item:last-child {
+.entry-item:last-child {
     border-bottom: none;
 }
 
-.working-paper-item::marker {
+.entry-item::marker {
     color: var(--primary-color);
     font-weight: 700;
 }
 
-.working-paper-item h3 {
+.entry-item h3 {
     color: var(--text-dark);
     font-size: 1.05rem;
     font-weight: 600;
@@ -641,22 +653,22 @@ body {
     background: var(--text-light);
 }
 
-.working-paper-item .authors {
+.entry-item .authors {
     color: var(--text-light);
     font-size: 0.93rem;
     margin-bottom: 0.25rem;
 }
 
-.working-paper-item .authors strong {
+.entry-item .authors strong {
     color: var(--primary-color);
 }
 
-.working-paper-item .journal {
+.entry-item .journal {
     color: var(--text-light);
     font-size: 0.88rem;
 }
 
-.working-paper-link {
+.entry-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -668,8 +680,20 @@ body {
     transition: var(--transition);
 }
 
-.working-paper-link:hover {
+.entry-link:hover {
     color: var(--secondary-color);
+}
+
+/* Conference Abstracts Section */
+.conference-abstracts {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+/* Talks & Presentations Section */
+.talks {
+    padding: 80px 20px;
+    background: var(--light-bg);
 }
 
 /* Software Section */
