@@ -464,13 +464,6 @@ body {
     font-size: 0.9rem;
 }
 
-.publication-content .abstract {
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
 .publication-tags {
     display: flex;
     flex-wrap: wrap;
@@ -596,39 +589,46 @@ body {
     background: var(--light-bg);
 }
 
-.working-paper-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+.working-paper-list {
+    max-width: 900px;
     margin: 0 auto;
+    padding-left: 1.5rem;
+    list-style: decimal;
 }
 
-.working-paper-card {
-    position: relative;
-    background: var(--white);
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
+.working-paper-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.working-paper-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+.working-paper-item:last-child {
+    border-bottom: none;
+}
+
+.working-paper-item::marker {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.working-paper-item h3 {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
 }
 
 .status-badge {
-    align-self: flex-start;
-    padding: 0.3rem 1rem;
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
     border-radius: 25px;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    white-space: nowrap;
+    vertical-align: middle;
+    margin-left: 0.5rem;
     color: var(--white);
 }
 
@@ -641,35 +641,35 @@ body {
     background: var(--text-light);
 }
 
-.working-paper-card h3 {
-    color: var(--text-dark);
-    font-size: 1.15rem;
-    line-height: 1.4;
-    margin-bottom: 0.75rem;
-}
-
-.working-paper-card .authors {
+.working-paper-item .authors {
     color: var(--text-light);
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
+    font-size: 0.93rem;
+    margin-bottom: 0.25rem;
 }
 
-.working-paper-card .authors strong {
+.working-paper-item .authors strong {
     color: var(--primary-color);
 }
 
-.working-paper-card .journal {
+.working-paper-item .journal {
     color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: 0.9rem;
+    font-size: 0.88rem;
 }
 
-.working-paper-card .abstract {
-    color: var(--text-light);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-    flex-grow: 1;
+.working-paper-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.75rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.working-paper-link:hover {
+    color: var(--secondary-color);
 }
 
 /* Software Section */
