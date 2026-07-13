@@ -691,16 +691,18 @@ body {
     color: var(--secondary-color);
 }
 
-/* Conference Abstracts Section */
-.conference-abstracts {
-    padding: 80px 20px;
-    background: var(--white);
-}
-
-/* Talks & Presentations Section */
-.talks {
+/* Presentations Section (conference abstracts + talks) */
+.presentations {
     padding: 80px 20px;
     background: var(--light-bg);
+}
+
+/* First subsection sits directly under the section title, so it needs no
+   divider or large top gap. */
+.subsection-title-first {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
 }
 
 /* Software Section */
