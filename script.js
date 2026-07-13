@@ -261,10 +261,12 @@ const citations = {
   journal={arXiv preprint arXiv:2403.12284},
   year={2024}
 }`,
-    'drkgc': `@article{xiao2025drkgc,
+    'drkgc': `@inproceedings{xiao2025drkgc,
   title={DrKGC: Dynamic Subgraph Retrieval-Augmented LLMs for Knowledge Graph Completion across General and Biomedical Domains},
   author={Xiao, Yongkang and Zhang, Sinian and Dai, Yi and Zhou, Huixue and Hou, Jue and Ding, Jie and Zhang, Rui},
-  journal={arXiv preprint arXiv:2506.00708},
+  booktitle={Findings of the Association for Computational Linguistics: EMNLP 2025},
+  pages={16432--16445},
+  doi={10.18653/v1/2025.findings-emnlp.892},
   year={2025}
 }`,
     'ehr_tutorial_2023': `@article{hou2023generate,
