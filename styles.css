@@ -604,12 +604,6 @@ body {
     list-style: decimal;
 }
 
-/* Unnumbered variant, used for talks */
-.entry-list-plain {
-    padding-left: 0;
-    list-style: none;
-}
-
 .entry-date {
     color: var(--primary-color);
     font-weight: 600;
