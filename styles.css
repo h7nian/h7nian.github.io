@@ -57,6 +57,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: nowrap;
 }
 
 .nav-menu {
@@ -1096,7 +1097,9 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/* Nav collapses to the hamburger as soon as the 8 tabs stop fitting on
+   one line, which happens well above the 768px mobile breakpoint. */
+@media (max-width: 1024px) {
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -1117,7 +1120,9 @@ body {
     .hamburger {
         display: flex;
     }
+}
 
+@media (max-width: 768px) {
     .hero-title {
         font-size: 2rem;
     }
