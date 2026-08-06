@@ -31,12 +31,39 @@ body {
     padding: 0 20px;
 }
 
+/* Visible focus ring for keyboard users on every interactive element */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Skip link: hidden until focused via keyboard */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 3000;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
 /* Navigation Bar */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -65,6 +92,7 @@ body {
     list-style: none;
     gap: 1.35rem;
     white-space: nowrap;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -94,14 +122,36 @@ body {
     width: 100%;
 }
 
+/* CV gets a pill so it reads as the one "action" in the nav */
+.nav-menu a.nav-cv {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 0.35rem 1.1rem;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.nav-menu a.nav-cv:hover {
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.nav-menu a.nav-cv::after {
+    display: none;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
 }
 
 .hamburger span {
+    display: block;
     width: 25px;
     height: 3px;
     background: var(--primary-color);
@@ -117,7 +167,7 @@ body {
     justify-content: center;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: var(--white);
-    padding: 80px 20px 40px;
+    padding: 100px 20px 60px;
     position: relative;
     overflow: hidden;
 }
@@ -140,6 +190,7 @@ body {
 .hero-content {
     text-align: center;
     z-index: 1;
+    max-width: 820px;
     animation: fade-in-up 1s ease;
 }
 
@@ -154,30 +205,39 @@ body {
     }
 }
 
+.hero-eyebrow {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 0.75rem;
+}
+
 .hero-title {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    margin-bottom: 1.25rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .highlight {
-    background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffd89b;
+    font-weight: 600;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    font-size: 1.35rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    line-height: 1.6;
 }
 
 .hero-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -186,7 +246,13 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
 }
 
 .btn-primary {
@@ -228,51 +294,14 @@ body {
     opacity: 0.8;
 }
 
-.hero-animation {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.2;
-}
-
-.code-block {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
-}
-
-.code-line {
-    margin: 10px 0;
-}
-
-.keyword {
-    color: #ffd89b;
-}
-
-.function {
-    color: #a8e6cf;
-}
-
-.string {
-    color: #ffaaa5;
-}
-
-/* About Section */
-.about {
-    padding: 80px 20px;
-    background: var(--light-bg);
-}
-
+/* Section headings */
 .section-title {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 3rem;
     color: var(--text-dark);
     position: relative;
-    display: inline-block;
+    display: block;
     width: 100%;
 }
 
@@ -288,84 +317,26 @@ body {
     border-radius: 2px;
 }
 
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.about-text {
-    font-size: 1.1rem;
+.section-lead {
+    text-align: center;
+    margin-bottom: 2rem;
     color: var(--text-light);
 }
 
-.about-text p {
-    margin-bottom: 1rem;
-}
-
-.skills-list {
-    list-style: none;
-    margin-top: 1.5rem;
-}
-
-.skills-list li {
-    margin: 0.8rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.skills-list i {
+.section-lead a {
     color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-.skills-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+.section-lead a:hover {
+    text-decoration: underline;
 }
 
-.skill-card {
-    background: var(--white);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.skill-card:hover {
-    transform: translateY(-5px);
-}
-
-.skill-card i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.skill-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.skill-bar {
-    background: #e2e8f0;
-    height: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.skill-progress {
-    height: 100%;
-    background: var(--gradient);
-    border-radius: 4px;
-    transition: width 1s ease;
-}
-
-/* Publications Section */
-.publications {
-    padding: 80px 20px;
-    background: var(--white);
+.equal-note {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.35rem;
 }
 
 /* Subsection heading inside a merged section */
@@ -380,6 +351,132 @@ body {
     text-align: center;
 }
 
+/* First subsection sits directly under the section title, so it needs no
+   divider or large top gap. */
+.subsection-title-first {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+/* About Section */
+.about {
+    padding: 80px 20px;
+    background: var(--light-bg);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    /* Centre the Education card against the taller text column */
+    align-items: center;
+}
+
+.about-text {
+    font-size: 1.05rem;
+    color: var(--text-light);
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+}
+
+.about-text strong {
+    color: var(--text-dark);
+}
+
+.about-heading {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
+}
+
+.interest-list {
+    list-style: none;
+}
+
+.interest-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.interest-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gradient);
+}
+
+.interest-list strong {
+    color: var(--text-dark);
+}
+
+.education-panel {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.education-panel .about-heading {
+    margin-top: 0;
+}
+
+.education-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.education-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.education-degree {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+}
+
+.education-school {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0.2rem 0 0.5rem;
+}
+
+.education-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.education-meta i {
+    color: var(--primary-color);
+    width: 16px;
+}
+
+/* Publications Section */
+.publications {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.scroll-hint {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
 /* Publications Horizontal Scroll */
 .publications-scroll-container {
     display: flex;
@@ -389,7 +486,6 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Hide scrollbar but keep functionality */
 .publications-scroll-container::-webkit-scrollbar {
     height: 8px;
 }
@@ -408,26 +504,19 @@ body {
     background: var(--secondary-color);
 }
 
-.publications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-/* Card styling - width calculated to fit exactly 3 cards */
+/* 3 cards + 2 gaps (1.5rem each) + 2 paddings (1rem each) = 100% */
 .publication-card {
     background: var(--white);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    /* 3 cards + 2 gaps (1.5rem each) + 2 paddings (1rem each) = 100% */
     flex: 0 0 calc((100% - 5rem) / 3);
     width: calc((100% - 5rem) / 3);
     min-width: 280px;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
-
 
 .publication-card:hover {
     transform: translateY(-10px);
@@ -436,11 +525,12 @@ body {
 
 .publication-image {
     background: var(--gradient);
-    height: 200px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
+    flex-shrink: 0;
 }
 
 .publication-image i {
@@ -450,13 +540,16 @@ body {
 .publication-content {
     padding: 1.5rem;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.publication-content h3 {
+.publication-content h4 {
     margin-bottom: 0.8rem;
     color: var(--text-dark);
-    font-size: 1.2rem;
-    word-wrap: break-word;
+    font-size: 1.15rem;
+    line-height: 1.4;
     overflow-wrap: break-word;
 }
 
@@ -483,6 +576,8 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
 }
 
 .tag {
@@ -504,19 +599,214 @@ body {
     text-decoration: none;
     color: var(--primary-color);
     font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.3rem;
     transition: var(--transition);
+    /* Cite is a <button>; reset it to look like the sibling links. */
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 .publication-link:hover {
     color: var(--secondary-color);
 }
 
-.publication-link.disabled {
+/* Numbered entry lists (preprints, working papers, presentations) */
+.entry-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    list-style: decimal;
+}
+
+.entry-date {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.entry-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.entry-item:last-child {
+    border-bottom: none;
+}
+
+.entry-item::marker {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.entry-item h4 {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 25px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    color: var(--white);
+}
+
+.status-review {
+    background: var(--gradient);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.status-preprint {
+    background: #0ea5e9;
+}
+
+.status-prep {
+    background: var(--text-light);
+}
+
+.entry-item .authors {
     color: var(--text-light);
-    cursor: not-allowed;
+    font-size: 0.93rem;
+    margin-bottom: 0.25rem;
+}
+
+.entry-item .authors strong {
+    color: var(--primary-color);
+}
+
+.entry-item .journal {
+    color: var(--text-light);
+    font-size: 0.88rem;
+}
+
+.entry-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.75rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    /* Cite is a <button>; reset it to match the sibling links. */
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.entry-link:hover {
+    color: var(--secondary-color);
+}
+
+/* Presentations Section */
+.presentations {
+    padding: 80px 20px;
+    background: var(--light-bg);
+}
+
+/* Software Section */
+.software {
+    padding: 80px 20px;
+    background: var(--white);
+}
+
+.software-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.software-card {
+    background: var(--light-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    gap: 1.5rem;
+}
+
+.software-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.software-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    min-width: 55px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.2rem;
+}
+
+.software-body {
+    flex: 1;
+}
+
+.software-body h3 {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+}
+
+.software-meta {
+    color: var(--text-light);
+    font-size: 0.88rem;
+    margin-bottom: 0.7rem;
+}
+
+.software-status {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.software-desc {
+    color: var(--text-light);
+    font-size: 0.93rem;
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
+}
+
+.software-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* Repo URLs are single unbreakable tokens; let long ones wrap inside the
+       card instead of spilling past its right edge. */
+    max-width: 100%;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: var(--transition);
+}
+
+.software-link:hover {
+    color: var(--secondary-color);
+    transform: translateX(3px);
 }
 
 /* Teaching Section */
@@ -597,191 +887,7 @@ body {
     font-size: 0.85rem;
 }
 
-.entry-list {
-    max-width: 900px;
-    margin: 0 auto;
-    padding-left: 1.5rem;
-    list-style: decimal;
-}
-
-.entry-date {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-.entry-item {
-    padding: 1.25rem 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.entry-item:last-child {
-    border-bottom: none;
-}
-
-.entry-item::marker {
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.entry-item h3 {
-    color: var(--text-dark);
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 0.4rem;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 0.2rem 0.75rem;
-    border-radius: 25px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    vertical-align: middle;
-    margin-left: 0.5rem;
-    color: var(--white);
-}
-
-.status-review {
-    background: var(--gradient);
-    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
-}
-
-.status-prep {
-    background: var(--text-light);
-}
-
-.entry-item .authors {
-    color: var(--text-light);
-    font-size: 0.93rem;
-    margin-bottom: 0.25rem;
-}
-
-.entry-item .authors strong {
-    color: var(--primary-color);
-}
-
-.entry-item .journal {
-    color: var(--text-light);
-    font-size: 0.88rem;
-}
-
-.entry-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-left: 0.75rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: var(--transition);
-}
-
-.entry-link:hover {
-    color: var(--secondary-color);
-}
-
-/* Presentations Section (conference abstracts + talks) */
-.presentations {
-    padding: 80px 20px;
-    background: var(--light-bg);
-}
-
-/* First subsection sits directly under the section title, so it needs no
-   divider or large top gap. */
-.subsection-title-first {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-}
-
-/* Software Section */
-.software {
-    padding: 80px 20px;
-    background: var(--white);
-}
-
-.software-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.software-card {
-    background: var(--light-bg);
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    display: flex;
-    gap: 1.5rem;
-}
-
-.software-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-.software-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    min-width: 55px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 0.2rem;
-}
-
-.software-body {
-    flex: 1;
-}
-
-.software-body h3 {
-    color: var(--text-dark);
-    font-size: 1.25rem;
-    margin-bottom: 0.4rem;
-}
-
-.software-meta {
-    color: var(--text-light);
-    font-size: 0.88rem;
-    margin-bottom: 0.7rem;
-}
-
-.software-status {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-.software-desc {
-    color: var(--text-light);
-    font-size: 0.93rem;
-    line-height: 1.7;
-    margin-bottom: 0.9rem;
-}
-
-.software-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.88rem;
-    transition: var(--transition);
-}
-
-.software-link:hover {
-    color: var(--secondary-color);
-    transform: translateX(3px);
-}
-
+/* Academic Service */
 .service-content {
     max-width: 800px;
     margin: 0 auto;
@@ -829,18 +935,12 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
-    transition: var(--transition);
-}
-
-.service-badge:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* Honors & Awards Section */
 .honors {
     padding: 80px 20px;
-    background: var(--white);
+    background: var(--light-bg);
 }
 
 .honors-timeline {
@@ -878,7 +978,7 @@ body {
     color: var(--primary-color);
     min-width: 80px;
     text-align: center;
-    background: var(--light-bg);
+    background: var(--white);
     padding: 0.5rem 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -888,7 +988,7 @@ body {
     flex: 1;
     display: flex;
     gap: 1.5rem;
-    background: var(--light-bg);
+    background: var(--white);
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: var(--shadow);
@@ -922,7 +1022,7 @@ body {
 /* Contact Section */
 .contact {
     padding: 80px 20px;
-    background: var(--light-bg);
+    background: var(--white);
 }
 
 .contact-content {
@@ -941,33 +1041,40 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: var(--white);
+    background: var(--light-bg);
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: var(--shadow);
 }
 
-.contact-item i {
+.contact-item > i {
     font-size: 2rem;
     color: var(--primary-color);
 }
 
-.contact-item h4 {
+.contact-item h3 {
     margin-bottom: 0.3rem;
+    font-size: 1.05rem;
+    color: var(--text-dark);
 }
 
 .contact-item p {
     color: var(--text-light);
 }
 
-.contact-item a:hover {
-    color: var(--primary-color) !important;
+.contact-item a {
+    color: var(--text-light);
+    text-decoration: none;
     transition: var(--transition);
+}
+
+.contact-item a:hover {
+    color: var(--primary-color);
 }
 
 /* Visitor Map Section */
 .visitor-map-section {
-    background: var(--white);
+    background: var(--light-bg);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--shadow);
@@ -990,7 +1097,7 @@ body {
 .map-description {
     color: var(--text-light);
     margin-bottom: 1.5rem;
-    font-size: 1rem;
+    font-size: 0.95rem;
 }
 
 .visitor-stats {
@@ -1006,7 +1113,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
     min-width: 150px;
@@ -1084,183 +1191,6 @@ body {
     color: var(--primary-color);
 }
 
-/* Responsive Design */
-/* Desktop: exactly 3 cards visible */
-@media (min-width: 769px) {
-    .publication-card {
-        flex: 0 0 calc((100% - 5rem) / 3);
-        width: calc((100% - 5rem) / 3);
-    }
-}
-
-/* Nav collapses to the hamburger as soon as the 8 tabs stop fitting on
-   one line, which happens well above the 768px mobile breakpoint. */
-@media (max-width: 1024px) {
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: var(--white);
-        width: 100%;
-        text-align: center;
-        transition: var(--transition);
-        box-shadow: var(--shadow);
-        padding: 2rem 0;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-    }
-
-    .hero-animation {
-        display: none;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-info {
-        grid-template-columns: 1fr;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .publications-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .publications {
-        padding: 60px 10px;
-    }
-    
-    .publications-carousel {
-        padding: 0 40px;
-        max-width: 100%;
-    }
-    
-    .publications-carousel-wrapper {
-        width: 100%;
-        overflow: hidden;
-    }
-    
-    .publications-scroll-container {
-        gap: 1rem;
-        padding: 1rem 1rem 1.5rem 1rem;
-    }
-    
-    .publication-card {
-        /* On mobile: show 1 card at a time */
-        flex: 0 0 calc(100% - 2rem);
-        width: calc(100% - 2rem);
-        min-width: 260px;
-    }
-    
-    .publication-image {
-        height: 150px;
-    }
-    
-    .publication-image i {
-        font-size: 3rem;
-    }
-    
-    .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 0.9rem;
-    }
-    
-    .carousel-btn-prev {
-        left: 2px;
-    }
-    
-    .carousel-btn-next {
-        right: 2px;
-    }
-    
-    .carousel-indicators {
-        margin-top: 1.5rem;
-    }
-    
-    .teaching-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .teaching-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .teaching-icon {
-        margin: 0 auto;
-    }
-    
-    .honor-item {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .honor-item::before {
-        display: none;
-    }
-    
-    .honor-year {
-        align-self: flex-start;
-    }
-    
-    .honor-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer .container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .visitor-map {
-        height: 350px;
-    }
-    
-    .visitor-stats {
-        gap: 1rem;
-    }
-    
-    .stat-item {
-        min-width: 120px;
-        padding: 0.8rem 1.5rem;
-    }
-    
-    .stat-number {
-        font-size: 2rem;
-    }
-    
-    .map-title {
-        font-size: 1.5rem;
-    }
-}
-
 /* Citation Modal */
 .modal {
     display: none;
@@ -1272,7 +1202,12 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+}
+
+.modal.open {
+    display: block;
 }
 
 .modal-content {
@@ -1303,19 +1238,22 @@ body {
     margin-bottom: 1rem;
 }
 
-.close {
+.modal-close {
     color: var(--text-light);
     position: absolute;
     right: 1.5rem;
-    top: 1.5rem;
+    top: 1rem;
     font-size: 2rem;
+    line-height: 1;
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem;
 }
 
-.close:hover,
-.close:focus {
+.modal-close:hover {
     color: var(--primary-color);
 }
 
@@ -1334,29 +1272,164 @@ body {
     overflow-y: auto;
 }
 
-/* Animations */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
+#copyCitation {
+    margin-top: 1rem;
+}
+
+/* Responsive Design */
+
+/* The nav collapses to the hamburger as soon as the 9 tabs stop fitting on
+   one line, which happens well above the 768px mobile breakpoint. */
+@media (max-width: 1100px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: var(--white);
+        width: 100%;
+        text-align: center;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+        padding: 2rem 0;
+        gap: 1.5rem;
     }
-    50% {
-        transform: translateY(-20px);
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: flex;
     }
 }
 
-.skill-card {
-    animation: float 3s ease-in-out infinite;
+@media (max-width: 900px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
 }
 
-.skill-card:nth-child(2) {
-    animation-delay: 0.5s;
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.85rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-buttons .btn {
+        justify-content: center;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .publications {
+        padding: 60px 10px;
+    }
+
+    .publications-scroll-container {
+        gap: 1rem;
+        padding: 1rem 1rem 1.5rem 1rem;
+    }
+
+    .publication-card {
+        /* On mobile: show 1 card at a time */
+        flex: 0 0 calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        min-width: 260px;
+    }
+
+    .publication-image {
+        height: 130px;
+    }
+
+    .publication-image i {
+        font-size: 3rem;
+    }
+
+    .teaching-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .teaching-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .teaching-icon {
+        margin: 0 auto;
+    }
+
+    .honor-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .honor-item::before {
+        display: none;
+    }
+
+    .honor-year {
+        align-self: flex-start;
+    }
+
+    .honor-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .visitor-map {
+        height: 350px;
+    }
+
+    .visitor-stats {
+        gap: 1rem;
+    }
+
+    .stat-item {
+        min-width: 120px;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .map-title {
+        font-size: 1.5rem;
+    }
 }
 
-.skill-card:nth-child(3) {
-    animation-delay: 1s;
+/* Honour the OS-level "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
-
-.skill-card:nth-child(4) {
-    animation-delay: 1.5s;
-}
-
