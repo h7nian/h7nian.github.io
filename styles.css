@@ -788,6 +788,20 @@ button:focus-visible {
     margin-bottom: 0.9rem;
 }
 
+/* Shown instead of a repo link when the source is not public */
+.software-note {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.software-note i {
+    color: var(--primary-color);
+}
+
 .software-link {
     display: inline-flex;
     align-items: center;
