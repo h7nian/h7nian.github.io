@@ -14,13 +14,13 @@
     --ink:          #0f1720;   /* headings and emphasis */
     --text:         #2b3440;   /* body copy */
     --text-muted:   #5b6875;   /* secondary lines: authors, venues */
-    --text-faint:   #8e99a5;   /* tertiary: dates, list markers */
+    --text-faint:   #6e767f;   /* tertiary: dates, markers -- 4.6:1, WCAG AA */
 
     /* surfaces */
     --bg:           #ffffff;
     --bg-subtle:    #f7f9fb;
     --rule:         #e4e9ef;
-    --rule-strong:  #cdd6e0;
+    --rule-strong:  #8f959c;
 
     /* accents */
     --accent:       #1b5e97;
@@ -54,12 +54,12 @@
         --ink:          #eef2f6;
         --text:         #c5cfd9;
         --text-muted:   #94a1af;
-        --text-faint:   #6d7986;
+        --text-faint:   #77828e;   /* 4.6:1 on --bg */
 
         --bg:           #12171d;
         --bg-subtle:    #191f27;
         --rule:         #232c36;
-        --rule-strong:  #35424f;
+        --rule-strong:  #5a656f;
 
         --accent:       #6fb3e8;
         --accent-hover: #9acbf2;
@@ -441,7 +441,7 @@ p { margin: 0 0 1.1rem; }
 .pub-venue {
     margin: 0.1rem 0 0;
     font-size: var(--t-small);
-    color: var(--text-faint);
+    color: var(--text-muted);
     line-height: 1.55;
 }
 
