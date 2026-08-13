@@ -1,8 +1,17 @@
-// Until an avatar.png is dropped into this folder, show initials rather than a
-// broken-image icon.
+// Drop a square image into this folder under any of these names and it becomes
+// the avatar; until one exists, show initials rather than a broken-image icon.
+const AVATAR_FILES = ['avatar.png', 'avatar.jpg', 'avatar.jpeg', 'avatar.webp'];
+
 const avatar = document.getElementById('avatar');
 if (avatar) {
-    const useInitials = () => {
+    let attempt = 0;
+
+    const next = () => {
+        attempt += 1;
+        if (attempt < AVATAR_FILES.length) {
+            avatar.src = AVATAR_FILES[attempt];
+            return;
+        }
         const fallback = document.createElement('div');
         fallback.className = 'avatar avatar-fallback';
         fallback.textContent = 'SZ';
@@ -10,11 +19,11 @@ if (avatar) {
         avatar.replaceWith(fallback);
     };
 
-    avatar.addEventListener('error', useInitials, { once: true });
+    avatar.addEventListener('error', next);
 
-    // This script runs at the end of the body, so a missing file will already
-    // have failed by now and the error event will never reach us.
-    if (avatar.complete && avatar.naturalWidth === 0) useInitials();
+    // This script runs at the end of the body, so a missing first file will
+    // already have failed and its error event will never reach us.
+    if (avatar.complete && avatar.naturalWidth === 0) next();
 }
 
 // Smooth scrolling for the section tabs.
