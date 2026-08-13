@@ -353,6 +353,8 @@ p { margin: 0 0 1.1rem; }
 }
 
 .plain-list li {
+    /* Stops a single word being left alone on the last line */
+    text-wrap: pretty;
     position: relative;
     padding-left: 1.15rem;
     margin-bottom: 0.9rem;
