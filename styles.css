@@ -28,13 +28,15 @@
     --accent-soft:  #eaf2fa;
     --warm:         #9a5b12;   /* submission status only */
 
-    /* Type scale, ~1.125 ratio. Every font-size on the page is one of these. */
-    --t-micro:  0.75rem;    /* 12px  chips, list markers */
-    --t-meta:   0.8125rem;  /* 13px  dates, software meta */
-    --t-small:  0.875rem;   /* 14px  authors, venues, sidebar */
+    /* Type scale. Steps are far enough apart to be seen as different sizes:
+       the old 12/13/14px tiers differed by under 8% and read as one blurred
+       level. Nothing drops below 13px, and rem throughout keeps the page
+       resizable to 200% (WCAG 1.4.4). */
+    --t-micro:  0.8125rem;  /* 13px  link chips, list markers, section labels */
+    --t-small:  0.9375rem;  /* 15px  authors, venues, sidebar, nav, dates */
     --t-body:   1rem;       /* 16px  running text */
-    --t-lead:   1.125rem;   /* 18px  subheadings, publication titles */
-    --t-name:   1.5rem;     /* 24px  the name */
+    --t-lead:   1.1875rem;  /* 19px  subheadings, publication titles */
+    --t-name:   1.625rem;   /* 26px  the name */
 
     /* Spacing scale */
     --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
@@ -250,7 +252,7 @@ section { scroll-margin-top: 5rem; }
     padding-bottom: 1.4rem;
     border-bottom: 1px solid var(--rule);
     color: var(--text-muted);
-    font-size: var(--t-meta);
+    font-size: var(--t-small);
     line-height: 1.6;
 }
 
@@ -392,7 +394,7 @@ p { margin: 0 0 1.1rem; }
 
 .row-date {
     color: var(--text-faint);
-    font-size: var(--t-meta);
+    font-size: var(--t-small);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.01em;
 }
@@ -513,7 +515,7 @@ p { margin: 0 0 1.1rem; }
 
 .sw-meta {
     color: var(--text-faint);
-    font-size: var(--t-meta);
+    font-size: var(--t-small);
 }
 
 .sw-desc {
@@ -548,7 +550,7 @@ p { margin: 0 0 1.1rem; }
     padding-top: 1.4rem;
     border-top: 1px solid var(--rule);
     color: var(--text-faint);
-    font-size: var(--t-meta);
+    font-size: var(--t-small);
 }
 
 .footer p { margin: 0; }
@@ -584,12 +586,10 @@ p { margin: 0 0 1.1rem; }
 }
 
 @media (max-width: 560px) {
-    body { font-size: 15px; }
-
     .topbar-inner { padding: 0.7rem 1.15rem; }
     .topbar-name { display: none; }
     .section-nav { gap: 0.25rem 1.1rem; }
-    .section-nav a { font-size: var(--t-meta); }
+    .section-nav a { font-size: var(--t-small); }
 
     .layout { padding: 2rem 1.15rem 3rem; }
 
@@ -605,7 +605,7 @@ p { margin: 0 0 1.1rem; }
         margin-bottom: 1.1rem;
     }
 
-    .name { font-size: 1.375rem; }
+    .name { font-size: 1.5rem; }
 
     /* Stack the date above its row instead of squeezing two columns */
     .entry-rows li {
