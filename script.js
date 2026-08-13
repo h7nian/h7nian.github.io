@@ -1,3 +1,22 @@
+// Until an avatar.png is dropped into this folder, show initials rather than a
+// broken-image icon.
+const avatar = document.getElementById('avatar');
+if (avatar) {
+    const useInitials = () => {
+        const fallback = document.createElement('div');
+        fallback.className = 'avatar avatar-fallback';
+        fallback.textContent = 'SZ';
+        fallback.setAttribute('aria-hidden', 'true');
+        avatar.replaceWith(fallback);
+    };
+
+    avatar.addEventListener('error', useInitials, { once: true });
+
+    // This script runs at the end of the body, so a missing file will already
+    // have failed by now and the error event will never reach us.
+    if (avatar.complete && avatar.naturalWidth === 0) useInitials();
+}
+
 // Smooth scrolling for in-page links.
 // A bare "#" is not a valid CSS selector, so it must be filtered out before
 // reaching querySelector.
@@ -27,12 +46,6 @@ const copyButton = document.getElementById('copyCitation');
 let lastFocused = null;
 
 const citations = {
-    'gualo': `@inproceedings{wang2026gualo,
-  title={GUALO: A Generalizable Uncertainty-Aware AI Agent for Logic Optimization},
-  author={Wang, Jingxin and Zhang, Sinian and Liang, Yun and Lin, Yibo and Ren, Pengpeng and Wang, Runsheng and Qian, Weikang},
-  booktitle={IEEE/ACM International Conference on Computer-Aided Design (ICCAD)},
-  year={2026}
-}`,
     'antidiabetic_hf': `@article{jodlowskasiewert2026antidiabetic,
   title={Antidiabetic Drug Associations With Heart Failure Outcomes: Real-World Evidence Study Using Electronic Health Records},
   author={Jodlowska-Siewert, Elzbieta and Chen, Yunhui and Zhang, Sinian and Li, Jia and Dellavalle, Robert and Zhang, Rui and Hou, Jue},

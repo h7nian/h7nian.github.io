@@ -50,33 +50,31 @@
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
 
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="topbar-name" href="#about">Sinian Zhang</a>
+        <nav class="section-nav" aria-label="Sections">
+            <a href="#about">About</a>
+            <a href="#publications">Publications</a>
+            <a href="#software">Software</a>
+            <a href="#talks">Talks</a>
+            <a href="#teaching">Teaching</a>
+            <a href="#service">Service</a>
+            <a href="#honors">Honors</a>
+        </nav>
+    </div>
+</header>
+
 <div class="layout">
 
     <!-- ============ Sidebar: identity, links, section nav ============ -->
     <aside class="sidebar">
         <div class="sidebar-inner">
-            <!-- TO USE YOUR OWN PICTURE: save it in this folder as avatar.png and
-                 replace this whole <svg> block with:
-                     <img class="avatar" src="avatar.png" alt="Sinian Zhang">
-                 Nothing else needs to change; .avatar already crops to a circle.
-                 (The drawing below is an original placeholder.) -->
-            <svg class="avatar" viewBox="0 0 100 100" role="img" aria-label="Illustration of a student reading">
-                <circle cx="50" cy="50" r="50" fill="#fdf1df"/>
-                <!-- shoulders -->
-                <path d="M24 100c0-14 12-22 26-22s26 8 26 22z" fill="#5b8bc9"/>
-                <!-- head -->
-                <circle cx="50" cy="45" r="19" fill="#f9dcbc"/>
-                <!-- hair -->
-                <path d="M31 44c0-13 8-21 19-21s19 8 19 21c-4-7-10-10-19-10s-15 3-19 10z" fill="#3a2b1f"/>
-                <!-- eyes + smile -->
-                <circle cx="43" cy="46" r="2.3" fill="#2b2118"/>
-                <circle cx="57" cy="46" r="2.3" fill="#2b2118"/>
-                <path d="M45 54q5 4 10 0" fill="none" stroke="#2b2118" stroke-width="1.8" stroke-linecap="round"/>
-                <!-- open book, held in front -->
-                <path d="M20 84q15-7 30-1 15-6 30 1v10q-15-6-30 0-15-6-30 0z"
-                      fill="#ffffff" stroke="#c9ab84" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M50 83v10" stroke="#c9ab84" stroke-width="2"/>
-            </svg>
+            <!-- TO SET A PICTURE: save any square image in this folder as
+                 avatar.png. Nothing else needs changing -- it is cropped to a
+                 circle automatically, and until the file exists the initials
+                 below are shown instead. -->
+            <img class="avatar" id="avatar" src="avatar.png" alt="Sinian Zhang">
 
             <h1 class="name">Sinian Zhang</h1>
             <p class="role">PhD Student in Biostatistics</p>
@@ -112,17 +110,6 @@
                     </a>
                 </li>
             </ul>
-
-            <nav class="section-nav" aria-label="Sections">
-                <a href="#about">About</a>
-                <a href="#news">News</a>
-                <a href="#publications">Publications</a>
-                <a href="#software">Software</a>
-                <a href="#talks">Talks</a>
-                <a href="#teaching">Teaching</a>
-                <a href="#service">Service</a>
-                <a href="#honors">Honors</a>
-            </nav>
         </div>
     </aside>
 
@@ -135,8 +122,7 @@
                 I am a PhD student in Biostatistics at the University of Minnesota, Twin Cities,
                 advised by <a href="https://sites.google.com/site/sandraaddosafo/" target="_blank" rel="noopener">Sandra Safo</a>
                 and Jue Hou in the Division of Biostatistics and Health Data Science. I am also
-                mentored by Rui Zhang (Computational Health Sciences) and Ju Sun
-                (Computer Science &amp; Engineering).
+                mentored by Ju Sun (Computer Science &amp; Engineering).
             </p>
             <p>
                 My research develops statistically principled methods for
@@ -148,10 +134,9 @@
 
             <h3>Research Interests</h3>
             <ul class="plain-list">
-                <li><strong>Uncertainty Quantification &amp; Trustworthy AI</strong> &mdash; selective prediction and classification, risk&ndash;coverage optimization, uncertainty-aware decision making.</li>
-                <li><strong>Agentic AI &amp; LLM Systems</strong> &mdash; multi-agent workflows for automated scientific data analysis, human-in-the-loop orchestration, retrieval-augmented reasoning over biomedical knowledge.</li>
-                <li><strong>Transfer Learning &amp; Causal Inference</strong> &mdash; distributional transfer learning, federated causal estimation, high-dimensional confounding, reinforcement learning.</li>
-                <li><strong>Health Informatics &amp; Real-World Evidence</strong> &mdash; electronic health record phenotyping, comparative effectiveness, biomedical knowledge graphs.</li>
+                <li><strong>Transfer and causal learning</strong> &mdash; building estimators that keep their statistical guarantees when the data distribution shifts or when evidence must be pooled across sites, spanning distributional transfer learning, federated causal estimation under high-dimensional confounding, and reinforcement learning with generalized linear structure.</li>
+                <li><strong>Uncertainty and selective prediction</strong> &mdash; deciding when a model should abstain rather than guess, by designing selective prediction and classification rules that make the risk&ndash;coverage trade-off explicit and by quantifying the uncertainty those decisions rest on.</li>
+                <li><strong>Agentic AI for scientific data</strong> &mdash; multi-agent LLM systems that automate end-to-end analysis under human review, applied together with the methods above to electronic health records, biomedical knowledge graphs, and medical imaging.</li>
             </ul>
 
             <h3>Education</h3>
@@ -173,32 +158,6 @@
             </ul>
         </section>
 
-        <!-- Keep the newest item first; trim the list as it grows. -->
-        <section id="news">
-            <h2>News</h2>
-            <ul class="news-list">
-                <li>
-                    <span class="news-date">Aug 2026</span>
-                    <span class="news-body">Presenting <em>Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</em> at the 7th ICSA-Canada Chapter Symposium, McGill University.</span>
-                </li>
-                <li>
-                    <span class="news-date">2026</span>
-                    <span class="news-body"><em>GUALO</em>, an uncertainty-aware AI agent for logic optimization, was accepted at <strong>ICCAD 2026</strong>.</span>
-                </li>
-                <li>
-                    <span class="news-date">2026</span>
-                    <span class="news-body">Won <strong>1st place</strong> and a $3,000 prize at the 7th Annual UMN Interdisciplinary Health Data Competition.</span>
-                </li>
-                <li>
-                    <span class="news-date">2025</span>
-                    <span class="news-body"><em>Wasserstein Transfer Learning</em> was accepted at <strong>NeurIPS 2025</strong>.</span>
-                </li>
-                <li>
-                    <span class="news-date">2025</span>
-                    <span class="news-body"><em>DrKGC</em> was accepted to the <strong>Findings of EMNLP 2025</strong>.</span>
-                </li>
-            </ul>
-        </section>
 
         <section id="publications">
             <h2>Publications</h2>
@@ -209,12 +168,6 @@
 
             <h3>Peer-Reviewed Publications</h3>
             <ol class="pub-list" reversed>
-                <li>
-                    <p class="pub-title">GUALO: A Generalizable Uncertainty-Aware AI Agent for Logic Optimization</p>
-                    <p class="pub-authors">Jingxin Wang<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Yun Liang, Yibo Lin, Pengpeng Ren, Runsheng Wang, Weikang Qian</p>
-                    <p class="pub-venue"><em>IEEE/ACM International Conference on Computer-Aided Design (ICCAD)</em>, 2026</p>
-                    <p class="pub-links"><button type="button" class="cite-btn" data-citation="gualo">BibTeX</button></p>
-                </li>
                 <li>
                     <p class="pub-title">Antidiabetic Drug Associations With Heart Failure Outcomes: Real-World Evidence Study Using Electronic Health Records</p>
                     <p class="pub-authors">Elzbieta Jodlowska-Siewert, Yunhui Chen, <strong>Sinian Zhang</strong>, Jia Li, Robert Dellavalle, Rui Zhang, Jue Hou</p>
@@ -298,7 +251,7 @@
                 <li>
                     <p class="pub-title">Aligning Language Models with Selective Prediction</p>
                     <p class="pub-authors">Gaoxiang Luo, Yifan Wu, <strong>Sinian Zhang</strong>, Aryan Deshwal, Ju Sun</p>
-                    <p class="pub-venue"><span class="status">Under review</span>, <em>NeurIPS</em> 2026</p>
+                    <p class="pub-venue"><span class="status">Under review</span></p>
                     <p class="pub-links">
                         <a href="https://arxiv.org/abs/2607.03528" target="_blank" rel="noopener">arXiv</a>
                         <button type="button" class="cite-btn" data-citation="selective_prediction">BibTeX</button>
@@ -307,7 +260,7 @@
                 <li>
                     <p class="pub-title">Ensemble Selective Classification</p>
                     <p class="pub-authors"><strong>Sinian Zhang</strong><sup>*</sup>, Chongwei Chen<sup>*</sup>, Guanchen Li, Ju Sun</p>
-                    <p class="pub-venue"><span class="status">Under review</span>, <em>NeurIPS</em> 2026</p>
+                    <p class="pub-venue"><span class="status">Under review</span></p>
                     <p class="pub-links">
                         <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener">Code</a>
                     </p>
@@ -315,7 +268,7 @@
                 <li>
                     <p class="pub-title">Predicting the Timing of First Sustained Cognitive Worsening in Alzheimer's Disease Using Real-World Clinical Data and Machine Learning</p>
                     <p class="pub-authors">Shruthi Venkatesh<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Wen Zhu, Michele Morris, Rocco Mercurio, Sarah B. Berman, Hansruedi Mathys, Abby L. Olsen, C. Elizabeth Shaaban, Shyam Visweswaran, Oscar L. Lopez, Tianxi Cai, Jue Hou, Zongqi Xia</p>
-                    <p class="pub-venue"><span class="status">Under review</span>, <em>Alzheimer's Research and Therapy</em></p>
+                    <p class="pub-venue"><span class="status">Under review</span></p>
                     <p class="pub-links">
                         <a href="https://doi.org/10.64898/2026.06.02.26354764" target="_blank" rel="noopener">medRxiv</a>
                         <button type="button" class="cite-btn" data-citation="ad_worsening">BibTeX</button>
@@ -332,34 +285,6 @@
                 </li>
             </ol>
 
-            <h3>Working Papers</h3>
-            <ol class="pub-list">
-                <li>
-                    <p class="pub-title">Risk-Aligned Confidence for Selective Segmentation</p>
-                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Chongwei Chen, Jiandong Chen, Lingjie Su, Ju Sun</p>
-                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
-                </li>
-                <li>
-                    <p class="pub-title">Supervised Multi-View Deep Learning with Exponential-Family Reconstruction, Feature Selection, and Fairness Assessment</p>
-                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Sandra Safo</p>
-                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
-                </li>
-                <li>
-                    <p class="pub-title">Triply Robust Surrogate Assisted Semi-supervised Estimation of High-dimensional Linear Regression with Missing-at-Random Outcomes</p>
-                    <p class="pub-authors">Jue Hou<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Andrea Rotnitzky, James M. Robins, Tianxi Cai</p>
-                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
-                </li>
-                <li>
-                    <p class="pub-title">Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</p>
-                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Yuanlin Feng, Jue Hou</p>
-                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
-                </li>
-                <li>
-                    <p class="pub-title">IntegMultiReg: An R Package for Integrative Bayesian Multi-Regression of Multi-Platform Biomarkers</p>
-                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Jianfeng Wang, Thierry Chekouo</p>
-                    <p class="pub-venue"><span class="status">In preparation</span>, 2026 &middot; accompanying R package submitted to CRAN</p>
-                </li>
-            </ol>
         </section>
 
         <section id="software">
