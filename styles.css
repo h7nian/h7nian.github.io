@@ -29,6 +29,11 @@
     --warm:         #9a5b12;   /* submission status only */
 
     --maxw:         720px;
+
+    /* Serif for content headings, sans for UI and metadata. Both stacks are
+       system fonts, so the page still makes no network requests. */
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style",
+             "Palatino Linotype", Palatino, Georgia, serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +43,8 @@
         --text-muted:   #94a1af;
         --text-faint:   #6d7986;
 
-        --bg:           #0f1419;
-        --bg-subtle:    #161d25;
+        --bg:           #12171d;
+        --bg-subtle:    #191f27;
         --rule:         #232c36;
         --rule-strong:  #35424f;
 
@@ -211,7 +216,8 @@ section { scroll-margin-top: 5rem; }
 }
 
 .name {
-    font-size: 1.55rem;
+    font-family: var(--serif);
+    font-size: 1.6rem;
     line-height: 1.2;
     margin: 0 0 0.35rem;
     font-weight: 680;
@@ -220,8 +226,8 @@ section { scroll-margin-top: 5rem; }
 }
 
 .role {
-    margin: 0 0 0.6rem;
-    color: var(--accent);
+    margin: 0 0 0.7rem;
+    color: var(--text);
     font-size: 0.92rem;
     font-weight: 550;
 }
@@ -287,7 +293,7 @@ h2 {
     font-weight: 700;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--ink);
     margin: 0 0 1.6rem;
     padding-bottom: 0.65rem;
     border-bottom: 1px solid var(--rule);
@@ -305,9 +311,11 @@ h2::after {
 }
 
 h3 {
-    font-size: 0.95rem;
+    font-family: var(--serif);
+    font-size: 1.08rem;
     font-weight: 650;
-    margin: 2.25rem 0 1rem;
+    letter-spacing: -0.005em;
+    margin: 2.25rem 0 1.1rem;
     color: var(--ink);
 }
 
@@ -383,34 +391,44 @@ p { margin: 0 0 1.1rem; }
 }
 
 .pub-list li {
-    margin-bottom: 1.6rem;
-    padding-left: 0.25rem;
+    margin-bottom: 1.85rem;
+    padding-left: 0.3rem;
 }
 
 .pub-list li:last-child { margin-bottom: 0.5rem; }
 
 .pub-list li::marker {
-    color: var(--text-faint);
-    font-size: 0.8em;
+    color: var(--rule-strong);
+    font-size: 0.78em;
     font-variant-numeric: tabular-nums;
 }
 
 .pub-title {
-    margin: 0 0 0.25rem;
-    font-weight: 620;
-    font-size: 1rem;
-    line-height: 1.45;
+    font-family: var(--serif);
+    margin: 0 0 0.3rem;
+    font-weight: 600;
+    font-size: 1.06rem;
+    line-height: 1.4;
     color: var(--ink);
-    letter-spacing: -0.005em;
 }
 
-.pub-authors,
-.pub-venue {
+.pub-authors {
     margin: 0;
-    font-size: 0.87rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.6;
 }
+
+/* One notch quieter than the author line, so the eye reads
+   title -> authors -> venue without needing to hunt. */
+.pub-venue {
+    margin: 0.1rem 0 0;
+    font-size: 0.84rem;
+    color: var(--text-faint);
+    line-height: 1.55;
+}
+
+.pub-venue em { color: var(--text-muted); }
 
 .pub-authors sup { color: var(--text-faint); }
 
@@ -432,13 +450,13 @@ p { margin: 0 0 1.1rem; }
 
 .pub-links a {
     display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 550;
-    letter-spacing: 0.02em;
-    line-height: 1.6;
-    padding: 0.1rem 0.65rem;
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    line-height: 1.65;
+    padding: 0.05rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
     color: var(--text-muted);
     background: transparent;
 }
@@ -471,8 +489,9 @@ p { margin: 0 0 1.1rem; }
 }
 
 .sw-head strong {
-    font-size: 1rem;
-    letter-spacing: -0.005em;
+    font-family: var(--serif);
+    font-size: 1.06rem;
+    font-weight: 600;
 }
 
 .sw-meta {
