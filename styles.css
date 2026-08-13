@@ -1,35 +1,58 @@
 /* ===========================================================================
    Sinian Zhang — academic homepage
-   A conventional two-column academic layout: a sticky identity sidebar and a
-   single reading column. Plain HTML/CSS, no frameworks, no external requests.
+
+   A sticky tab bar over a two-column layout: identity sidebar, single reading
+   column. Plain HTML/CSS, no frameworks, no external requests, no web fonts.
+
+   Colour system: one ink scale for text, one blue accent for anything
+   interactive, and one amber accent used only for submission status, so a
+   glance separates "published" from "in progress".
    =========================================================================== */
 
 :root {
-    --text:        #1a1a1a;
-    --text-muted:  #5f6b74;
-    --text-faint:  #8a949c;
-    --accent:      #10508a;
-    --accent-soft: #eaf1f8;
-    --bg:          #ffffff;
-    --bg-alt:      #f7f8f9;
-    --rule:        #e2e6ea;
-    --maxw:        720px;
+    /* ink scale */
+    --ink:          #0f1720;   /* headings and emphasis */
+    --text:         #2b3440;   /* body copy */
+    --text-muted:   #5b6875;   /* secondary lines: authors, venues */
+    --text-faint:   #8e99a5;   /* tertiary: dates, list markers */
+
+    /* surfaces */
+    --bg:           #ffffff;
+    --bg-subtle:    #f7f9fb;
+    --rule:         #e4e9ef;
+    --rule-strong:  #cdd6e0;
+
+    /* accents */
+    --accent:       #1b5e97;
+    --accent-hover: #123f68;
+    --accent-soft:  #eaf2fa;
+    --warm:         #9a5b12;   /* submission status only */
+
+    --maxw:         720px;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --text:        #e6e8ea;
-        --text-muted:  #a6b0b8;
-        --text-faint:  #7d878f;
-        --accent:      #7ab3e8;
-        --accent-soft: #16232f;
-        --bg:          #14181c;
-        --bg-alt:      #1a1f24;
-        --rule:        #2a3138;
+        --ink:          #eef2f6;
+        --text:         #c5cfd9;
+        --text-muted:   #94a1af;
+        --text-faint:   #6d7986;
+
+        --bg:           #0f1419;
+        --bg-subtle:    #161d25;
+        --rule:         #232c36;
+        --rule-strong:  #35424f;
+
+        --accent:       #6fb3e8;
+        --accent-hover: #9acbf2;
+        --accent-soft:  #152332;
+        --warm:         #d9a441;
     }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
@@ -38,23 +61,35 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
                  Arial, "Noto Sans", sans-serif;
     font-size: 16px;
-    line-height: 1.65;
+    line-height: 1.68;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
 }
 
 a {
     color: var(--accent);
     text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
-a:hover { text-decoration: underline; }
+a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
 
-a:focus-visible,
-button:focus-visible {
+a:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
     border-radius: 2px;
 }
+
+strong { color: var(--ink); font-weight: 650; }
 
 .skip-link {
     position: absolute;
@@ -64,18 +99,26 @@ button:focus-visible {
     background: var(--accent);
     color: #fff;
     padding: 0.6rem 1rem;
+    font-size: 0.85rem;
 }
 
 .skip-link:focus { left: 0; }
 
-/* --------------------------------------------------------- top nav bar -- */
+/* ------------------------------------------------------------ tab bar -- */
 
 .topbar {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--rule);
+}
+
+/* Browsers without color-mix still get a solid, readable bar. */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .topbar { background: var(--bg); }
 }
 
 .topbar-inner {
@@ -83,16 +126,17 @@ button:focus-visible {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem 2rem;
+    gap: 0.4rem 2rem;
     max-width: 1120px;
     margin: 0 auto;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2rem;
 }
 
 .topbar-name {
     font-weight: 650;
     font-size: 0.95rem;
-    color: var(--text);
+    letter-spacing: -0.01em;
+    color: var(--ink);
 }
 
 .topbar-name:hover { text-decoration: none; color: var(--accent); }
@@ -100,7 +144,7 @@ button:focus-visible {
 .section-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 1.35rem;
+    gap: 0.2rem 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -110,47 +154,47 @@ button:focus-visible {
     display: inline-block;
     color: var(--text-muted);
     font-size: 0.85rem;
-    padding: 0.15rem 0;
+    padding: 0.2rem 0;
     border-bottom: 2px solid transparent;
 }
 
 .section-nav a:hover {
-    color: var(--accent);
+    color: var(--ink);
     border-bottom-color: var(--accent);
     text-decoration: none;
 }
 
-/* --------------------------------------------------------------- layout -- */
+/* ------------------------------------------------------------- layout -- */
 
 .layout {
     display: grid;
     grid-template-columns: 250px minmax(0, var(--maxw));
-    gap: 4rem;
+    gap: 4.5rem;
     justify-content: center;
     max-width: 1120px;
     margin: 0 auto;
-    padding: 3rem 2rem 4rem;
+    padding: 3.5rem 2rem 5rem;
 }
 
 /* Keep anchor targets clear of the sticky bar */
-section { scroll-margin-top: 4.5rem; }
+section { scroll-margin-top: 5rem; }
 
-/* -------------------------------------------------------------- sidebar -- */
+/* ------------------------------------------------------------ sidebar -- */
 
 .sidebar-inner {
     position: sticky;
-    top: 3rem;
+    top: 4.5rem;
 }
 
 .avatar {
     display: block;
-    width: 130px;
-    height: 130px;
+    width: 132px;
+    height: 132px;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--bg-alt);
+    background: var(--bg-subtle);
     border: 1px solid var(--rule);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.4rem;
 }
 
 /* Shown until an avatar.png exists in this folder */
@@ -158,95 +202,126 @@ section { scroll-margin-top: 4.5rem; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.4rem;
+    background: var(--accent-soft);
+    border-color: transparent;
+    color: var(--accent);
+    font-size: 2.3rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--text-faint);
+    letter-spacing: 0.04em;
 }
 
 .name {
-    font-size: 1.5rem;
-    line-height: 1.25;
-    margin: 0 0 0.3rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin: 0 0 0.35rem;
+    font-weight: 680;
+    letter-spacing: -0.02em;
+    color: var(--ink);
 }
 
 .role {
-    margin: 0 0 0.5rem;
-    color: var(--text);
-    font-size: 0.95rem;
+    margin: 0 0 0.6rem;
+    color: var(--accent);
+    font-size: 0.92rem;
+    font-weight: 550;
 }
 
 .affil {
-    margin: 0 0 1.4rem;
+    margin: 0 0 1.5rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--rule);
     color: var(--text-muted);
-    font-size: 0.85rem;
-    line-height: 1.55;
+    font-size: 0.84rem;
+    line-height: 1.6;
 }
 
-.contact-links,
-.section-nav {
+.contact-links {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.contact-links li { margin-bottom: 0.5rem; }
+.contact-links li { margin-bottom: 0.6rem; }
 
 .contact-links a {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    font-size: 0.85rem;
+    gap: 0.6rem;
+    font-size: 0.84rem;
     color: var(--text-muted);
     word-break: break-word;
 }
 
-.contact-links a:hover { color: var(--accent); }
+.contact-links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.contact-links .ic { color: var(--text-faint); }
+.contact-links a:hover .ic { color: var(--accent); }
 
 .contact-links .cv-link {
     color: var(--accent);
     font-weight: 600;
 }
 
+.contact-links .cv-link .ic { color: var(--accent); }
+
 .ic {
     flex: none;
     width: 15px;
     height: 15px;
+    transition: color 0.15s ease;
 }
 
-
-/* -------------------------------------------------------------- content -- */
+/* ------------------------------------------------------------ content -- */
 
 .content { min-width: 0; }
 
-section { margin-bottom: 3.25rem; }
+section { margin-bottom: 3.5rem; }
+section:last-of-type { margin-bottom: 2rem; }
 
 h2 {
-    font-size: 1.05rem;
-    font-weight: 650;
-    letter-spacing: 0.07em;
+    position: relative;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--text);
-    margin: 0 0 1.25rem;
-    padding-bottom: 0.5rem;
+    color: var(--accent);
+    margin: 0 0 1.6rem;
+    padding-bottom: 0.65rem;
     border-bottom: 1px solid var(--rule);
 }
 
+/* Short accent tick that anchors each section heading */
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.25rem;
+    height: 2px;
+    background: var(--accent);
+}
+
 h3 {
-    font-size: 0.98rem;
+    font-size: 0.95rem;
     font-weight: 650;
-    margin: 2rem 0 0.85rem;
-    color: var(--text);
+    margin: 2.25rem 0 1rem;
+    color: var(--ink);
 }
 
 section > h3:first-of-type { margin-top: 1.5rem; }
 
-p { margin: 0 0 1rem; }
+p { margin: 0 0 1.1rem; }
 
-.muted    { color: var(--text-muted); }
-.note     { color: var(--text-muted); font-size: 0.88rem; }
+.muted { color: var(--text-muted); }
+
+.note {
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    padding-bottom: 0.5rem;
+}
 
 /* Research interests */
 .plain-list {
@@ -257,122 +332,125 @@ p { margin: 0 0 1rem; }
 
 .plain-list li {
     position: relative;
-    padding-left: 1.1rem;
-    margin-bottom: 0.7rem;
+    padding-left: 1.15rem;
+    margin-bottom: 0.9rem;
     color: var(--text-muted);
 }
 
 .plain-list li::before {
-    content: "—";
+    content: "";
     position: absolute;
     left: 0;
-    color: var(--text-faint);
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
 }
 
-.plain-list strong { color: var(--text); }
+/* Date-on-the-left rows: education, teaching, service, honors ------------- */
 
-/* Two-column rows: date on the left, content on the right ------------------ */
-
-.edu-list,
-.news-list,
 .entry-rows {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.edu-list li,
-.news-list li,
 .entry-rows li {
     display: grid;
     grid-template-columns: 8.5rem minmax(0, 1fr);
-    gap: 1rem;
-    padding: 0.6rem 0;
+    gap: 1.25rem;
+    padding: 0.75rem 0;
     align-items: baseline;
 }
 
-.edu-list li + li,
-.entry-rows li + li {
-    border-top: 1px solid var(--rule);
-}
+.entry-rows li + li { border-top: 1px solid var(--rule); }
 
-.edu-date,
-.news-date,
 .row-date {
     color: var(--text-faint);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
 }
 
-.news-body { color: var(--text-muted); }
-.news-body strong { color: var(--text); }
+.row-body .muted { color: var(--text-muted); }
 
-/* Publications ------------------------------------------------------------ */
+/* Publications ----------------------------------------------------------- */
 
 .pub-list {
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: 1.6rem;
 }
 
 .pub-list li {
-    margin-bottom: 1.4rem;
-    padding-left: 0.2rem;
+    margin-bottom: 1.6rem;
+    padding-left: 0.25rem;
 }
+
+.pub-list li:last-child { margin-bottom: 0.5rem; }
 
 .pub-list li::marker {
     color: var(--text-faint);
-    font-size: 0.85em;
+    font-size: 0.8em;
+    font-variant-numeric: tabular-nums;
 }
 
 .pub-title {
-    margin: 0 0 0.15rem;
-    font-weight: 600;
+    margin: 0 0 0.25rem;
+    font-weight: 620;
+    font-size: 1rem;
     line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
 }
 
 .pub-authors,
 .pub-venue {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     color: var(--text-muted);
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
-.pub-authors strong { color: var(--text); font-weight: 650; }
+.pub-authors sup { color: var(--text-faint); }
 
+/* Amber marks anything not yet published, so it reads differently from a
+   venue name at a glance. */
 .status {
-    color: var(--accent);
-    font-weight: 600;
+    color: var(--warm);
+    font-weight: 620;
 }
 
-/* Link row shared by publications and software */
+/* Link chips ------------------------------------------------------------- */
+
 .pub-links {
-    margin: 0.4rem 0 0;
+    margin: 0.55rem 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.45rem;
 }
 
 .pub-links a {
     display: inline-block;
-    font: inherit;
-    font-size: 0.78rem;
-    line-height: 1.5;
-    padding: 0.08rem 0.5rem;
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    background: var(--bg-alt);
-    color: var(--accent);
-    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 550;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    padding: 0.1rem 0.65rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    color: var(--text-muted);
+    background: transparent;
 }
 
 .pub-links a:hover {
-    background: var(--accent-soft);
+    color: var(--accent);
     border-color: var(--accent);
+    background: var(--accent-soft);
     text-decoration: none;
 }
 
-/* Software ---------------------------------------------------------------- */
+/* Software --------------------------------------------------------------- */
 
 .sw-list {
     list-style: none;
@@ -380,32 +458,36 @@ p { margin: 0 0 1rem; }
     padding: 0;
 }
 
-.sw-list li {
-    padding: 0.9rem 0;
-}
-
+.sw-list li { padding: 1rem 0; }
 .sw-list li + li { border-top: 1px solid var(--rule); }
+.sw-list li:first-child { padding-top: 0; }
 
 .sw-head {
-    margin: 0 0 0.2rem;
+    margin: 0 0 0.3rem;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.6rem;
+    gap: 0.3rem 0.7rem;
+}
+
+.sw-head strong {
+    font-size: 1rem;
+    letter-spacing: -0.005em;
 }
 
 .sw-meta {
     color: var(--text-faint);
-    font-size: 0.8rem;
+    font-size: 0.79rem;
 }
 
 .sw-desc {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     color: var(--text-muted);
+    line-height: 1.6;
 }
 
-/* Talks ------------------------------------------------------------------- */
+/* Talks ------------------------------------------------------------------ */
 
 .simple-list {
     list-style: none;
@@ -414,45 +496,55 @@ p { margin: 0 0 1rem; }
 }
 
 .simple-list li {
-    padding: 0.6rem 0;
-    font-size: 0.92rem;
+    padding: 0.75rem 0;
+    font-size: 0.93rem;
 }
 
 .simple-list li + li { border-top: 1px solid var(--rule); }
-.simple-list .muted { font-size: 0.88rem; }
+.simple-list li:first-child { padding-top: 0; }
+.simple-list .muted { font-size: 0.87rem; }
+.simple-list strong { color: var(--ink); }
 
-/* Footer ------------------------------------------------------------------ */
+/* Footer ----------------------------------------------------------------- */
 
 .footer {
     margin-top: 4rem;
-    padding-top: 1.25rem;
+    padding-top: 1.4rem;
     border-top: 1px solid var(--rule);
     color: var(--text-faint);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
 }
 
 .footer p { margin: 0; }
 
-/* Responsive -------------------------------------------------------------- */
+/* Responsive ------------------------------------------------------------- */
 
-@media (max-width: 900px) {
-    .topbar-inner { padding: 0.75rem 1.5rem; }
+@media (max-width: 980px) {
+    .topbar-inner { padding: 0.8rem 1.5rem; }
 
     .layout {
         grid-template-columns: minmax(0, 1fr);
-        gap: 2.5rem;
-        padding: 2.25rem 1.5rem 3rem;
+        gap: 2.75rem;
+        padding: 2.5rem 1.5rem 3.5rem;
     }
 
     .sidebar-inner {
         position: static;
         display: grid;
-        grid-template-columns: 130px minmax(0, 1fr);
-        gap: 0 1.5rem;
+        grid-template-columns: 132px minmax(0, 1fr);
+        gap: 0 1.75rem;
         align-items: start;
+        padding-bottom: 2.25rem;
+        border-bottom: 1px solid var(--rule);
     }
 
     .avatar { grid-row: span 4; margin-bottom: 0; }
+
+    .affil {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 1.1rem;
+    }
 }
 
 @media (max-width: 560px) {
@@ -460,10 +552,10 @@ p { margin: 0 0 1rem; }
 
     .topbar-inner { padding: 0.7rem 1.15rem; }
     .topbar-name { display: none; }
-    .section-nav { gap: 0.3rem 1rem; }
+    .section-nav { gap: 0.25rem 1.1rem; }
     .section-nav a { font-size: 0.8rem; }
 
-    .layout { padding: 1.75rem 1.15rem 2.5rem; }
+    .layout { padding: 2rem 1.15rem 3rem; }
 
     .sidebar-inner {
         grid-template-columns: minmax(0, 1fr);
@@ -472,22 +564,52 @@ p { margin: 0 0 1rem; }
 
     .avatar {
         grid-row: auto;
-        width: 104px;
-        height: 104px;
-        margin-bottom: 1rem;
+        width: 96px;
+        height: 96px;
+        margin-bottom: 1.1rem;
     }
 
-    /* Stack the date above its content instead of squeezing two columns */
-    .edu-list li,
-    .news-list li,
+    .name { font-size: 1.4rem; }
+
+    /* Stack the date above its row instead of squeezing two columns */
     .entry-rows li {
         grid-template-columns: minmax(0, 1fr);
-        gap: 0.15rem;
+        gap: 0.2rem;
     }
 
-    .pub-list { padding-left: 1.2rem; }
+    .pub-list { padding-left: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * { scroll-behavior: auto !important; }
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+}
+
+/* Print ------------------------------------------------------------------ */
+
+@media print {
+    .topbar, .skip-link, .pub-links { display: none; }
+
+    body { font-size: 11pt; color: #000; background: #fff; }
+
+    .layout {
+        display: block;
+        max-width: none;
+        padding: 0;
+    }
+
+    .sidebar-inner { position: static; }
+    .avatar { display: none; }
+
+    a { color: #000; text-decoration: none; }
+
+    h2 {
+        color: #000;
+        border-bottom: 1pt solid #999;
+    }
+
+    h2::after { display: none; }
+
+    section { break-inside: auto; margin-bottom: 1.5rem; }
+    .pub-list li { break-inside: avoid; }
 }
