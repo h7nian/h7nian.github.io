@@ -9,9 +9,6 @@
     <meta name="author" content="Sinian Zhang">
     <link rel="canonical" href="https://h7nian.github.io/">
 
-    <!-- Open Graph / social preview.
-         To get a preview image, drop a 1200x630 PNG in this folder and add:
-         <meta property="og:image" content="https://h7nian.github.io/og-image.png"> -->
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Sinian Zhang | Biostatistics PhD Student, University of Minnesota">
     <meta property="og:description" content="Statistically principled methods for transferable and trustworthy machine learning and deep learning, with applications spanning biomedical, imaging, and engineering domains.">
@@ -20,13 +17,8 @@
     <meta property="profile:last_name" content="Zhang">
     <meta name="twitter:card" content="summary">
 
-    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
-
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <script type="application/ld+json">
     {
@@ -45,12 +37,8 @@
         "name": "Renmin University of China"
       },
       "knowsAbout": [
-        "Biostatistics",
-        "Transfer Learning",
-        "Causal Inference",
-        "Uncertainty Quantification",
-        "Trustworthy AI",
-        "Health Informatics"
+        "Biostatistics", "Deep Learning", "Transfer Learning", "Causal Inference",
+        "Uncertainty Quantification", "Trustworthy AI", "Health Informatics"
       ],
       "sameAs": [
         "https://github.com/h7nian",
@@ -60,828 +48,484 @@
     </script>
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
+<a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <i class="fas fa-chart-line" aria-hidden="true"></i>
-                <span>Sinian Zhang</span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#presentations">Presentations</a></li>
-                <li><a href="#software">Software</a></li>
-                <li><a href="#teaching">Teaching</a></li>
-                <li><a href="#honors">Honors</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="cv.pdf" class="nav-cv" target="_blank" rel="noopener">CV</a></li>
+<div class="layout">
+
+    <!-- ============ Sidebar: identity, links, section nav ============ -->
+    <aside class="sidebar">
+        <div class="sidebar-inner">
+            <!-- TO USE YOUR OWN PICTURE: save it in this folder as avatar.png and
+                 replace this whole <svg> block with:
+                     <img class="avatar" src="avatar.png" alt="Sinian Zhang">
+                 Nothing else needs to change; .avatar already crops to a circle.
+                 (The drawing below is an original placeholder.) -->
+            <svg class="avatar" viewBox="0 0 100 100" role="img" aria-label="Illustration of a student reading">
+                <circle cx="50" cy="50" r="50" fill="#fdf1df"/>
+                <!-- shoulders -->
+                <path d="M24 100c0-14 12-22 26-22s26 8 26 22z" fill="#5b8bc9"/>
+                <!-- head -->
+                <circle cx="50" cy="45" r="19" fill="#f9dcbc"/>
+                <!-- hair -->
+                <path d="M31 44c0-13 8-21 19-21s19 8 19 21c-4-7-10-10-19-10s-15 3-19 10z" fill="#3a2b1f"/>
+                <!-- eyes + smile -->
+                <circle cx="43" cy="46" r="2.3" fill="#2b2118"/>
+                <circle cx="57" cy="46" r="2.3" fill="#2b2118"/>
+                <path d="M45 54q5 4 10 0" fill="none" stroke="#2b2118" stroke-width="1.8" stroke-linecap="round"/>
+                <!-- open book, held in front -->
+                <path d="M20 84q15-7 30-1 15-6 30 1v10q-15-6-30 0-15-6-30 0z"
+                      fill="#ffffff" stroke="#c9ab84" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M50 83v10" stroke="#c9ab84" stroke-width="2"/>
+            </svg>
+
+            <h1 class="name">Sinian Zhang</h1>
+            <p class="role">PhD Student in Biostatistics</p>
+            <p class="affil">
+                Division of Biostatistics and Health Data Science<br>
+                University of Minnesota, Twin Cities<br>
+                Minneapolis, MN, USA
+            </p>
+
+            <ul class="contact-links">
+                <li>
+                    <a href="mailto:zhan9381@umn.edu">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m2 6 10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+                        zhan9381@umn.edu
+                    </a>
+                </li>
+                <li>
+                    <a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 11-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 11.5V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-5.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+                        Google Scholar
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/h7nian" target="_blank" rel="noopener">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+                        github.com/h7nian
+                    </a>
+                </li>
+                <li>
+                    <a href="cv.pdf" target="_blank" rel="noopener" class="cv-link">
+                        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6v20h12V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 2v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                        Curriculum Vitae
+                    </a>
+                </li>
             </ul>
-            <button class="hamburger" type="button" aria-label="Toggle navigation menu"
-                    aria-expanded="false" aria-controls="navMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+
+            <nav class="section-nav" aria-label="Sections">
+                <a href="#about">About</a>
+                <a href="#news">News</a>
+                <a href="#publications">Publications</a>
+                <a href="#software">Software</a>
+                <a href="#talks">Talks</a>
+                <a href="#teaching">Teaching</a>
+                <a href="#service">Service</a>
+                <a href="#honors">Honors</a>
+            </nav>
         </div>
-    </nav>
+    </aside>
 
-    <main id="main">
+    <!-- ============ Main content ============ -->
+    <main class="content" id="main">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <p class="hero-eyebrow">PhD Student in Biostatistics &middot; University of Minnesota</p>
-            <h1 class="hero-title">Sinian Zhang</h1>
-            <p class="hero-subtitle">
-                Statistically principled methods for
-                <span class="highlight">transferable and trustworthy machine learning and deep learning</span>,
-                with applications spanning biomedical, imaging, and engineering domains.
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                I am a PhD student in Biostatistics at the University of Minnesota, Twin Cities,
+                advised by <a href="https://sites.google.com/site/sandraaddosafo/" target="_blank" rel="noopener">Sandra Safo</a>
+                and Jue Hou in the Division of Biostatistics and Health Data Science. I am also
+                mentored by Rui Zhang (Computational Health Sciences) and Ju Sun
+                (Computer Science &amp; Engineering).
             </p>
-            <div class="hero-buttons">
-                <a href="#publications" class="btn btn-primary">View Publications</a>
-                <a href="cv.pdf" class="btn btn-secondary" target="_blank" rel="noopener">
-                    <i class="fas fa-file-pdf" aria-hidden="true"></i> Curriculum Vitae
-                </a>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/h7nian" target="_blank" rel="noopener" aria-label="GitHub profile">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar profile">
-                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                </a>
-                <a href="mailto:zhan9381@umn.edu" aria-label="Send an email">
-                    <i class="fas fa-envelope" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I am a PhD student in Biostatistics at the University of Minnesota, Twin Cities,
-                        advised by <strong>Sandra Safo</strong> and <strong>Jue Hou</strong> in the Division of
-                        Biostatistics and Health Data Science. I am also mentored by
-                        <strong>Rui Zhang</strong> (Computational Health Sciences) and
-                        <strong>Ju Sun</strong> (Computer Science &amp; Engineering).
-                    </p>
-                    <p>
-                        My work develops statistically principled methods for transferable and trustworthy
-                        machine learning and deep learning, and applies them across biomedical, imaging,
-                        and engineering domains &mdash; from electronic health records to medical image
-                        segmentation and hardware logic optimization.
-                    </p>
-
-                    <h3 class="about-heading">Research Interests</h3>
-                    <ul class="interest-list">
-                        <li>
-                            <strong>Uncertainty Quantification &amp; Trustworthy AI</strong>
-                            &mdash; selective prediction and classification, risk&ndash;coverage optimization,
-                            uncertainty-aware decision making.
-                        </li>
-                        <li>
-                            <strong>Agentic AI &amp; LLM Systems</strong>
-                            &mdash; multi-agent workflows for automated scientific data analysis,
-                            human-in-the-loop orchestration, retrieval-augmented reasoning over
-                            biomedical knowledge.
-                        </li>
-                        <li>
-                            <strong>Transfer Learning &amp; Causal Inference</strong>
-                            &mdash; distributional transfer learning, federated causal estimation,
-                            high-dimensional confounding, reinforcement learning.
-                        </li>
-                        <li>
-                            <strong>Health Informatics &amp; Real-World Evidence</strong>
-                            &mdash; electronic health record phenotyping, comparative effectiveness,
-                            biomedical knowledge graphs.
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="education-panel">
-                    <h3 class="about-heading">Education</h3>
-
-                    <div class="education-item">
-                        <div class="education-degree">Ph.D. in Biostatistics</div>
-                        <div class="education-school">University of Minnesota, Twin Cities</div>
-                        <div class="education-meta">
-                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Minneapolis, MN, US</span>
-                            <span><i class="fas fa-calendar" aria-hidden="true"></i> Sept 2024 &ndash; Jun 2029 (expected)</span>
-                        </div>
-                    </div>
-
-                    <div class="education-item">
-                        <div class="education-degree">B.S. in Statistics</div>
-                        <div class="education-school">Renmin University of China</div>
-                        <div class="education-meta">
-                            <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Beijing, China</span>
-                            <span><i class="fas fa-calendar" aria-hidden="true"></i> Sept 2020 &ndash; Jun 2024</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="publications">
-        <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <p class="section-lead">
-                For a complete list, visit my
-                <a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener">
-                    <i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar profile</a>.
-                <span class="equal-note"><sup>*</sup> denotes equal contribution.</span>
+            <p>
+                My research develops statistically principled methods for
+                <strong>transferable and trustworthy machine learning and deep learning</strong>,
+                with applications spanning biomedical, imaging, and engineering domains &mdash;
+                from electronic health records to medical image segmentation and hardware
+                logic optimization.
             </p>
 
-            <h3 class="subsection-title subsection-title-first">Peer-Reviewed Publications</h3>
-            <p class="scroll-hint"><i class="fas fa-arrows-left-right" aria-hidden="true"></i> Scroll horizontally to see all publications</p>
+            <h3>Research Interests</h3>
+            <ul class="plain-list">
+                <li><strong>Uncertainty Quantification &amp; Trustworthy AI</strong> &mdash; selective prediction and classification, risk&ndash;coverage optimization, uncertainty-aware decision making.</li>
+                <li><strong>Agentic AI &amp; LLM Systems</strong> &mdash; multi-agent workflows for automated scientific data analysis, human-in-the-loop orchestration, retrieval-augmented reasoning over biomedical knowledge.</li>
+                <li><strong>Transfer Learning &amp; Causal Inference</strong> &mdash; distributional transfer learning, federated causal estimation, high-dimensional confounding, reinforcement learning.</li>
+                <li><strong>Health Informatics &amp; Real-World Evidence</strong> &mdash; electronic health record phenotyping, comparative effectiveness, biomedical knowledge graphs.</li>
+            </ul>
 
-            <div class="publications-scroll-container">
-                <!-- ICCAD 2026 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-microchip" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>GUALO: A Generalizable Uncertainty-Aware AI Agent for Logic Optimization</h4>
-                        <p class="authors">Jingxin Wang<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Yun Liang, Yibo Lin, Pengpeng Ren, Runsheng Wang, Weikang Qian (2026)</p>
-                        <p class="journal"><i>IEEE/ACM International Conference on Computer-Aided Design (ICCAD) 2026</i></p>
-                        <div class="publication-tags">
-                            <span class="tag">Uncertainty Quantification</span>
-                            <span class="tag">Logic Optimization</span>
-                            <span class="tag">Trustworthy AI</span>
-                        </div>
-                        <div class="publication-links">
-                            <button type="button" class="publication-link cite-btn" data-citation="gualo">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <h3>Education</h3>
+            <ul class="edu-list">
+                <li>
+                    <span class="edu-date">2024 &ndash; 2029 (expected)</span>
+                    <span class="edu-body">
+                        <strong>Ph.D. in Biostatistics</strong><br>
+                        University of Minnesota, Twin Cities
+                    </span>
+                </li>
+                <li>
+                    <span class="edu-date">2020 &ndash; 2024</span>
+                    <span class="edu-body">
+                        <strong>B.S. in Statistics</strong><br>
+                        Renmin University of China
+                    </span>
+                </li>
+            </ul>
+        </section>
 
-                <!-- JMIR Diabetes 2026 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-pills" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>Antidiabetic Drug Associations With Heart Failure Outcomes: Real-World Evidence Study Using Electronic Health Records</h4>
-                        <p class="authors">Elzbieta Jodlowska-Siewert, Yunhui Chen, <strong>Sinian Zhang</strong>, Jia Li, Robert Dellavalle, Rui Zhang, Jue Hou (2026)</p>
-                        <p class="journal"><i>JMIR Diabetes</i> 11: e85083</p>
-                        <div class="publication-tags">
-                            <span class="tag">Real-World Evidence</span>
-                            <span class="tag">Electronic Health Records</span>
-                            <span class="tag">Causal Inference</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://diabetes.jmir.org/2026/1/e85083" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="antidiabetic_hf">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <!-- Keep the newest item first; trim the list as it grows. -->
+        <section id="news">
+            <h2>News</h2>
+            <ul class="news-list">
+                <li>
+                    <span class="news-date">Aug 2026</span>
+                    <span class="news-body">Presenting <em>Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</em> at the 7th ICSA-Canada Chapter Symposium, McGill University.</span>
+                </li>
+                <li>
+                    <span class="news-date">2026</span>
+                    <span class="news-body"><em>GUALO</em>, an uncertainty-aware AI agent for logic optimization, was accepted at <strong>ICCAD 2026</strong>.</span>
+                </li>
+                <li>
+                    <span class="news-date">2026</span>
+                    <span class="news-body">Won <strong>1st place</strong> and a $3,000 prize at the 7th Annual UMN Interdisciplinary Health Data Competition.</span>
+                </li>
+                <li>
+                    <span class="news-date">2025</span>
+                    <span class="news-body"><em>Wasserstein Transfer Learning</em> was accepted at <strong>NeurIPS 2025</strong>.</span>
+                </li>
+                <li>
+                    <span class="news-date">2025</span>
+                    <span class="news-body"><em>DrKGC</em> was accepted to the <strong>Findings of EMNLP 2025</strong>.</span>
+                </li>
+            </ul>
+        </section>
 
-                <!-- NeurIPS 2025 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-project-diagram" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>Wasserstein Transfer Learning</h4>
-                        <p class="authors">Kaicheng Zhang<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Doudou Zhou, Yidong Zhou (2025)</p>
-                        <p class="journal"><i>Advances in Neural Information Processing Systems (NeurIPS) 2025</i></p>
-                        <div class="publication-tags">
-                            <span class="tag">Transfer Learning</span>
-                            <span class="tag">Optimal Transport</span>
-                            <span class="tag">Machine Learning Theory</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://neurips.cc/virtual/2025/poster/117251" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <a href="https://arxiv.org/abs/2505.17404" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="wasserstein">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <section id="publications">
+            <h2>Publications</h2>
+            <p class="note">
+                <sup>*</sup> denotes equal contribution. See also my
+                <a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar profile</a>.
+            </p>
 
-                <!-- EMNLP Findings 2025 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-robot" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>DrKGC: Dynamic Subgraph Retrieval-Augmented LLMs for Knowledge Graph Completion across General and Biomedical Domains</h4>
-                        <p class="authors">Yongkang Xiao, <strong>Sinian Zhang</strong>, Yi Dai, Huixue Zhou, Jue Hou, Jie Ding, Rui Zhang (2025)</p>
-                        <p class="journal"><i>Findings of the Association for Computational Linguistics: EMNLP 2025</i>, 16432&ndash;16445</p>
-                        <div class="publication-tags">
-                            <span class="tag">Large Language Models</span>
-                            <span class="tag">Knowledge Graph Completion</span>
-                            <span class="tag">Retrieval-Augmented Generation</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://aclanthology.org/2025.findings-emnlp.892/" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <a href="https://arxiv.org/abs/2506.00708" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="drkgc">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- JMIR 2025 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-heartbeat" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>Advancing the Use of Longitudinal Electronic Health Records: Tutorial for Uncovering Real-World Evidence in Chronic Disease Outcomes</h4>
-                        <p class="authors">Feiqing Huang, Jue Hou, Ningxuan Zhou, Kimberly Greco, Chenyu Lin, Sara Morini Sweet, Jun Wen, Lechen Shen, Nicolas Gonzalez, <strong>Sinian Zhang</strong>, et al. (2025)</p>
-                        <p class="journal"><i>Journal of Medical Internet Research</i> 27: e71873</p>
-                        <div class="publication-tags">
-                            <span class="tag">Electronic Health Records</span>
-                            <span class="tag">Real-World Evidence</span>
-                            <span class="tag">Chronic Disease</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://www.jmir.org/2025/1/e71873/" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="ehr_tutorial">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- JBI 2024 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-database" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>FuseLinker: Leveraging LLM's Pre-trained Text Embeddings and Domain Knowledge to Enhance GNN-based Link Prediction on Biomedical Knowledge Graphs</h4>
-                        <p class="authors">Yongkang Xiao, <strong>Sinian Zhang</strong>, Huixue Zhou, Mingchen Li, Han Yang, Rui Zhang (2024)</p>
-                        <p class="journal"><i>Journal of Biomedical Informatics</i> 158: 104730</p>
-                        <div class="publication-tags">
-                            <span class="tag">Knowledge Graphs</span>
-                            <span class="tag">Large Language Models</span>
-                            <span class="tag">Biomedical Informatics</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://www.sciencedirect.com/science/article/pii/S1532046424001485" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="fuselinker">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- JMIR 2023 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-hospital" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>Generate Analysis-Ready Data for Real-World Evidence: Tutorial for Harnessing Electronic Health Records With Advanced Informatic Technologies</h4>
-                        <p class="authors">Jue Hou, Rachel Zhao, Jessica Gronsbell, Yucong Lin, Clara-Lea Bonzel, Qingyi Zeng, <strong>Sinian Zhang</strong>, Brett K. Beaulieu-Jones, Griffin M. Weber, Thomas Jemielita, et al. (2023)</p>
-                        <p class="journal"><i>Journal of Medical Internet Research</i> 25: e45662</p>
-                        <div class="publication-tags">
-                            <span class="tag">Health Informatics</span>
-                            <span class="tag">Data Science</span>
-                            <span class="tag">Real-World Evidence</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://www.jmir.org/2023/1/e45662/" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="ehr_tutorial_2023">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UbiComp/ISWC 2023 -->
-                <div class="publication-card">
-                    <div class="publication-image">
-                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-                    </div>
-                    <div class="publication-content">
-                        <h4>A Post-processing Machine Learning for Activity Recognition Challenge with OpenStreetMap Data</h4>
-                        <p class="authors">Shiyao Huang, Junliang Lyu, <strong>Sinian Zhang</strong>, Ruiying Tang, Huan Xiao, Yuanyuan Zhang, Xiaoling Lu (2023)</p>
-                        <p class="journal"><i>Adjunct Proceedings of UbiComp/ISWC 2023</i>, 557&ndash;562</p>
-                        <div class="publication-tags">
-                            <span class="tag">Activity Recognition</span>
-                            <span class="tag">Ubiquitous Computing</span>
-                            <span class="tag">Spatial Data Analysis</span>
-                        </div>
-                        <div class="publication-links">
-                            <a href="https://dl.acm.org/doi/abs/10.1145/3594739.3610755" target="_blank" rel="noopener" class="publication-link">
-                                <i class="fas fa-link" aria-hidden="true"></i> View
-                            </a>
-                            <button type="button" class="publication-link cite-btn" data-citation="activity_recognition">
-                                <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="subsection-title">Preprints &amp; Under Review</h3>
-            <ol class="entry-list">
-                <li class="entry-item">
-                    <h4>The Wreaths of KHAN: Uniform Graph Feature Selection with False Discovery Rate Control
-                        <span class="status-badge status-review">In Revision</span>
-                    </h4>
-                    <p class="authors">Jiajun Liang, Yue Liu, Doudou Zhou, <strong>Sinian Zhang</strong>, Junwei Lu</p>
-                    <p class="journal"><i>Biometrika</i> &middot; arXiv:2403.12284
-                        <a href="https://arxiv.org/abs/2403.12284" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
-                        </a>
-                        <a href="https://github.com/h7nian/Khan" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fab fa-github" aria-hidden="true"></i> Code
-                        </a>
-                        <button type="button" class="entry-link cite-btn" data-citation="wreaths">
-                            <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                        </button>
+            <h3>Peer-Reviewed Publications</h3>
+            <ol class="pub-list" reversed>
+                <li>
+                    <p class="pub-title">GUALO: A Generalizable Uncertainty-Aware AI Agent for Logic Optimization</p>
+                    <p class="pub-authors">Jingxin Wang<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Yun Liang, Yibo Lin, Pengpeng Ren, Runsheng Wang, Weikang Qian</p>
+                    <p class="pub-venue"><em>IEEE/ACM International Conference on Computer-Aided Design (ICCAD)</em>, 2026</p>
+                    <p class="pub-links"><button type="button" class="cite-btn" data-citation="gualo">BibTeX</button></p>
+                </li>
+                <li>
+                    <p class="pub-title">Antidiabetic Drug Associations With Heart Failure Outcomes: Real-World Evidence Study Using Electronic Health Records</p>
+                    <p class="pub-authors">Elzbieta Jodlowska-Siewert, Yunhui Chen, <strong>Sinian Zhang</strong>, Jia Li, Robert Dellavalle, Rui Zhang, Jue Hou</p>
+                    <p class="pub-venue"><em>JMIR Diabetes</em> 11 (2026): e85083</p>
+                    <p class="pub-links">
+                        <a href="https://diabetes.jmir.org/2026/1/e85083" target="_blank" rel="noopener">Journal</a>
+                        <button type="button" class="cite-btn" data-citation="antidiabetic_hf">BibTeX</button>
                     </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Aligning Language Models with Selective Prediction
-                        <span class="status-badge status-review">Under Review</span>
-                    </h4>
-                    <p class="authors">Gaoxiang Luo, Yifan Wu, <strong>Sinian Zhang</strong>, Aryan Deshwal, Ju Sun</p>
-                    <p class="journal"><i>Annual Conference on Neural Information Processing Systems (NeurIPS) 2026</i> &middot; arXiv:2607.03528
-                        <a href="https://arxiv.org/abs/2607.03528" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
-                        </a>
-                        <button type="button" class="entry-link cite-btn" data-citation="selective_prediction">
-                            <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                        </button>
+                <li>
+                    <p class="pub-title">Wasserstein Transfer Learning</p>
+                    <p class="pub-authors">Kaicheng Zhang<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Doudou Zhou, Yidong Zhou</p>
+                    <p class="pub-venue"><em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2025</p>
+                    <p class="pub-links">
+                        <a href="https://neurips.cc/virtual/2025/poster/117251" target="_blank" rel="noopener">Proceedings</a>
+                        <a href="https://arxiv.org/abs/2505.17404" target="_blank" rel="noopener">arXiv</a>
+                        <a href="https://github.com/h7nian/WaTL" target="_blank" rel="noopener">Code</a>
+                        <button type="button" class="cite-btn" data-citation="wasserstein">BibTeX</button>
                     </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Ensemble Selective Classification
-                        <span class="status-badge status-review">Under Review</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong><sup>*</sup>, Chongwei Chen<sup>*</sup>, Guanchen Li, Ju Sun</p>
-                    <p class="journal"><i>Annual Conference on Neural Information Processing Systems (NeurIPS) 2026</i>
-                        <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fab fa-github" aria-hidden="true"></i> Code
-                        </a>
+                <li>
+                    <p class="pub-title">DrKGC: Dynamic Subgraph Retrieval-Augmented LLMs for Knowledge Graph Completion across General and Biomedical Domains</p>
+                    <p class="pub-authors">Yongkang Xiao, <strong>Sinian Zhang</strong>, Yi Dai, Huixue Zhou, Jue Hou, Jie Ding, Rui Zhang</p>
+                    <p class="pub-venue"><em>Findings of the Association for Computational Linguistics: EMNLP 2025</em>, 16432&ndash;16445</p>
+                    <p class="pub-links">
+                        <a href="https://aclanthology.org/2025.findings-emnlp.892/" target="_blank" rel="noopener">ACL Anthology</a>
+                        <a href="https://arxiv.org/abs/2506.00708" target="_blank" rel="noopener">arXiv</a>
+                        <button type="button" class="cite-btn" data-citation="drkgc">BibTeX</button>
                     </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Predicting the Timing of First Sustained Cognitive Worsening in Alzheimer's Disease Using Real-World Clinical Data and Machine Learning
-                        <span class="status-badge status-review">Under Review</span>
-                    </h4>
-                    <p class="authors">Shruthi Venkatesh<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Wen Zhu, Michele Morris, Rocco Mercurio, Sarah B. Berman, Hansruedi Mathys, Abby L. Olsen, C. Elizabeth Shaaban, Shyam Visweswaran, Oscar L. Lopez, Tianxi Cai, Jue Hou, Zongqi Xia</p>
-                    <p class="journal"><i>Alzheimer's Research and Therapy</i> &middot; medRxiv preprint
-                        <a href="https://doi.org/10.64898/2026.06.02.26354764" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fas fa-file-lines" aria-hidden="true"></i> medRxiv
-                        </a>
-                        <button type="button" class="entry-link cite-btn" data-citation="ad_worsening">
-                            <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                        </button>
+                <li>
+                    <p class="pub-title">Advancing the Use of Longitudinal Electronic Health Records: Tutorial for Uncovering Real-World Evidence in Chronic Disease Outcomes</p>
+                    <p class="pub-authors">Feiqing Huang, Jue Hou, Ningxuan Zhou, Kimberly Greco, Chenyu Lin, Sara Morini Sweet, Jun Wen, Lechen Shen, Nicolas Gonzalez, <strong>Sinian Zhang</strong>, et al.</p>
+                    <p class="pub-venue"><em>Journal of Medical Internet Research</em> 27 (2025): e71873</p>
+                    <p class="pub-links">
+                        <a href="https://www.jmir.org/2025/1/e71873/" target="_blank" rel="noopener">Journal</a>
+                        <button type="button" class="cite-btn" data-citation="ehr_tutorial">BibTeX</button>
                     </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Generalized Linear Markov Decision Process
-                        <span class="status-badge status-preprint">Preprint</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong><sup>*</sup>, Kaicheng Zhang<sup>*</sup>, Ziping Xu, Tianxi Cai, Doudou Zhou</p>
-                    <p class="journal">arXiv:2506.00818, 2025
-                        <a href="https://arxiv.org/abs/2506.00818" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fas fa-file-lines" aria-hidden="true"></i> arXiv
-                        </a>
-                        <button type="button" class="entry-link cite-btn" data-citation="glmdp">
-                            <i class="fas fa-quote-right" aria-hidden="true"></i> Cite
-                        </button>
+                <li>
+                    <p class="pub-title">FuseLinker: Leveraging LLM's Pre-trained Text Embeddings and Domain Knowledge to Enhance GNN-based Link Prediction on Biomedical Knowledge Graphs</p>
+                    <p class="pub-authors">Yongkang Xiao, <strong>Sinian Zhang</strong>, Huixue Zhou, Mingchen Li, Han Yang, Rui Zhang</p>
+                    <p class="pub-venue"><em>Journal of Biomedical Informatics</em> 158 (2024): 104730</p>
+                    <p class="pub-links">
+                        <a href="https://www.sciencedirect.com/science/article/pii/S1532046424001485" target="_blank" rel="noopener">Journal</a>
+                        <button type="button" class="cite-btn" data-citation="fuselinker">BibTeX</button>
+                    </p>
+                </li>
+                <li>
+                    <p class="pub-title">Generate Analysis-Ready Data for Real-World Evidence: Tutorial for Harnessing Electronic Health Records With Advanced Informatic Technologies</p>
+                    <p class="pub-authors">Jue Hou, Rachel Zhao, Jessica Gronsbell, Yucong Lin, Clara-Lea Bonzel, Qingyi Zeng, <strong>Sinian Zhang</strong>, et al.</p>
+                    <p class="pub-venue"><em>Journal of Medical Internet Research</em> 25 (2023): e45662</p>
+                    <p class="pub-links">
+                        <a href="https://www.jmir.org/2023/1/e45662/" target="_blank" rel="noopener">Journal</a>
+                        <button type="button" class="cite-btn" data-citation="ehr_tutorial_2023">BibTeX</button>
+                    </p>
+                </li>
+                <li>
+                    <p class="pub-title">A Post-processing Machine Learning for Activity Recognition Challenge with OpenStreetMap Data</p>
+                    <p class="pub-authors">Shiyao Huang, Junliang Lyu, <strong>Sinian Zhang</strong>, Ruiying Tang, Huan Xiao, Yuanyuan Zhang, Xiaoling Lu</p>
+                    <p class="pub-venue"><em>Adjunct Proceedings of UbiComp/ISWC 2023</em>, 557&ndash;562</p>
+                    <p class="pub-links">
+                        <a href="https://dl.acm.org/doi/abs/10.1145/3594739.3610755" target="_blank" rel="noopener">Proceedings</a>
+                        <button type="button" class="cite-btn" data-citation="activity_recognition">BibTeX</button>
                     </p>
                 </li>
             </ol>
 
-            <h3 class="subsection-title">Working Papers</h3>
-            <ol class="entry-list">
-                <li class="entry-item">
-                    <h4>Risk-Aligned Confidence for Selective Segmentation
-                        <span class="status-badge status-prep">In Preparation</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong>, Chongwei Chen, Jiandong Chen, Lingjie Su, Ju Sun</p>
+            <h3>Preprints &amp; Under Review</h3>
+            <ol class="pub-list">
+                <li>
+                    <p class="pub-title">The Wreaths of KHAN: Uniform Graph Feature Selection with False Discovery Rate Control</p>
+                    <p class="pub-authors">Jiajun Liang, Yue Liu, Doudou Zhou, <strong>Sinian Zhang</strong>, Junwei Lu</p>
+                    <p class="pub-venue"><span class="status">In revision</span>, <em>Biometrika</em></p>
+                    <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2403.12284" target="_blank" rel="noopener">arXiv</a>
+                        <a href="https://github.com/h7nian/Khan" target="_blank" rel="noopener">Code</a>
+                        <button type="button" class="cite-btn" data-citation="wreaths">BibTeX</button>
+                    </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Supervised Multi-View Deep Learning with Exponential-Family Reconstruction, Feature Selection, and Fairness Assessment
-                        <span class="status-badge status-prep">In Preparation</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong>, Sandra Safo</p>
+                <li>
+                    <p class="pub-title">Aligning Language Models with Selective Prediction</p>
+                    <p class="pub-authors">Gaoxiang Luo, Yifan Wu, <strong>Sinian Zhang</strong>, Aryan Deshwal, Ju Sun</p>
+                    <p class="pub-venue"><span class="status">Under review</span>, <em>NeurIPS</em> 2026</p>
+                    <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2607.03528" target="_blank" rel="noopener">arXiv</a>
+                        <button type="button" class="cite-btn" data-citation="selective_prediction">BibTeX</button>
+                    </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Triply Robust Surrogate Assisted Semi-supervised Estimation of High-dimensional Linear Regression with Missing-at-Random Outcomes
-                        <span class="status-badge status-prep">In Preparation</span>
-                    </h4>
-                    <p class="authors">Jue Hou<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Andrea Rotnitzky, James M. Robins, Tianxi Cai</p>
+                <li>
+                    <p class="pub-title">Ensemble Selective Classification</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong><sup>*</sup>, Chongwei Chen<sup>*</sup>, Guanchen Li, Ju Sun</p>
+                    <p class="pub-venue"><span class="status">Under review</span>, <em>NeurIPS</em> 2026</p>
+                    <p class="pub-links">
+                        <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener">Code</a>
+                    </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)
-                        <span class="status-badge status-prep">In Preparation</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong>, Yuanlin Feng, Jue Hou</p>
-                    <p class="journal"><i>To be presented at the 7th ICSA-Canada Chapter Symposium, McGill University, Montreal, Aug 2026</i></p>
+                <li>
+                    <p class="pub-title">Predicting the Timing of First Sustained Cognitive Worsening in Alzheimer's Disease Using Real-World Clinical Data and Machine Learning</p>
+                    <p class="pub-authors">Shruthi Venkatesh<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Wen Zhu, Michele Morris, Rocco Mercurio, Sarah B. Berman, Hansruedi Mathys, Abby L. Olsen, C. Elizabeth Shaaban, Shyam Visweswaran, Oscar L. Lopez, Tianxi Cai, Jue Hou, Zongqi Xia</p>
+                    <p class="pub-venue"><span class="status">Under review</span>, <em>Alzheimer's Research and Therapy</em></p>
+                    <p class="pub-links">
+                        <a href="https://doi.org/10.64898/2026.06.02.26354764" target="_blank" rel="noopener">medRxiv</a>
+                        <button type="button" class="cite-btn" data-citation="ad_worsening">BibTeX</button>
+                    </p>
                 </li>
-
-                <li class="entry-item">
-                    <h4>IntegMultiReg: An R Package for Integrative Bayesian Multi-Regression of Multi-Platform Biomarkers
-                        <span class="status-badge status-prep">In Preparation</span>
-                    </h4>
-                    <p class="authors"><strong>Sinian Zhang</strong>, Jianfeng Wang, Thierry Chekouo</p>
-                    <p class="journal"><i>Accompanying R package submitted to CRAN</i></p>
-                </li>
-            </ol>
-        </div>
-    </section>
-
-    <!-- Presentations Section (conference abstracts + talks) -->
-    <section id="presentations" class="presentations">
-        <div class="container">
-            <h2 class="section-title">Presentations</h2>
-
-            <h3 class="subsection-title subsection-title-first">Conference Abstracts</h3>
-            <ol class="entry-list">
-                <li class="entry-item">
-                    <h4>Predicting the Timing of Cognitive Decline in Alzheimer's Disease Using Real-world Clinical Data and Machine Learning (P10-12.009)</h4>
-                    <p class="authors">Shruthi Venkatesh, <strong>Sinian Zhang</strong>, Oscar Lopez, Tianxi Cai, Jue Hou, Zongqi Xia</p>
-                    <p class="journal"><i>Neurology</i> 106 (11_Supplement_1), 2026
-                        <a href="https://doi.org/10.1212/wnl.0000000000217686" target="_blank" rel="noopener" class="entry-link">
-                            <i class="fas fa-link" aria-hidden="true"></i> View
-                        </a>
+                <li>
+                    <p class="pub-title">Generalized Linear Markov Decision Process</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong><sup>*</sup>, Kaicheng Zhang<sup>*</sup>, Ziping Xu, Tianxi Cai, Doudou Zhou</p>
+                    <p class="pub-venue"><span class="status">Preprint</span>, arXiv:2506.00818, 2025</p>
+                    <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2506.00818" target="_blank" rel="noopener">arXiv</a>
+                        <button type="button" class="cite-btn" data-citation="glmdp">BibTeX</button>
                     </p>
                 </li>
             </ol>
 
-            <h3 class="subsection-title">Talks</h3>
-            <ol class="entry-list">
-                <li class="entry-item">
-                    <h4>Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</h4>
-                    <p class="journal"><i>7th ICSA-Canada Chapter Symposium</i>, McGill University, Montreal, Canada
-                        &middot; <span class="entry-date">Aug 2026</span>
-                    </p>
+            <h3>Working Papers</h3>
+            <ol class="pub-list">
+                <li>
+                    <p class="pub-title">Risk-Aligned Confidence for Selective Segmentation</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Chongwei Chen, Jiandong Chen, Lingjie Su, Ju Sun</p>
+                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
+                </li>
+                <li>
+                    <p class="pub-title">Supervised Multi-View Deep Learning with Exponential-Family Reconstruction, Feature Selection, and Fairness Assessment</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Sandra Safo</p>
+                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
+                </li>
+                <li>
+                    <p class="pub-title">Triply Robust Surrogate Assisted Semi-supervised Estimation of High-dimensional Linear Regression with Missing-at-Random Outcomes</p>
+                    <p class="pub-authors">Jue Hou<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Andrea Rotnitzky, James M. Robins, Tianxi Cai</p>
+                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
+                </li>
+                <li>
+                    <p class="pub-title">Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Yuanlin Feng, Jue Hou</p>
+                    <p class="pub-venue"><span class="status">In preparation</span>, 2026</p>
+                </li>
+                <li>
+                    <p class="pub-title">IntegMultiReg: An R Package for Integrative Bayesian Multi-Regression of Multi-Platform Biomarkers</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong>, Jianfeng Wang, Thierry Chekouo</p>
+                    <p class="pub-venue"><span class="status">In preparation</span>, 2026 &middot; accompanying R package submitted to CRAN</p>
                 </li>
             </ol>
-        </div>
-    </section>
+        </section>
 
-    <!-- Software Section -->
-    <section id="software" class="software">
-        <div class="container">
-            <h2 class="section-title">Software</h2>
-            <div class="software-grid">
-                <div class="software-card">
-                    <div class="software-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>MultiViewAgent</h3>
-                        <p class="software-meta">Agentic AI system (Python, LangGraph) &middot; <span class="software-status">Private, 2026</span></p>
-                        <p class="software-desc">Multi-agent workflow that automates multiview biomedical data analysis over the Safo Lab multiview toolkit. Six specialized LLM agents (planner, recommender, executor, evaluator, supervisor, reporter) with supervisor rerouting, reflection loops and human-in-the-loop review checkpoints; data-driven method selection across eleven multiview methods, with pluggable LLM backends and HPC deployment.</p>
-                        <p class="software-note"><i class="fas fa-lock" aria-hidden="true"></i> Source kept private pending grant submission and a potential patent application.</p>
-                    </div>
-                </div>
-
-                <div class="software-card">
-                    <div class="software-icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>IntegMultiReg</h3>
-                        <p class="software-meta">R package (MCMC sampler in C) &middot; <span class="software-status">Submitted to CRAN, 2026</span></p>
-                        <p class="software-desc">Integrative Bayesian multi-regression of multi-platform biomarkers, supporting continuous, binary and survival outcomes with missing platforms.</p>
-                    </div>
-                </div>
-
-                <div class="software-card">
-                    <div class="software-icon"><i class="fab fa-r-project" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>Khan</h3>
-                        <p class="software-meta">R package &middot; <span class="software-status">Sole author &amp; maintainer, 2026</span></p>
-                        <p class="software-desc">Companion package to <i>The Wreaths of KHAN</i>: FDR-controlled inference on subgraph features and persistent homology generators in Gaussian graphical and Ising models.</p>
-                        <a href="https://github.com/h7nian/Khan" target="_blank" rel="noopener" class="software-link">
-                            <i class="fab fa-github" aria-hidden="true"></i> github.com/h7nian/Khan
-                        </a>
-                    </div>
-                </div>
-
-                <div class="software-card">
-                    <div class="software-icon"><i class="fas fa-arrows-turn-to-dots" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>WaTL</h3>
-                        <p class="software-meta">R implementation &middot; <span class="software-status">2025</span></p>
-                        <p class="software-desc">Reference implementation of <i>Wasserstein Transfer Learning</i> (NeurIPS 2025), including the simulation and real-data analyses.</p>
-                        <a href="https://github.com/h7nian/WaTL" target="_blank" rel="noopener" class="software-link">
-                            <i class="fab fa-github" aria-hidden="true"></i> github.com/h7nian/WaTL
-                        </a>
-                    </div>
-                </div>
-
-                <div class="software-card">
-                    <div class="software-icon"><i class="fab fa-python" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>EnsembleSC</h3>
-                        <p class="software-meta">Python implementation &middot; <span class="software-status">2025</span></p>
-                        <p class="software-desc">Reference implementation of <i>Ensemble Selective Classification</i> (under review, NeurIPS 2026).</p>
-                        <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener" class="software-link">
-                            <i class="fab fa-github" aria-hidden="true"></i> github.com/h7nian/EnsembleSC
-                        </a>
-                    </div>
-                </div>
-
-                <div class="software-card">
-                    <div class="software-icon"><i class="fas fa-notes-medical" aria-hidden="true"></i></div>
-                    <div class="software-body">
-                        <h3>NILE</h3>
-                        <p class="software-meta">Python and R implementations &middot; <span class="software-status">2025</span></p>
-                        <p class="software-desc">Natural language processing package for clinical narrative extraction; development guided as a mentor.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teaching Section -->
-    <section id="teaching" class="teaching">
-        <div class="container">
-            <h2 class="section-title">Teaching &amp; Service</h2>
-            <div class="teaching-grid">
-                <div class="teaching-item">
-                    <div class="teaching-icon">
-                        <i class="fas fa-user-graduate" aria-hidden="true"></i>
-                    </div>
-                    <div class="teaching-content">
-                        <h3>Research Mentor &mdash; Shuheng Kong &amp; Conglin Ruan</h3>
-                        <p class="teaching-institution">
-                            <i class="fas fa-user-friends" aria-hidden="true"></i> Master's Students
-                        </p>
-                        <p class="teaching-date">
-                            <i class="fas fa-calendar" aria-hidden="true"></i> May 2025 &ndash; September 2025
-                        </p>
-                        <p class="teaching-description">
-                            <i class="fas fa-quote-left" aria-hidden="true"></i> Guided development of Python and R versions of the NILE package for natural language processing.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="teaching-item">
-                    <div class="teaching-icon">
-                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
-                    </div>
-                    <div class="teaching-content">
-                        <h3>Teaching Assistant, Data Science Practice</h3>
-                        <p class="teaching-institution">
-                            <i class="fas fa-university" aria-hidden="true"></i> Renmin University of China
-                        </p>
-                        <p class="teaching-location">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Beijing, China
-                        </p>
-                        <p class="teaching-date">
-                            <i class="fas fa-calendar" aria-hidden="true"></i> January 2024 &ndash; June 2024
-                        </p>
-                    </div>
-                </div>
-
-                <div class="teaching-item">
-                    <div class="teaching-icon">
-                        <i class="fas fa-calculator" aria-hidden="true"></i>
-                    </div>
-                    <div class="teaching-content">
-                        <h3>Teaching Assistant, Probability Theory</h3>
-                        <p class="teaching-institution">
-                            <i class="fas fa-university" aria-hidden="true"></i> Renmin University of China
-                        </p>
-                        <p class="teaching-location">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Beijing, China
-                        </p>
-                        <p class="teaching-date">
-                            <i class="fas fa-calendar" aria-hidden="true"></i> August 2023 &ndash; December 2023
-                        </p>
-                    </div>
-                </div>
-
-                <div class="teaching-item">
-                    <div class="teaching-icon">
-                        <i class="fas fa-microscope" aria-hidden="true"></i>
-                    </div>
-                    <div class="teaching-content">
-                        <h3>Research Mentor &mdash; Brittany Wang</h3>
-                        <p class="teaching-institution">
-                            <i class="fas fa-user-friends" aria-hidden="true"></i> High School Student
-                        </p>
-                        <p class="teaching-date">
-                            <i class="fas fa-calendar" aria-hidden="true"></i> June 2023 &ndash; September 2023
-                        </p>
-                        <p class="teaching-description">
-                            <i class="fas fa-quote-left" aria-hidden="true"></i> Supervised research using real-world data to support an acute ischemic stroke (AIS) study.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="subsection-title">Academic Service</h3>
-            <div class="service-content">
-                <div class="service-category">
-                    <div class="service-header">
-                        <i class="fas fa-users" aria-hidden="true"></i>
-                        <h3>Conference Reviewer</h3>
-                    </div>
-                    <div class="service-items">
-                        <span class="service-badge">AAAI 2027</span>
-                        <span class="service-badge">NeurIPS 2026</span>
-                        <span class="service-badge">ICLR 2026</span>
-                    </div>
-                </div>
-
-                <div class="service-category">
-                    <div class="service-header">
-                        <i class="fas fa-book" aria-hidden="true"></i>
-                        <h3>Journal Reviewer</h3>
-                    </div>
-                    <div class="service-items">
-                        <span class="service-badge">Journal of Intelligent Medicine and Healthcare</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Honors & Awards Section -->
-    <section id="honors" class="honors">
-        <div class="container">
-            <h2 class="section-title">Honors &amp; Awards</h2>
-            <div class="honors-timeline">
-                <div class="honor-item">
-                    <div class="honor-year">2026</div>
-                    <div class="honor-content">
-                        <div class="honor-icon">
-                            <i class="fas fa-trophy" aria-hidden="true"></i>
-                        </div>
-                        <div class="honor-details">
-                            <h3>1st Place &amp; $3,000 Prize &mdash; 7th Annual UMN Interdisciplinary Health Data Competition</h3>
-                            <p class="honor-institution">University of Minnesota, Twin Cities</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="honor-item">
-                    <div class="honor-year">2024</div>
-                    <div class="honor-content">
-                        <div class="honor-icon">
-                            <i class="fas fa-trophy" aria-hidden="true"></i>
-                        </div>
-                        <div class="honor-details">
-                            <h3>Dean's PhD Scholars Award &mdash; $5,000</h3>
-                            <p class="honor-institution">University of Minnesota, Twin Cities</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="honor-item">
-                    <div class="honor-year">2023</div>
-                    <div class="honor-content">
-                        <div class="honor-icon">
-                            <i class="fas fa-award" aria-hidden="true"></i>
-                        </div>
-                        <div class="honor-details">
-                            <h3>Scholarship for Academic Excellence</h3>
-                            <p class="honor-institution">Renmin University of China</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p><a href="mailto:zhan9381@umn.edu">zhan9381@umn.edu</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github" aria-hidden="true"></i>
-                        <div>
-                            <h3>GitHub</h3>
-                            <p><a href="https://github.com/h7nian" target="_blank" rel="noopener">github.com/h7nian</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                        <div>
-                            <h3>Google Scholar</h3>
-                            <p><a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener">My Publications</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Visitor Map Section -->
-                <div class="visitor-map-section">
-                    <h3 class="map-title">
-                        <i class="fas fa-globe-americas" aria-hidden="true"></i> Visitor Map
-                    </h3>
-                    <p class="map-description">
-                        Where visitors to this site come from. Locations are resolved to the nearest
-                        city and rounded &mdash; no IP addresses are stored.
+        <section id="software">
+            <h2>Software</h2>
+            <ul class="sw-list">
+                <li>
+                    <p class="sw-head">
+                        <strong>MultiViewAgent</strong>
+                        <span class="sw-meta">Agentic AI system &middot; Python, LangGraph &middot; 2026</span>
                     </p>
-                    <div class="visitor-stats">
-                        <div class="stat-item">
-                            <span class="stat-number" id="totalVisits">0</span>
-                            <span class="stat-label">Total Visits</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="uniqueCountries">0</span>
-                            <span class="stat-label">Countries</span>
-                        </div>
-                    </div>
-                    <div id="visitorMap" class="visitor-map"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <p class="sw-desc">Multi-agent workflow that automates multiview biomedical data analysis over the Safo Lab multiview toolkit. Source kept private pending grant submission and a potential patent application.</p>
+                </li>
+                <li>
+                    <p class="sw-head">
+                        <strong>IntegMultiReg</strong>
+                        <span class="sw-meta">R package, MCMC sampler in C &middot; submitted to CRAN, 2026</span>
+                    </p>
+                    <p class="sw-desc">Integrative Bayesian multi-regression of multi-platform biomarkers, supporting continuous, binary and survival outcomes with missing platforms.</p>
+                </li>
+                <li>
+                    <p class="sw-head">
+                        <strong>Khan</strong>
+                        <span class="sw-meta">R package &middot; sole author and maintainer &middot; 2026</span>
+                    </p>
+                    <p class="sw-desc">Companion package to <em>The Wreaths of KHAN</em>: FDR-controlled inference on subgraph features and persistent homology generators in Gaussian graphical and Ising models.</p>
+                    <p class="pub-links"><a href="https://github.com/h7nian/Khan" target="_blank" rel="noopener">GitHub</a></p>
+                </li>
+                <li>
+                    <p class="sw-head">
+                        <strong>WaTL</strong>
+                        <span class="sw-meta">R implementation &middot; 2025</span>
+                    </p>
+                    <p class="sw-desc">Reference implementation of <em>Wasserstein Transfer Learning</em> (NeurIPS 2025), including the simulation and real-data analyses.</p>
+                    <p class="pub-links"><a href="https://github.com/h7nian/WaTL" target="_blank" rel="noopener">GitHub</a></p>
+                </li>
+                <li>
+                    <p class="sw-head">
+                        <strong>EnsembleSC</strong>
+                        <span class="sw-meta">Python implementation &middot; 2025</span>
+                    </p>
+                    <p class="sw-desc">Reference implementation of <em>Ensemble Selective Classification</em>.</p>
+                    <p class="pub-links"><a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener">GitHub</a></p>
+                </li>
+                <li>
+                    <p class="sw-head">
+                        <strong>NILE</strong>
+                        <span class="sw-meta">Python and R implementations &middot; 2025</span>
+                    </p>
+                    <p class="sw-desc">Natural language processing package for clinical narrative extraction; development guided as a mentor.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="talks">
+            <h2>Talks &amp; Presentations</h2>
+
+            <h3>Talks</h3>
+            <ul class="simple-list">
+                <li>
+                    <strong>Federated Adaptive Causal Estimation with High-Dimensional Covariates (FACE-HD)</strong><br>
+                    <span class="muted">7th ICSA-Canada Chapter Symposium, McGill University, Montreal, Canada &middot; Aug 2026</span>
+                </li>
+            </ul>
+
+            <h3>Conference Abstracts</h3>
+            <ul class="simple-list">
+                <li>
+                    Predicting the Timing of Cognitive Decline in Alzheimer's Disease Using Real-world Clinical Data and Machine Learning (P10-12.009)<br>
+                    <span class="muted">Shruthi Venkatesh, <strong>Sinian Zhang</strong>, Oscar Lopez, Tianxi Cai, Jue Hou, Zongqi Xia &middot; <em>Neurology</em> 106 (11_Supplement_1), 2026</span>
+                    <span class="pub-links"><a href="https://doi.org/10.1212/wnl.0000000000217686" target="_blank" rel="noopener">DOI</a></span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="teaching">
+            <h2>Teaching &amp; Mentoring</h2>
+            <ul class="entry-rows">
+                <li>
+                    <span class="row-date">May &ndash; Sept 2025</span>
+                    <span class="row-body">
+                        <strong>Research Mentor</strong> &mdash; Shuheng Kong &amp; Conglin Ruan, Master's students<br>
+                        <span class="muted">Guided development of Python and R versions of the NILE package for natural language processing.</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="row-date">Jan &ndash; Jun 2024</span>
+                    <span class="row-body">
+                        <strong>Teaching Assistant</strong>, Data Science Practice<br>
+                        <span class="muted">Renmin University of China</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="row-date">Aug &ndash; Dec 2023</span>
+                    <span class="row-body">
+                        <strong>Teaching Assistant</strong>, Probability Theory<br>
+                        <span class="muted">Renmin University of China</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="row-date">Jun &ndash; Sept 2023</span>
+                    <span class="row-body">
+                        <strong>Research Mentor</strong> &mdash; Brittany Wang, high school student<br>
+                        <span class="muted">Supervised research using real-world data to support an acute ischemic stroke (AIS) study.</span>
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="service">
+            <h2>Academic Service</h2>
+            <ul class="entry-rows">
+                <li>
+                    <span class="row-date">Reviewer</span>
+                    <span class="row-body">AAAI 2027 &middot; NeurIPS 2026 &middot; ICLR 2026</span>
+                </li>
+                <li>
+                    <span class="row-date">Reviewer</span>
+                    <span class="row-body"><em>Journal of Intelligent Medicine and Healthcare</em></span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="honors">
+            <h2>Honors &amp; Awards</h2>
+            <ul class="entry-rows">
+                <li>
+                    <span class="row-date">2026</span>
+                    <span class="row-body">
+                        <strong>1st Place, $3,000</strong> &mdash; 7th Annual UMN Interdisciplinary Health Data Competition<br>
+                        <span class="muted">University of Minnesota, Twin Cities</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="row-date">2024</span>
+                    <span class="row-body">
+                        <strong>Dean's PhD Scholars Award, $5,000</strong><br>
+                        <span class="muted">University of Minnesota, Twin Cities</span>
+                    </span>
+                </li>
+                <li>
+                    <span class="row-date">2023</span>
+                    <span class="row-body">
+                        <strong>Scholarship for Academic Excellence</strong><br>
+                        <span class="muted">Renmin University of China</span>
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Sinian Zhang &middot; Last updated August 2026</p>
+        </footer>
 
     </main>
+</div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Sinian Zhang</p>
-            <div class="footer-links">
-                <a href="https://github.com/h7nian" target="_blank" rel="noopener" aria-label="GitHub profile">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="https://scholar.google.com/citations?user=gdFyWbIAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar profile">
-                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                </a>
-                <a href="mailto:zhan9381@umn.edu" aria-label="Send an email">
-                    <i class="fas fa-envelope" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Citation Modal -->
-    <div id="citationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="citationModalTitle">
-        <div class="modal-content">
-            <button type="button" class="modal-close" aria-label="Close citation dialog">&times;</button>
-            <h2 id="citationModalTitle">Citation</h2>
-            <div id="citationText"></div>
-            <button type="button" id="copyCitation" class="btn btn-primary">
-                <i class="fas fa-copy" aria-hidden="true"></i> Copy to Clipboard
-            </button>
-        </div>
+<!-- BibTeX dialog -->
+<div id="citationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="citationModalTitle" hidden>
+    <div class="modal-box">
+        <button type="button" class="modal-close" aria-label="Close dialog">&times;</button>
+        <h2 id="citationModalTitle">BibTeX</h2>
+        <pre id="citationText"></pre>
+        <button type="button" id="copyCitation" class="btn">Copy to clipboard</button>
     </div>
+</div>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- Leaflet Heat Plugin -->
-    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-    <!-- Firebase Configuration -->
-    <script src="firebase-config.js"></script>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
