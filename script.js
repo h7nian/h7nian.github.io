@@ -452,27 +452,99 @@ function saveToLocalStorageBackup(visitor) {
     localStorage.setItem('visitorData', JSON.stringify(visitors));
 }
 
+// IP geolocation providers, tried in order.
+//
+// This used to call ipapi.co alone. In August 2026 that endpoint started
+// answering with Cloudflare challenges (403) and rate limits (429), which
+// silently stopped every visitor from being recorded. Falling back across
+// several providers means one outage no longer takes the map down with it.
+// All three are HTTPS, keyless, and send Access-Control-Allow-Origin: *.
+const GEO_PROVIDERS = [
+    {
+        url: 'https://ipwho.is/',
+        parse: d => (d && d.success !== false) ? {
+            lat: d.latitude,
+            lng: d.longitude,
+            city: d.city,
+            country: d.country,
+            countryCode: d.country_code
+        } : null
+    },
+    {
+        url: 'https://freeipapi.com/api/json',
+        parse: d => d ? {
+            lat: d.latitude,
+            lng: d.longitude,
+            city: d.cityName,
+            country: d.countryName,
+            countryCode: d.countryCode
+        } : null
+    },
+    {
+        // ipinfo returns "lat,lng" in one field and only a country code.
+        url: 'https://ipinfo.io/json',
+        parse: d => {
+            if (!d || typeof d.loc !== 'string') return null;
+            const [lat, lng] = d.loc.split(',').map(Number);
+            return {
+                lat: lat,
+                lng: lng,
+                city: d.city,
+                country: regionNameFromCode(d.country),
+                countryCode: d.country
+            };
+        }
+    }
+];
+
+function regionNameFromCode(code) {
+    if (!code) return 'Unknown';
+    try {
+        return new Intl.DisplayNames(['en'], { type: 'region' }).of(code) || code;
+    } catch (e) {
+        return code;
+    }
+}
+
+// Resolve an approximate location, trying each provider until one answers.
+async function resolveLocation() {
+    for (const provider of GEO_PROVIDERS) {
+        try {
+            const response = await fetch(provider.url, { cache: 'no-store' });
+            if (!response.ok) continue;
+
+            const loc = provider.parse(await response.json());
+            if (loc &&
+                typeof loc.lat === 'number' && !isNaN(loc.lat) &&
+                typeof loc.lng === 'number' && !isNaN(loc.lng)) {
+                return loc;
+            }
+        } catch (e) {
+            // Blocked, offline or malformed: fall through to the next provider.
+            console.warn(`Geolocation provider failed: ${provider.url}`, e.message);
+        }
+    }
+    return null;
+}
+
 // Track current visitor using IP geolocation.
 // The IP itself is used only to resolve a city and is never stored.
 async function trackCurrentVisitor() {
     try {
         if (sessionStorage.getItem('visitorTracked')) return;
 
-        // ipapi.co free tier: 1000 requests/day
-        const response = await fetch('https://ipapi.co/json/');
-        if (!response.ok) {
-            throw new Error('Failed to fetch location data');
+        const loc = await resolveLocation();
+        if (!loc) {
+            console.warn('All geolocation providers failed; visit not recorded');
+            return;
         }
 
-        const data = await response.json();
-        if (typeof data.latitude !== 'number' || typeof data.longitude !== 'number') return;
-
         const visitor = {
-            lat: roundCoord(data.latitude),
-            lng: roundCoord(data.longitude),
-            city: data.city || 'Unknown',
-            country: normalizeCountryName(data.country_name || 'Unknown'),
-            countryCode: data.country_code || 'XX',
+            lat: roundCoord(loc.lat),
+            lng: roundCoord(loc.lng),
+            city: loc.city || 'Unknown',
+            country: normalizeCountryName(loc.country || 'Unknown'),
+            countryCode: loc.countryCode || 'XX',
             timestamp: new Date().toISOString()
         };
 
