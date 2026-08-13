@@ -1,5 +1,10 @@
 // Realtime Database rules for the visitor map.
 //
+// *** THESE MUST BE PUBLISHED FOR THE SITE TO RECORD VISITS. ***
+// The rules currently live in the console require an "ip" field on every
+// record. script.js no longer sends one (deliberately), so every write is
+// rejected with PERMISSION_DENIED until these replace them.
+//
 // Paste into Firebase Console -> Realtime Database -> Rules, then Publish.
 // (Comments are supported by the Firebase rules parser.)
 //
@@ -43,7 +48,13 @@
           ".validate": "newData.isString() && newData.val().length <= 40"
         },
 
-        // Anything not listed above (an "ip" field, for example) is rejected.
+        // Named explicitly rather than left to the wildcard below, so that
+        // rejecting IP addresses does not depend on rule-precedence subtleties.
+        "ip": {
+          ".validate": false
+        },
+
+        // Anything else not listed above is rejected too.
         "$other": {
           ".validate": false
         }
