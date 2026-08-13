@@ -28,7 +28,20 @@
     --accent-soft:  #eaf2fa;
     --warm:         #9a5b12;   /* submission status only */
 
-    --maxw:         720px;
+    /* Type scale, ~1.125 ratio. Every font-size on the page is one of these. */
+    --t-micro:  0.75rem;    /* 12px  chips, list markers */
+    --t-meta:   0.8125rem;  /* 13px  dates, software meta */
+    --t-small:  0.875rem;   /* 14px  authors, venues, sidebar */
+    --t-body:   1rem;       /* 16px  running text */
+    --t-lead:   1.125rem;   /* 18px  subheadings, publication titles */
+    --t-name:   1.5rem;     /* 24px  the name */
+
+    /* Spacing scale */
+    --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
+    --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4rem;
+
+    /* ~68 characters of running text, rather than the ~90 a 720px column gives */
+    --maxw:         40rem;
 
     /* Serif for content headings, sans for UI and metadata. Both stacks are
        system fonts, so the page still makes no network requests. */
@@ -103,8 +116,8 @@ strong { color: var(--ink); font-weight: 650; }
     z-index: 100;
     background: var(--accent);
     color: #fff;
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
+    padding: var(--s3) var(--s4);
+    font-size: var(--t-small);
 }
 
 .skip-link:focus { left: 0; }
@@ -139,7 +152,7 @@ strong { color: var(--ink); font-weight: 650; }
 
 .topbar-name {
     font-weight: 650;
-    font-size: 0.95rem;
+    font-size: var(--t-small);
     letter-spacing: -0.01em;
     color: var(--ink);
 }
@@ -158,7 +171,7 @@ strong { color: var(--ink); font-weight: 650; }
 .section-nav a {
     display: inline-block;
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: var(--t-small);
     padding: 0.2rem 0;
     border-bottom: 2px solid transparent;
 }
@@ -217,7 +230,7 @@ section { scroll-margin-top: 5rem; }
 
 .name {
     font-family: var(--serif);
-    font-size: 1.6rem;
+    font-size: var(--t-name);
     line-height: 1.2;
     margin: 0 0 0.35rem;
     font-weight: 680;
@@ -228,8 +241,8 @@ section { scroll-margin-top: 5rem; }
 .role {
     margin: 0 0 0.7rem;
     color: var(--text);
-    font-size: 0.92rem;
-    font-weight: 550;
+    font-size: var(--t-small);
+    font-weight: 600;
 }
 
 .affil {
@@ -237,7 +250,7 @@ section { scroll-margin-top: 5rem; }
     padding-bottom: 1.4rem;
     border-bottom: 1px solid var(--rule);
     color: var(--text-muted);
-    font-size: 0.84rem;
+    font-size: var(--t-meta);
     line-height: 1.6;
 }
 
@@ -252,8 +265,8 @@ section { scroll-margin-top: 5rem; }
 .contact-links a {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 0.84rem;
+    gap: var(--s2);
+    font-size: var(--t-small);
     color: var(--text-muted);
     word-break: break-word;
 }
@@ -289,7 +302,7 @@ section:last-of-type { margin-bottom: 2rem; }
 
 h2 {
     position: relative;
-    font-size: 0.76rem;
+    font-size: var(--t-micro);
     font-weight: 700;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -312,8 +325,9 @@ h2::after {
 
 h3 {
     font-family: var(--serif);
-    font-size: 1.08rem;
-    font-weight: 650;
+    text-wrap: balance;
+    font-size: var(--t-lead);
+    font-weight: 620;
     letter-spacing: -0.005em;
     margin: 2.25rem 0 1.1rem;
     color: var(--ink);
@@ -327,8 +341,8 @@ p { margin: 0 0 1.1rem; }
 
 .note {
     color: var(--text-muted);
-    font-size: 0.86rem;
-    padding-bottom: 0.5rem;
+    font-size: var(--t-small);
+    padding-bottom: var(--s2);
 }
 
 /* Research interests */
@@ -353,7 +367,7 @@ p { margin: 0 0 1.1rem; }
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--text-faint);
 }
 
 /* Date-on-the-left rows: education, teaching, service, honors ------------- */
@@ -376,7 +390,7 @@ p { margin: 0 0 1.1rem; }
 
 .row-date {
     color: var(--text-faint);
-    font-size: 0.8rem;
+    font-size: var(--t-meta);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.01em;
 }
@@ -405,16 +419,17 @@ p { margin: 0 0 1.1rem; }
 
 .pub-title {
     font-family: var(--serif);
+    text-wrap: pretty;
     margin: 0 0 0.3rem;
     font-weight: 600;
-    font-size: 1.06rem;
-    line-height: 1.4;
+    font-size: var(--t-lead);
+    line-height: 1.38;
     color: var(--ink);
 }
 
 .pub-authors {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: var(--t-small);
     color: var(--text-muted);
     line-height: 1.6;
 }
@@ -423,7 +438,7 @@ p { margin: 0 0 1.1rem; }
    title -> authors -> venue without needing to hunt. */
 .pub-venue {
     margin: 0.1rem 0 0;
-    font-size: 0.84rem;
+    font-size: var(--t-small);
     color: var(--text-faint);
     line-height: 1.55;
 }
@@ -450,7 +465,7 @@ p { margin: 0 0 1.1rem; }
 
 .pub-links a {
     display: inline-block;
-    font-size: 0.74rem;
+    font-size: var(--t-micro);
     font-weight: 500;
     letter-spacing: 0.03em;
     line-height: 1.65;
@@ -490,18 +505,18 @@ p { margin: 0 0 1.1rem; }
 
 .sw-head strong {
     font-family: var(--serif);
-    font-size: 1.06rem;
-    font-weight: 600;
+    font-size: var(--t-lead);
+    font-weight: 620;
 }
 
 .sw-meta {
     color: var(--text-faint);
-    font-size: 0.79rem;
+    font-size: var(--t-meta);
 }
 
 .sw-desc {
     margin: 0;
-    font-size: 0.87rem;
+    font-size: var(--t-small);
     color: var(--text-muted);
     line-height: 1.6;
 }
@@ -515,13 +530,13 @@ p { margin: 0 0 1.1rem; }
 }
 
 .simple-list li {
-    padding: 0.75rem 0;
-    font-size: 0.93rem;
+    padding: var(--s3) 0;
+    font-size: var(--t-body);
 }
 
 .simple-list li + li { border-top: 1px solid var(--rule); }
 .simple-list li:first-child { padding-top: 0; }
-.simple-list .muted { font-size: 0.87rem; }
+.simple-list .muted { font-size: var(--t-small); }
 .simple-list strong { color: var(--ink); }
 
 /* Footer ----------------------------------------------------------------- */
@@ -531,7 +546,7 @@ p { margin: 0 0 1.1rem; }
     padding-top: 1.4rem;
     border-top: 1px solid var(--rule);
     color: var(--text-faint);
-    font-size: 0.8rem;
+    font-size: var(--t-meta);
 }
 
 .footer p { margin: 0; }
@@ -572,7 +587,7 @@ p { margin: 0 0 1.1rem; }
     .topbar-inner { padding: 0.7rem 1.15rem; }
     .topbar-name { display: none; }
     .section-nav { gap: 0.25rem 1.1rem; }
-    .section-nav a { font-size: 0.8rem; }
+    .section-nav a { font-size: var(--t-meta); }
 
     .layout { padding: 2rem 1.15rem 3rem; }
 
@@ -588,7 +603,7 @@ p { margin: 0 0 1.1rem; }
         margin-bottom: 1.1rem;
     }
 
-    .name { font-size: 1.4rem; }
+    .name { font-size: 1.375rem; }
 
     /* Stack the date above its row instead of squeezing two columns */
     .entry-rows li {
