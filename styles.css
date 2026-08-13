@@ -82,8 +82,8 @@ body {
                  Arial, "Noto Sans", sans-serif;
     font-size: 16px;
     line-height: 1.68;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* Deliberately not forcing -webkit-font-smoothing: antialiased. It thins
+       every glyph on non-retina screens, which works against legibility. */
 }
 
 ::selection {
@@ -392,6 +392,16 @@ p { margin: 0 0 1.1rem; }
 
 .entry-rows li + li { border-top: 1px solid var(--rule); }
 
+/* Left column when it carries a label rather than a date: it is content,
+   so it gets the ink colour and a wider track. */
+.entry-rows.labeled li { grid-template-columns: 11rem minmax(0, 1fr); }
+
+.row-label {
+    color: var(--ink);
+    font-weight: 620;
+    font-size: var(--t-small);
+}
+
 .row-date {
     color: var(--text-faint);
     font-size: var(--t-small);
@@ -468,16 +478,27 @@ p { margin: 0 0 1.1rem; }
 }
 
 .pub-links a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.34rem;
     font-size: var(--t-micro);
     font-weight: 500;
     letter-spacing: 0.03em;
     line-height: 1.65;
-    padding: 0.05rem 0.55rem;
-    border: 1px solid var(--rule);
+    padding: 0.15rem 0.55rem 0.15rem 0.45rem;
+    /* --rule (1.22:1) is too faint to read as a control boundary;
+       --rule-strong is 3.02:1, what WCAG 1.4.11 asks of one. */
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     color: var(--text-muted);
-    background: transparent;
+    background: var(--bg-subtle);
+}
+
+/* Icon inside a link chip: sized to the cap height of its label */
+.lic {
+    flex: none;
+    width: 12px;
+    height: 12px;
 }
 
 .pub-links a:hover {
@@ -608,7 +629,8 @@ p { margin: 0 0 1.1rem; }
     .name { font-size: 1.5rem; }
 
     /* Stack the date above its row instead of squeezing two columns */
-    .entry-rows li {
+    .entry-rows li,
+    .entry-rows.labeled li {
         grid-template-columns: minmax(0, 1fr);
         gap: 0.2rem;
     }
