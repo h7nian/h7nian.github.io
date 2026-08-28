@@ -26,22 +26,21 @@ if (avatar) {
     if (avatar.complete && avatar.naturalWidth === 0) next();
 }
 
-// Smooth scrolling for the section tabs.
+// Move keyboard focus with in-page navigation. The browser keeps ownership of
+// the actual anchor jump, URL history, and smooth-scrolling preference.
 // A bare "#" is not a valid CSS selector, so it must be filtered out before
 // reaching querySelector.
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function () {
         const href = this.getAttribute('href');
         if (!href || href === '#') return;
 
         const target = document.querySelector(href);
         if (!target) return;
 
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Keep the URL and the keyboard focus in step with the jump.
-        history.replaceState(null, '', href);
         target.setAttribute('tabindex', '-1');
-        target.focus({ preventScroll: true });
+        // Wait until the native anchor navigation has updated the URL and
+        // scroll position, then keep keyboard focus in step with the jump.
+        requestAnimationFrame(() => target.focus({ preventScroll: true }));
     });
 });
