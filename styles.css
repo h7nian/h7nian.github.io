@@ -217,7 +217,7 @@ section { scroll-margin-top: 5rem; }
     margin-bottom: 1.4rem;
 }
 
-/* Shown until an avatar.png exists in this folder */
+/* Shown when none of the avatar files in script.js can be loaded */
 .avatar-fallback {
     display: flex;
     align-items: center;

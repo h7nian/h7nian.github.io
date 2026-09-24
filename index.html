@@ -67,13 +67,13 @@
 
 <div class="layout">
 
-    <!-- ============ Sidebar: identity, links, section nav ============ -->
+    <!-- ============ Sidebar: identity and contact links ============ -->
     <aside class="sidebar">
         <div class="sidebar-inner">
-            <!-- TO SET A PICTURE: save a square image into this folder as
-                 avatar.png (or .jpg / .jpeg / .webp). Nothing else needs
-                 changing -- script.js tries each name in turn, the CSS crops it
-                 to a circle, and until one exists the initials are shown. -->
+            <!-- The picture is avatar.jpg in this folder. To replace it, save a
+                 square image as avatar.jpg (or .png / .jpeg / .webp). If the
+                 src below fails, script.js tries the other names in turn; the
+                 CSS crops it to a circle, and if none load the initials show. -->
             <img class="avatar" id="avatar" src="avatar.jpg" alt="Sinian Zhang">
 
             <h1 class="name">Sinian Zhang</h1>
@@ -157,6 +157,24 @@
             <h3>Peer-Reviewed Publications</h3>
             <ol class="pub-list" reversed>
                 <li>
+                    <p class="pub-title">Ensemble Selective Classification</p>
+                    <p class="pub-authors"><strong>Sinian Zhang</strong><sup>*</sup>, Chongwei Chen<sup>*</sup>, Guanchen Li, Ju Sun</p>
+                    <p class="pub-venue"><em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2026</p>
+                    <p class="pub-links">
+                        <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>Code</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="pub-title">Aligning Language Models with Selective Prediction</p>
+                    <p class="pub-authors">Gaoxiang Luo, Yifan Wu, <strong>Sinian Zhang</strong>, Aryan Deshwal, Ju Sun</p>
+                    <p class="pub-venue"><em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2026</p>
+                    <p class="pub-venue">Also at <em>ICML 2026 Workshop on Agents in the Wild: Safety, Security, and Beyond</em></p>
+                    <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2607.03528" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 13h7M8.5 17h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Paper</a>
+                        <a href="https://github.com/sun-umn/RLSR" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>Code</a>
+                    </p>
+                </li>
+                <li>
                     <p class="pub-title">Antidiabetic Drug Associations With Heart Failure Outcomes: Real-World Evidence Study Using Electronic Health Records</p>
                     <p class="pub-authors">Elzbieta Jodlowska-Siewert, Yunhui Chen, <strong>Sinian Zhang</strong>, Jia Li, Robert Dellavalle, Rui Zhang, Jue Hou</p>
                     <p class="pub-venue"><em>JMIR Diabetes</em> 11 (2026): e85083</p>
@@ -218,28 +236,20 @@
             <h3>Preprints &amp; Under Review</h3>
             <ol class="pub-list">
                 <li>
+                    <p class="pub-title">Human-Anchored Inference for Ranking New Models with Large Language Model Judges</p>
+                    <p class="pub-authors">Xin Zhou<sup>*</sup>, <strong>Sinian Zhang</strong><sup>*</sup>, Zhanyan Yang, Mingyuan Xu, Molei Liu, Doudou Zhou</p>
+                    <p class="pub-venue"><span class="status">Preprint</span></p>
+                    <p class="pub-links">
+                        <a href="https://arxiv.org/abs/2609.19599" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 13h7M8.5 17h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Paper</a>
+                    </p>
+                </li>
+                <li>
                     <p class="pub-title">The Wreaths of KHAN: Uniform Graph Feature Selection with False Discovery Rate Control</p>
                     <p class="pub-authors">Jiajun Liang, Yue Liu, Doudou Zhou, <strong>Sinian Zhang</strong>, Junwei Lu</p>
                     <p class="pub-venue"><span class="status">Under review</span></p>
                     <p class="pub-links">
                         <a href="https://arxiv.org/abs/2403.12284" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 13h7M8.5 17h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Paper</a>
                         <a href="https://github.com/h7nian/Khan" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>Code</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="pub-title">Aligning Language Models with Selective Prediction</p>
-                    <p class="pub-authors">Gaoxiang Luo, Yifan Wu, <strong>Sinian Zhang</strong>, Aryan Deshwal, Ju Sun</p>
-                    <p class="pub-venue"><span class="status">Under review</span></p>
-                    <p class="pub-links">
-                        <a href="https://arxiv.org/abs/2607.03528" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 13h7M8.5 17h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Paper</a>
-                    </p>
-                </li>
-                <li>
-                    <p class="pub-title">Ensemble Selective Classification</p>
-                    <p class="pub-authors"><strong>Sinian Zhang</strong><sup>*</sup>, Chongwei Chen<sup>*</sup>, Guanchen Li, Ju Sun</p>
-                    <p class="pub-venue"><span class="status">Under review</span></p>
-                    <p class="pub-links">
-                        <a href="https://github.com/h7nian/EnsembleSC" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>Code</a>
                     </p>
                 </li>
                 <li>
@@ -387,7 +397,7 @@
         </section>
 
         <footer class="footer">
-            <p>&copy; 2026 Sinian Zhang &middot; Last updated August 2026</p>
+            <p>&copy; 2026 Sinian Zhang &middot; Last updated September 2026</p>
         </footer>
 
     </main>

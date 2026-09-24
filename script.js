@@ -4,12 +4,14 @@ const AVATAR_FILES = ['avatar.png', 'avatar.jpg', 'avatar.jpeg', 'avatar.webp'];
 
 const avatar = document.getElementById('avatar');
 if (avatar) {
-    let attempt = 0;
+    // The <img> starts on whichever file its src names; queue every other
+    // name so each is tried exactly once, whatever order the list is in.
+    const remaining = AVATAR_FILES.filter(f => f !== avatar.getAttribute('src'));
 
     const next = () => {
-        attempt += 1;
-        if (attempt < AVATAR_FILES.length) {
-            avatar.src = AVATAR_FILES[attempt];
+        const file = remaining.shift();
+        if (file) {
+            avatar.src = file;
             return;
         }
         const fallback = document.createElement('div');
