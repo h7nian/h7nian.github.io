@@ -28,6 +28,16 @@ if (avatar) {
     if (avatar.complete && avatar.naturalWidth === 0) next();
 }
 
+// Fill the footer date from when this page was last deployed, so it never goes
+// stale. A browser that gets no Last-Modified header reports the current time
+// instead, which would be wrong, so anything within the last minute is ignored
+// and the month written into the HTML stays.
+const lastUpdated = document.getElementById('last-updated');
+const modified = new Date(document.lastModified);
+if (lastUpdated && !isNaN(modified) && Date.now() - modified > 60 * 1000) {
+    lastUpdated.textContent = modified.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+
 // Move keyboard focus with in-page navigation. The browser keeps ownership of
 // the actual anchor jump, URL history, and smooth-scrolling preference.
 // A bare "#" is not a valid CSS selector, so it must be filtered out before
